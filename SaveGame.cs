@@ -11,9 +11,9 @@ public partial class SaveGame : Node
 	{
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
 
-		this.Profile = file != null ? Profile.FromFile(file) : new Profile();
+		Profile = file != null ? Profile.FromFile(file) : new Profile();
 
-		this.Save();
+		Save();
 	}
 
 	public void Save()
@@ -23,6 +23,6 @@ public partial class SaveGame : Node
 		if (file == null)
 			return;
 
-		this.Profile.WriteToFile(file);
+		Profile.WriteToFile(file);
 	}
 }

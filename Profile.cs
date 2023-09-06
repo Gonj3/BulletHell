@@ -15,8 +15,8 @@ public class Profile
 
     public void WriteToFile(FileAccess file)
     {
-        file.StorePascalString(this.Name);
-        file.Store32(this.Deaths);
-        file.Store32(this.Kills);
+        file.StorePascalString(Name);
+        file.Store32(Deaths);
+        file.Store32(Kills);
     }
 }
