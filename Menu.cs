@@ -9,6 +9,8 @@ public partial class Menu : Control
 	private const String Settings = "res://Settings.tscn";
 	//Load Scene source.
 	private const String Load = "res://Load.tscn";
+	//SaveGame Scene source.
+	private const String SaveEditor = "res://SaveGameTesting.tscn";
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -43,5 +45,10 @@ public partial class Menu : Control
 	public void _on_quit_button_pressed()
 	{
 		GetTree().Quit();
+	}
+	
+	public void _on_saveeditor_button_pressed()
+	{
+		GetTree().ChangeSceneToFile(SaveEditor);
 	}
 }
