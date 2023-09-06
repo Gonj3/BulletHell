@@ -57,7 +57,16 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Quit"
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1050.0
+offset_top = 612.0
+offset_right = 1145.0
+offset_bottom = 643.0
+text = "Save editor"
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_saveeditor_button_pressed"]
