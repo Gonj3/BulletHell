@@ -9,8 +9,6 @@ public partial class SaveGame : Node
 
 	public override void _Ready()
 	{
-		Console.WriteLine("doignready");
-
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
 
 		this.Profile = file != null ? Profile.FromFile(file) : new Profile();
