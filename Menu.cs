@@ -4,7 +4,7 @@ using System;
 public partial class Menu : Control
 {
 	//TODO ADD GAME SCENE SOURCE.
-	private const String GameScene = "res://Game.tscn";
+	private const String GameScene = "res://TestWorld.tscn";
 	//TEMP Settings Scene source.
 	private const String Settings = "res://Settings.tscn";
 	//Load Scene source.
