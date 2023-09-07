@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr8b1dd2uhvjn"]
+
+[ext_resource type="Script" path="res://Core/Root.cs" id="1_sywdb"]
+
+[node name="Root" type="Node" node_paths=PackedStringArray("SceneContainer")]
+script = ExtResource("1_sywdb")
+SceneContainer = NodePath("Scene")
+
+[node name="Scene" type="Node" parent="."]

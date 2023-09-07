@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class SaveGame : Node
 {
@@ -10,7 +9,6 @@ public partial class SaveGame : Node
 	public override void _Ready()
 	{
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
-
 		Profile = file != null ? Profile.FromFile(file) : new Profile();
 
 		Save();
