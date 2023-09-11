@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="BulletHell"
-run/main_scene="res://settings.tscn"
+run/main_scene="res://Core/Main.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://Textures/icon.svg"
+
+[autoload]
+
+SaveGame="*res://Core/SaveGame.cs"
 
 [display]
 

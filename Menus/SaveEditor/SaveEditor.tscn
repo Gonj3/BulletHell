@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxrh5qonsd3a2"]
+
+[ext_resource type="Script" path="res://Menus/SaveEditor/SaveEditor.cs" id="1_c8o1m"]
+
+[node name="Margin" type="MarginContainer"]
+offset_right = 276.0
+offset_bottom = 274.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+
+[node name="SaveEditor" type="VBoxContainer" parent="." node_paths=PackedStringArray("NameBox", "DeathsBox", "KillsBox")]
+layout_mode = 2
+script = ExtResource("1_c8o1m")
+NameBox = NodePath("NameBox")
+DeathsBox = NodePath("DeathsBox")
+KillsBox = NodePath("KillsBox")
+
+[node name="BackMargin" type="MarginContainer" parent="SaveEditor"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="BackBnt" type="Button" parent="SaveEditor/BackMargin"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Back"
+
+[node name="NameLabel" type="Label" parent="SaveEditor"]
+layout_mode = 2
+text = "Name"
+
+[node name="NameBox" type="LineEdit" parent="SaveEditor"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+
+[node name="DeathsLabel" type="Label" parent="SaveEditor"]
+layout_mode = 2
+text = "Deaths"
+
+[node name="DeathsBox" type="SpinBox" parent="SaveEditor"]
+layout_mode = 2
+
+[node name="KillsLabel" type="Label" parent="SaveEditor"]
+layout_mode = 2
+text = "Kills"
+
+[node name="KillsBox" type="SpinBox" parent="SaveEditor"]
+layout_mode = 2
+
+[node name="SaveMargin" type="MarginContainer" parent="SaveEditor"]
+layout_mode = 2
+theme_override_constants/margin_top = 32
+
+[node name="SaveBtn" type="Button" parent="SaveEditor/SaveMargin"]
+layout_mode = 2
+text = "Save"
+
+[connection signal="pressed" from="SaveEditor/BackMargin/BackBnt" to="SaveEditor" method="_on_back_btn_pressed"]
+[connection signal="pressed" from="SaveEditor/SaveMargin/SaveBtn" to="SaveEditor" method="_on_save_btn_pressed"]
