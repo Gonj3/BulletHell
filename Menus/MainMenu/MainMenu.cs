@@ -19,7 +19,7 @@ public partial class MainMenu : Control
 	// Enter Settings scene.
 	public void _on_settings_button_pressed()
 	{
-		this.GetRoot().SetScene(Scene.Settings);
+	GetTree().ChangeSceneToFile("res://Menus/Settings/settings.tscn");
 	}
 
 	// Quit game.
