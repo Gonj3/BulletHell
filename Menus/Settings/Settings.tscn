@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmiqw0edwiemc"]
+[gd_scene load_steps=3 format=3 uid="uid://cvaakreynt065"]
 
-[ext_resource type="Script" path="res://Menus/Settings/settings.cs" id="1_38ylw"]
-[ext_resource type="Script" path="res://Menus/Settings/fps.cs" id="2_1x4d1"]
+[ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
+[ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_r2v52"]
 
 [node name="settings" type="Node2D"]
 position = Vector2(640, 360)
-script = ExtResource("1_38ylw")
+script = ExtResource("1_yn38v")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 8
@@ -236,7 +236,7 @@ offset_top = 27.0
 offset_right = 65.0
 offset_bottom = 53.0
 text = "FPS:"
-script = ExtResource("2_1x4d1")
+script = ExtResource("2_r2v52")
 
 [connection signal="pressed" from="main_menu_button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="setting buttons/video_button" to="." method="_on_video_button_pressed"]

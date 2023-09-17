@@ -1,9 +1,8 @@
 using Godot;
 using System;
 
-public partial class settings : Node2D
+public partial class Settings : Node2D
 {
-
 	// hide/show settings method
 	private void ToggleSettingsPanel(Control panelToShow)
 	{
@@ -44,16 +43,16 @@ public partial class settings : Node2D
 	//main menu/back button functtion
 	private void _on_main_menu_button_pressed()
 	{
-	GetTree().ChangeSceneToFile("res://Menus/MainMenu/MainMenu.tscn");
+		this.GetRoot().SetScene(Scene.MainMenu);
 	}
 
 	//esc key function
 	public override void _Input(InputEvent @event)
 	{
-	if (@event.IsActionPressed("esc"))
-	{
-	GetTree().ChangeSceneToFile("res://Menus/MainMenu/MainMenu.tscn");
-	}
+		if (@event.IsActionPressed("esc"))
+		{
+			this.GetRoot().SetScene(Scene.MainMenu);
+		}
 	}
 
 	// display option function
@@ -78,19 +77,19 @@ public partial class settings : Node2D
 
 		if (selectedOption == "1920x1080")
 		{
-		DisplayServer.WindowSetSize(new Vector2I(1920, 1080));	  
+			DisplayServer.WindowSetSize(new Vector2I(1920, 1080));	
 		}
 		else if (selectedOption == "1366x768")
 		{
-		DisplayServer.WindowSetSize(new Vector2I(1366, 768));	
+			DisplayServer.WindowSetSize(new Vector2I(1366, 768));	
 		}
-        else if (selectedOption == "1280x720")
+       	else if (selectedOption == "1280x720")
 		{
-		DisplayServer.WindowSetSize(new Vector2I(1280, 720));	
+			DisplayServer.WindowSetSize(new Vector2I(1280, 720));	
 		}
         else if (selectedOption == "640x480")
 		{	
-		DisplayServer.WindowSetSize(new Vector2I(640, 480));
+			DisplayServer.WindowSetSize(new Vector2I(640, 480));
 		}
 	}
 
@@ -120,23 +119,23 @@ public partial class settings : Node2D
 
 		if (selectedOption == "Unlimited")
 		{
-		Engine.MaxFps = -0;	
+			Engine.MaxFps = -0;	
 		}
 		else if (selectedOption == "144")
 		{
-		Engine.MaxFps = 144;	  
+			Engine.MaxFps = 144;	  
 		}
         else if (selectedOption == "120")
 		{
-		Engine.MaxFps = 120;
+			Engine.MaxFps = 120;
 		}
         else if (selectedOption == "60")
 		{
-		Engine.MaxFps = 60;
+			Engine.MaxFps = 60;
 		}
 		 else if (selectedOption == "30")
 		{
-		Engine.MaxFps = 30;
+			Engine.MaxFps = 30;
 		}
 	}
 
@@ -185,7 +184,6 @@ public partial class settings : Node2D
 	{
 		// show/hide fps label
 		var fps_display = GetNode<Control>("Control/CanvasLayer/fps");
-			fps_display.Visible = !fps_display.Visible;
-		
+		fps_display.Visible = !fps_display.Visible;
 	}
 }
