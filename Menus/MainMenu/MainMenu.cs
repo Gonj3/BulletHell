@@ -13,6 +13,8 @@ public partial class MainMenu : Control
 	// Enter Game scene.
 	public void _on_start_button_pressed()
 	{
+		Audio musicInstance = GetNode<Audio>("/root/Audio");
+		musicInstance.MenuToGameMusic();
 		this.GetRoot().SetScene(Scene.TestWorld);
 	}
 

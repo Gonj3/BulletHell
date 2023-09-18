@@ -176,7 +176,7 @@ public partial class Settings : Node2D
 	// hide hud check box function
 	private void _on_hide_hud_check_pressed()
 	{	
-		
+	
 	}
 
 	// fps display check box function
@@ -185,5 +185,54 @@ public partial class Settings : Node2D
 		// show/hide fps label
 		var fps_display = GetNode<Control>("Control/CanvasLayer/fps");
 		fps_display.Visible = !fps_display.Visible;
+	}
+
+	//master volume slider function
+	private void _on_master_slider_value_changed(float value)
+	{
+	var master_bus = AudioServer.GetBusIndex("Master");
+	AudioServer.SetBusVolumeDb(master_bus,value);
+
+	 if (value == -30)
+    	{
+        AudioServer.SetBusVolumeDb(master_bus, -80);
+   		}
+    else
+   		{
+        AudioServer.SetBusVolumeDb(master_bus, value);
+    	}
+	}
+
+	//music volume slider function
+	private void _on_music_slider_value_changed(float value)
+	{
+	var music_bus = AudioServer.GetBusIndex("music");
+	AudioServer.SetBusVolumeDb(music_bus,value);
+
+	 if (value == -30)
+    	{
+        AudioServer.SetBusVolumeDb(music_bus, -80);
+   		}
+    else
+    	{
+        AudioServer.SetBusVolumeDb(music_bus, value);
+    	}
+	}
+
+	//sfx volume slider function
+	private void _on_sfx_slider_value_changed(float value)
+	{
+
+	var sfx_slider = AudioServer.GetBusIndex("sfx");
+	AudioServer.SetBusVolumeDb(sfx_slider,value);
+
+	 if (value == -30)
+    	{
+        AudioServer.SetBusVolumeDb(sfx_slider, -80);
+    	}
+    	else
+    	{
+        AudioServer.SetBusVolumeDb(sfx_slider, value);
+   		}
 	}
 }

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://g1phl7xmh22j"]
+
+[ext_resource type="Script" path="res://audio/Audio.cs" id="1_fn8xd"]
+[ext_resource type="AudioStream" uid="uid://ckgxeww4qh63c" path="res://audio/main menu.mp3" id="2_lir7b"]
+[ext_resource type="AudioStream" uid="uid://d1p6cw38c61j" path="res://audio/game music.mp3" id="3_wkn1o"]
+[ext_resource type="AudioStream" uid="uid://b8ulsotrtm8ud" path="res://audio/sound effect.mp3" id="4_ohvbo"]
+
+[node name="Audio" type="Node"]
+script = ExtResource("1_fn8xd")
+
+[node name="main_menu_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lir7b")
+bus = &"music"
+
+[node name="game_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wkn1o")
+bus = &"music"
+
+[node name="sound_effect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ohvbo")
+bus = &"sfx"

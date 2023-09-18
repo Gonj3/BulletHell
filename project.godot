@@ -15,9 +15,14 @@ run/main_scene="res://Core/Main.tscn"
 config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://Textures/icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://audio/default_bus_layout.tres"
+
 [autoload]
 
 SaveGame="*res://Core/SaveGame.cs"
+Audio="*res://audio/Audio.tscn"
 
 [display]
 
