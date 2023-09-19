@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmdckq2qfnyue"]
+[gd_scene load_steps=3 format=3 uid="uid://cvaakreynt065"]
 
 [ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
 [ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_r2v52"]

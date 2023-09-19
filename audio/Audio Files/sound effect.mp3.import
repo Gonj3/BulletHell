@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8ulsotrtm8ud"
+path="res://.godot/imported/sound effect.mp3-3d903a51c92debef1a602ca0bb66cda7.mp3str"
+
+[deps]
+
+source_file="res://Audio/Audio Files/sound effect.mp3"
+dest_files=["res://.godot/imported/sound effect.mp3-3d903a51c92debef1a602ca0bb66cda7.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://g1phl7xmh22j"]
 
-[ext_resource type="Script" path="res://audio/Audio.cs" id="1_fn8xd"]
-[ext_resource type="AudioStream" uid="uid://ckgxeww4qh63c" path="res://audio/main menu.mp3" id="2_lir7b"]
-[ext_resource type="AudioStream" uid="uid://d1p6cw38c61j" path="res://audio/game music.mp3" id="3_wkn1o"]
-[ext_resource type="AudioStream" uid="uid://b8ulsotrtm8ud" path="res://audio/sound effect.mp3" id="4_ohvbo"]
+[ext_resource type="Script" path="res://Audio/Audio.cs" id="1_fn8xd"]
+[ext_resource type="AudioStream" uid="uid://ckgxeww4qh63c" path="res://Audio/Audio Files/main menu.mp3" id="2_lir7b"]
+[ext_resource type="AudioStream" uid="uid://d1p6cw38c61j" path="res://Audio/Audio Files/game music.mp3" id="3_wkn1o"]
+[ext_resource type="AudioStream" uid="uid://b8ulsotrtm8ud" path="res://Audio/Audio Files/sound effect.mp3" id="4_ohvbo"]
 
 [node name="Audio" type="Node"]
 script = ExtResource("1_fn8xd")
