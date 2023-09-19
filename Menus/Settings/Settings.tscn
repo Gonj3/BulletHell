@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvaakreynt065"]
 
 [ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
-[ext_resource type="Script" path="res://Menus/Settings/test.cs" id="2_y3c2g"]
+[ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_y3c2g"]
 
 [node name="settings" type="Node2D"]
 position = Vector2(640, 360)
