@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr8b1dd2uhvjn"]
+[gd_scene load_steps=3 format=3 uid="uid://dr8b1dd2uhvjn"]
 
 [ext_resource type="Script" path="res://Core/Root.cs" id="1_sywdb"]
+[ext_resource type="AudioStream" uid="uid://deh5an54sx70y" path="res://Audio/Intro.wav" id="2_ykjnr"]
 
 [node name="Root" type="Node" node_paths=PackedStringArray("SceneContainer")]
 script = ExtResource("1_sywdb")
 SceneContainer = NodePath("Scene")
 
 [node name="Scene" type="Node" parent="."]
+
+[node name="IntroPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ykjnr")
+volume_db = -20.0
+autoplay = true
