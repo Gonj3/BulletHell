@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dttn837a7u1tf"]
+[gd_scene load_steps=5 format=3 uid="uid://dttn837a7u1tf"]
 
 [ext_resource type="Script" path="res://Game/Player.cs" id="1_8gdqu"]
 [ext_resource type="Texture2D" uid="uid://bswwsehn6yre6" path="res://Textures/icon.svg" id="2_xpgpb"]
+[ext_resource type="AudioStream" uid="uid://fehwwumfgg7j" path="res://Audio/Soundtrack 1.wav" id="3_5rsjd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2p7v"]
 size = Vector2(118, 113)
@@ -15,3 +16,8 @@ shape = SubResource("RectangleShape2D_l2p7v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xpgpb")
+
+[node name="SoundtrackPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5rsjd")
+volume_db = -25.0
+autoplay = true

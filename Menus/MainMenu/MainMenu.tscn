@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdxicjd8ym110"]
+[gd_scene load_steps=4 format=3 uid="uid://bdxicjd8ym110"]
 
 [ext_resource type="Script" path="res://Menus/MainMenu/MainMenu.cs" id="1_clvxl"]
 [ext_resource type="Texture2D" uid="uid://6o3gupfu3ita" path="res://Textures/Background.jpg" id="2_jh3ym"]
+[ext_resource type="AudioStream" uid="uid://deh5an54sx70y" path="res://Audio/Intro.wav" id="3_gk2yb"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("DefaultButton")]
 layout_mode = 3
@@ -60,6 +61,11 @@ offset_top = 612.0
 offset_right = 1145.0
 offset_bottom = 643.0
 text = "Save editor"
+
+[node name="IntroPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gk2yb")
+volume_db = -20.0
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
