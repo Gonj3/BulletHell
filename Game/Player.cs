@@ -4,7 +4,7 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
-	public int Health = 20;
+	public int Health = 100;
 	public int Lives = 3;
 
 	
