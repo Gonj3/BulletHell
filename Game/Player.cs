@@ -4,7 +4,7 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
-	public int Health = 100;
+	public int Health = 20;
 	public int Lives = 3;
 
 	
@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		UpdateHealth();
+		UpdateLives();
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
@@ -52,6 +53,11 @@ public partial class Player : CharacterBody2D
 	public void UpdateHealth()
 	{
 		GetNode<ProgressBar>("HealthBar").Value = Health;
+	}
+	
+	public void UpdateLives()
+	{
+		GetNode<Label>("LivesLabel").Text = Lives + "Live(s)";
 	}
 	
 	//Checks if the Player is 0 or less than 0 health, if so removes life and resets health
