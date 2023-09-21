@@ -1,114 +1,253 @@
-[gd_scene load_steps=3 format=3 uid="uid://qqhbf3fncb3i"]
+[gd_scene load_steps=3 format=3 uid="uid://cvaakreynt065"]
 
-[ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_kyykw"]
-[ext_resource type="Texture2D" uid="uid://6o3gupfu3ita" path="res://Media/Background.jpg" id="2_tqef6"]
+[ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
+[ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_r2v52"]
 
-[node name="Settings" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_kyykw")
+[node name="settings" type="Node2D"]
+position = Vector2(640, 360)
+script = ExtResource("1_yn38v")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_tqef6")
-expand_mode = 3
-
-[node name="TabContainer" type="TabContainer" parent="."]
-layout_mode = 1
+[node name="Panel" type="Panel" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -325.0
-offset_top = -225.0
-offset_right = 325.0
-offset_bottom = 225.0
+offset_left = -350.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
-[node name="Controls" type="TabBar" parent="TabContainer"]
+[node name="Panel2" type="Panel" parent="."]
+offset_left = -350.0
+offset_top = -200.0
+offset_right = -100.0
+offset_bottom = 200.0
+
+[node name="Panel3" type="Panel" parent="."]
+offset_left = -350.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = -150.0
+
+[node name="settings_title" type="Label" parent="."]
+offset_left = -340.0
+offset_top = -190.0
+offset_right = -40.0
+offset_bottom = -140.0
+theme_override_font_sizes/font_size = 25
+text = "SETTINGS"
+
+[node name="main_menu_button" type="Button" parent="."]
+offset_left = -562.0
+offset_top = 285.0
+offset_right = -444.0
+offset_bottom = 316.0
+text = "BACK"
+
+[node name="esc" type="Label" parent="."]
+offset_left = -615.0
+offset_top = 290.0
+offset_right = -575.0
+offset_bottom = 316.0
+text = "ESC"
+
+[node name="setting buttons" type="VBoxContainer" parent="."]
+offset_left = -350.0
+offset_top = -60.0
+offset_right = -100.0
+offset_bottom = 76.0
+
+[node name="video_button" type="Button" parent="setting buttons"]
 layout_mode = 2
+text = "VIDEO"
 
-[node name="Movement" type="RichTextLabel" parent="TabContainer/Controls"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = 100.0
-offset_top = 50.0
-offset_right = 300.0
-offset_bottom = 90.0
-text = "Movement Control"
+[node name="audio_button" type="Button" parent="setting buttons"]
+layout_mode = 2
+text = "AUDIO"
 
-[node name="MovementOpt" type="OptionButton" parent="TabContainer/Controls"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = 300.0
-offset_top = 50.0
-offset_right = 500.0
-offset_bottom = 70.0
+[node name="gameplay_button" type="Button" parent="setting buttons"]
+layout_mode = 2
+text = "GAMEPLAY"
+
+[node name="controls_button" type="Button" parent="setting buttons"]
+layout_mode = 2
+text = "CONTROLS"
+
+[node name="settings" type="VBoxContainer" parent="."]
+offset_left = -40.0
+offset_top = -60.0
+offset_right = 159.0
+offset_bottom = 196.0
+
+[node name="video_settings" type="GridContainer" parent="settings"]
+layout_mode = 2
+columns = 2
+
+[node name="display_mode" type="Label" parent="settings/video_settings"]
+layout_mode = 2
+text = "Display Mode"
+
+[node name="display_option" type="OptionButton" parent="settings/video_settings"]
+layout_mode = 2
 item_count = 2
-popup/item_0/text = "WASD"
+popup/item_0/text = "Full Screen"
 popup/item_0/id = 0
-popup/item_1/text = "Arrow Keys"
+popup/item_1/text = "Windowed"
 popup/item_1/id = 1
 
-[node name="Hit" type="RichTextLabel" parent="TabContainer/Controls"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 300.0
-offset_bottom = 140.0
-text = "Hit Button"
+[node name="resolution" type="Label" parent="settings/video_settings"]
+layout_mode = 2
+text = "Resolution"
 
-[node name="HitOpt" type="OptionButton" parent="TabContainer/Controls"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = 300.0
-offset_top = 100.0
-offset_right = 500.0
-offset_bottom = 131.0
-toggle_mode = false
-item_count = 2
-popup/item_0/text = "TODO"
+[node name="resolution_option" type="OptionButton" parent="settings/video_settings"]
+layout_mode = 2
+item_count = 4
+popup/item_0/text = "1920x1080"
 popup/item_0/id = 0
-popup/item_1/text = "TODO"
+popup/item_1/text = "1366x768"
 popup/item_1/id = 1
+popup/item_2/text = "1280x720"
+popup/item_2/id = 2
+popup/item_3/text = "640x480"
+popup/item_3/id = 3
 
-[node name="Audio" type="TabBar" parent="TabContainer"]
+[node name="quality" type="Label" parent="settings/video_settings"]
+layout_mode = 2
+text = "Quality"
+
+[node name="quality_option" type="OptionButton" parent="settings/video_settings"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "High"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Low"
+popup/item_2/id = 2
+
+[node name="frame_rate" type="Label" parent="settings/video_settings"]
+layout_mode = 2
+text = "Frame Rate"
+
+[node name="frame_rate_option" type="OptionButton" parent="settings/video_settings"]
+layout_mode = 2
+item_count = 5
+popup/item_0/text = "Unlimited"
+popup/item_0/id = 0
+popup/item_1/text = "144"
+popup/item_1/id = 1
+popup/item_2/text = "120"
+popup/item_2/id = 2
+popup/item_3/text = "60"
+popup/item_3/id = 3
+popup/item_4/text = "30"
+popup/item_4/id = 4
+
+[node name="vsync" type="Label" parent="settings/video_settings"]
+layout_mode = 2
+text = "VSync"
+
+[node name="vsync_check" type="CheckBox" parent="settings/video_settings"]
+layout_mode = 2
+
+[node name="audio_settings" type="GridContainer" parent="settings"]
 visible = false
 layout_mode = 2
 
-[node name="Graphics" type="TabBar" parent="TabContainer"]
+[node name="master_voume" type="Label" parent="settings/audio_settings"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="master_slider" type="HSlider" parent="settings/audio_settings"]
+layout_mode = 2
+
+[node name="music_volume" type="Label" parent="settings/audio_settings"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="music_slider" type="HSlider" parent="settings/audio_settings"]
+layout_mode = 2
+
+[node name="sfx_volume" type="Label" parent="settings/audio_settings"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="sfx_slider" type="HSlider" parent="settings/audio_settings"]
+layout_mode = 2
+
+[node name="gameplay_settings" type="GridContainer" parent="settings"]
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="diffculty" type="Label" parent="settings/gameplay_settings"]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="diffculty_option" type="OptionButton" parent="settings/gameplay_settings"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Hard"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Easy"
+popup/item_2/id = 2
+
+[node name="hide_hud" type="Label" parent="settings/gameplay_settings"]
+layout_mode = 2
+text = "Hide HUD"
+
+[node name="hide_hud_check" type="CheckBox" parent="settings/gameplay_settings"]
+layout_mode = 2
+
+[node name="FPS Display" type="Label" parent="settings/gameplay_settings"]
+layout_mode = 2
+text = "FPS Display"
+
+[node name="fps_display_check" type="CheckBox" parent="settings/gameplay_settings"]
+layout_mode = 2
+
+[node name="controls_settings" type="GridContainer" parent="settings"]
 visible = false
 layout_mode = 2
 
-[node name="Gameplay" type="TabBar" parent="TabContainer"]
-visible = false
+[node name="Label" type="Label" parent="settings/controls_settings"]
 layout_mode = 2
+text = "controls"
 
-[node name="Back" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -352.0
-offset_top = -150.0
-offset_right = -252.0
-offset_bottom = -100.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Go Back"
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+
+[node name="fps" type="Label" parent="Control/CanvasLayer"]
+visible = false
+offset_left = 25.0
+offset_top = 27.0
+offset_right = 65.0
+offset_bottom = 53.0
+text = "FPS:"
+script = ExtResource("2_r2v52")
+
+[connection signal="pressed" from="main_menu_button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="setting buttons/video_button" to="." method="_on_video_button_pressed"]
+[connection signal="pressed" from="setting buttons/audio_button" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="setting buttons/gameplay_button" to="." method="_on_gameplay_button_pressed"]
+[connection signal="pressed" from="setting buttons/controls_button" to="." method="_on_controls_button_pressed"]
+[connection signal="item_selected" from="settings/video_settings/display_option" to="." method="_on_display_option_item_selected"]
+[connection signal="item_selected" from="settings/video_settings/resolution_option" to="." method="_on_resolution_option_item_selected"]
+[connection signal="item_selected" from="settings/video_settings/quality_option" to="." method="_on_quality_option_item_selected"]
+[connection signal="item_selected" from="settings/video_settings/frame_rate_option" to="." method="_on_frame_rate_option_item_selected"]
+[connection signal="pressed" from="settings/video_settings/vsync_check" to="." method="_on_vsync_check_pressed"]
+[connection signal="item_selected" from="settings/gameplay_settings/diffculty_option" to="." method="_on_diffculty_option_item_selected"]
+[connection signal="pressed" from="settings/gameplay_settings/hide_hud_check" to="." method="_on_hide_hud_check_pressed"]
+[connection signal="pressed" from="settings/gameplay_settings/fps_display_check" to="." method="_on_fps_display_check_pressed"]
