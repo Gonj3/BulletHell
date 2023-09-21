@@ -82,7 +82,7 @@ public partial class Player : CharacterBody2D
 	public void _on_area_2d_area_entered(Area2D area) {
 	// Replace with function body.
 	GD.Print(area.Name);
-		if(area.IsAncestorOf(GetNode("Enemy")))
+		if(area.Name == "Projectile")
 		{
 			this.TakeDamage(20);
 			GD.Print("damaged");
