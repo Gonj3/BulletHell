@@ -85,6 +85,7 @@ offset_right = 159.0
 offset_bottom = 196.0
 
 [node name="video_settings" type="GridContainer" parent="settings"]
+visible = false
 layout_mode = 2
 columns = 2
 
@@ -165,6 +166,8 @@ text = "Master Volume"
 
 [node name="master_slider" type="HSlider" parent="settings/audio_settings"]
 layout_mode = 2
+min_value = -30.0
+max_value = 0.0
 
 [node name="music_volume" type="Label" parent="settings/audio_settings"]
 layout_mode = 2
@@ -172,6 +175,8 @@ text = "Music Volume"
 
 [node name="music_slider" type="HSlider" parent="settings/audio_settings"]
 layout_mode = 2
+min_value = -30.0
+max_value = 0.0
 
 [node name="sfx_volume" type="Label" parent="settings/audio_settings"]
 layout_mode = 2
@@ -179,6 +184,8 @@ text = "SFX Volume"
 
 [node name="sfx_slider" type="HSlider" parent="settings/audio_settings"]
 layout_mode = 2
+min_value = -30.0
+max_value = 0.0
 
 [node name="gameplay_settings" type="GridContainer" parent="settings"]
 visible = false
@@ -248,6 +255,9 @@ script = ExtResource("2_r2v52")
 [connection signal="item_selected" from="settings/video_settings/quality_option" to="." method="_on_quality_option_item_selected"]
 [connection signal="item_selected" from="settings/video_settings/frame_rate_option" to="." method="_on_frame_rate_option_item_selected"]
 [connection signal="pressed" from="settings/video_settings/vsync_check" to="." method="_on_vsync_check_pressed"]
+[connection signal="value_changed" from="settings/audio_settings/master_slider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="settings/audio_settings/music_slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="settings/audio_settings/sfx_slider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="item_selected" from="settings/gameplay_settings/diffculty_option" to="." method="_on_diffculty_option_item_selected"]
 [connection signal="pressed" from="settings/gameplay_settings/hide_hud_check" to="." method="_on_hide_hud_check_pressed"]
 [connection signal="pressed" from="settings/gameplay_settings/fps_display_check" to="." method="_on_fps_display_check_pressed"]

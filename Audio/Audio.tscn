@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5mkjm7datytj"]
+
+[ext_resource type="Script" path="res://Audio/Audio.cs" id="1_u3685"]
+[ext_resource type="AudioStream" uid="uid://cx3y0xwdoga8a" path="res://Audio/AudioFiles/Button_sfx.mp3" id="2_kyws8"]
+[ext_resource type="AudioStream" uid="uid://bl84xvu2d6y8h" path="res://Audio/AudioFiles/MainMenu.mp3" id="3_j2fwn"]
+[ext_resource type="AudioStream" uid="uid://mux1k2efa65f" path="res://Audio/AudioFiles/Game.mp3" id="4_rox05"]
+
+[node name="Audio" type="Node"]
+script = ExtResource("1_u3685")
+
+[node name="ButtonSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kyws8")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="MainMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_j2fwn")
+volume_db = -20.0
+bus = &"Music"
+
+[node name="Game" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rox05")
+volume_db = -20.0
+bus = &"Music"
