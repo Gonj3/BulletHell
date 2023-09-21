@@ -9,7 +9,6 @@ public partial class Audio : Node
 	
 	public override void _Ready()
 	{
-		//sound effect test
 		ButtonSFX = GetNode<AudioStreamPlayer>("ButtonSFX");
 		MainMenu = GetNode<AudioStreamPlayer>("MainMenu");
 		Game = GetNode<AudioStreamPlayer>("Game");
