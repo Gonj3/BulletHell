@@ -13,6 +13,7 @@ public partial class Player : CharacterBody2D
 	{
 		UpdateHealth();
 		UpdateLives();
+		CheckLostLives();
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
@@ -61,7 +62,7 @@ public partial class Player : CharacterBody2D
 	}
 	
 	//Checks if the Player is 0 or less than 0 health, if so removes life and resets health
-	public void _Process(float delta)
+	public void CheckLostLives()
 	{
 		if(Health <= 0)
 		{
@@ -77,4 +78,19 @@ public partial class Player : CharacterBody2D
 			}
 		}
 	}
+	
+	public void _on_area_2d_area_entered(Area2D area) {
+	// Replace with function body.
+	GD.Print(area.Name);
+		if(area.IsAncestorOf(GetNode("Enemy")))
+		{
+			this.TakeDamage(20);
+			GD.Print("damaged");
+		}
+		else{
+			GD.Print("Hit");
+		}
+	}
+	
 }
+
