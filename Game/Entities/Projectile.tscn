@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://2ot3583nq2mg"]
 
-[ext_resource type="Script" path="res://Game/Projectile.cs" id="1_358jk"]
+[ext_resource type="Script" path="res://Game/Entities/Projectile.cs" id="1_358jk"]
 [ext_resource type="Texture2D" uid="uid://cd01qrj8rahgm" path="res://Textures/ProjectileSprite.png" id="2_wimhm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5b1n"]

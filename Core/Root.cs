@@ -22,5 +22,7 @@ public partial class Root : Node
 		var newScene = ResourceLoader.Load<PackedScene>(scene.Path).Instantiate();
 
 		SceneContainer.AddChild(newScene);
+
+		GetTree().Paused = false;
 	}
 }

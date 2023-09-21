@@ -13,7 +13,7 @@ public partial class MainMenu : Control
 	// Enter Game scene.
 	public void _on_start_button_pressed()
 	{
-		this.GetRoot().SetScene(Scene.TestWorld);
+		this.GetRoot().SetScene(Scene.Game);
 	}
 
 	// Enter Settings scene.
