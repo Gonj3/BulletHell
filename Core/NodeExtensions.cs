@@ -11,4 +11,9 @@ public static class NodeExtensions
 	{
 		return node.GetNode<SaveGame>("/root/SaveGame");
 	}
+
+	public static AudioManager GetAudioManager(this Node node)
+	{
+		return node.GetNode<AudioManager>("/root/AudioManager");
+	}
 }
