@@ -1,13 +1,14 @@
 using Godot;
 
-public partial class DeathScreen : Node
+public partial class DeathScreen : Control, IOverlayItem
 {
 	public double TimeAlive { get; set; }
 	public int Kills { get; set; }
+	public Overlay Overlay { get; set; }
 
 	[Export]
 	private Label TimeAliveLabel;
-	
+
 	[Export]
 	private Label KillsLabel;
 

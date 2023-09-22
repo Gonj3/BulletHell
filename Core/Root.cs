@@ -14,14 +14,19 @@ public partial class Root : Node
 
 	public void SetScene(Scene scene)
 	{
+		var newScene = ResourceLoader.Load<PackedScene>(scene.Path);
+
+		CallDeferred(nameof(SetSceneDeferred), newScene);
+	}
+
+	private void SetSceneDeferred(PackedScene packedScene)
+	{
 		foreach (var child in SceneContainer.GetChildren())
 		{
 			child.QueueFree();
 		}
 
-		var newScene = ResourceLoader.Load<PackedScene>(scene.Path).Instantiate();
-
-		SceneContainer.AddChild(newScene);
+		SceneContainer.AddChild(packedScene.Instantiate());
 
 		GetTree().Paused = false;
 	}
