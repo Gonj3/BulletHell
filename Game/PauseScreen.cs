@@ -1,28 +1,29 @@
 using System;
 using Godot;
 
-public partial class PauseScreen : Node
+public partial class PauseScreen : Control, IOverlayItem
 {
-	[Signal]
-	public delegate void ResumeEventHandler();
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-
-	}
+	public Overlay Overlay { get; set; }
 
 	public override void _Input(InputEvent @event)
 	{
 		if (@event.IsActionPressed("esc"))
 		{
-			CallDeferred("_on_resume_button_pressed");
+			AcceptEvent();
+			Overlay.Back();
 		}
 	}
 
 	private void _on_resume_button_pressed()
 	{
-		EmitSignal(SignalName.Resume);
+		Overlay.Back();
+	}
+
+	private void _on_settings_button_pressed()
+	{
+		var settingsMenu = ResourceLoader.Load<PackedScene>("res://Menus/Settings/Settings.tscn");
+		var inst = (Settings)settingsMenu.Instantiate();
+		Overlay.AddItem(inst);
 	}
 
 	private void _on_quit_button_pressed()

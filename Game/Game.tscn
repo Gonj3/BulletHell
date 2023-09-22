@@ -57,3 +57,5 @@ text = "Kill player"
 
 [connection signal="Death" from="World/Player" to="." method="_on_player_death"]
 [connection signal="pressed" from="Button" to="." method="_on_player_death"]
+[connection signal="OverlayHidden" from="Overlay" to="." method="_on_overlay_overlay_hidden"]
+[connection signal="OverlayShown" from="Overlay" to="." method="_on_overlay_overlay_shown"]

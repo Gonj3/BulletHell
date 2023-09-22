@@ -15,14 +15,14 @@ public partial class Game : Node
 		Timer += delta;
 	}
 
-	public override void _Input(InputEvent @event)
+	public override void _UnhandledInput(InputEvent @event)
 	{
 		if (@event.IsActionPressed("esc"))
 		{
 			var pauseScreen = ResourceLoader.Load<PackedScene>("res://Game/PauseScreen.tscn");
 			var inst = (PauseScreen)pauseScreen.Instantiate();
-			inst.Resume += Overlay.Clear;
-			Overlay.SetActive(inst);
+			inst.Overlay = Overlay;
+			Overlay.AddItem(inst);
 		}
 	}
 
@@ -32,6 +32,16 @@ public partial class Game : Node
 		var inst = (DeathScreen)deathScreen.Instantiate();
 		inst.TimeAlive = Timer;
 		inst.Kills = Kills;
-		Overlay.SetActive(inst);
+		Overlay.AddItem(inst);
+	}
+	
+	private void _on_overlay_overlay_shown()
+	{
+		GetTree().Paused = true;
+	}
+	
+	private void _on_overlay_overlay_hidden()
+	{
+		GetTree().Paused = false;
 	}
 }
