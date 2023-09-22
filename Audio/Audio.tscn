@@ -16,7 +16,9 @@ bus = &"SFX"
 [node name="MainMenu" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_p5iax")
 volume_db = -20.0
+bus = &"Music"
 
 [node name="Game" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_smuoc")
 volume_db = -20.0
+bus = &"Music"
