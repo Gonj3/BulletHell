@@ -22,7 +22,7 @@ public partial class Enemy : Area2D
 
 	public void _OnFireTimerTimeout()
 	{
-		var projectile = GD.Load<PackedScene>("res://Game/Projectile.tscn");
+		var projectile = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		var projInstance = projectile.Instantiate();
 		// rotate the projectiles direction by 5degrees increasing for each fire
 		projInstance.Set("velocity", velocity.Rotated((float)Math.PI / 180 * 5 * fireCount));
