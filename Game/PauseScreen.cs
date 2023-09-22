@@ -29,5 +29,6 @@ public partial class PauseScreen : Control, IOverlayItem
 	private void _on_quit_button_pressed()
 	{
 		this.GetRoot().SetScene(Scene.MainMenu);
+		this.GetAudioManager().GameToMenuMusic();
 	}
 }

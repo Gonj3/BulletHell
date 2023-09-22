@@ -27,5 +27,6 @@ public partial class DeathScreen : Control, IOverlayItem
 	public void _on_continue_button_pressed()
 	{
 		this.GetRoot().SetScene(Scene.MainMenu);
+		this.GetAudioManager().GameToMenuMusic();
 	}
 }
