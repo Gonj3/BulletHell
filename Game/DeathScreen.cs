@@ -15,8 +15,7 @@ public partial class DeathScreen : Control, IOverlayItem
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var formattedTime = TimeAlive.ToString("0");
-		TimeAliveLabel.Text = $"{formattedTime}s";
+		TimeAliveLabel.Text = Util.FormatSeconds(TimeAlive);
 		KillsLabel.Text = Kills.ToString();
 	}
 

@@ -1,0 +1,155 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvaakreynt065"]
+
+[ext_resource type="Script" path="res://Menus/ProfileMenu/ProfileMenu.cs" id="1_c8o1m"]
+
+[node name="ProfileMenu" type="CenterContainer" node_paths=PackedStringArray("NameLabel", "KillsLabel", "DeathsLabel", "TimeAliveLabel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c8o1m")
+NameLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/NameLabel")
+KillsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/KillsLabel")
+DeathsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/DeathsLabel")
+TimeAliveLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/TimeAliveLabel")
+
+[node name="Window" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
+layout_mode = 2
+
+[node name="Titlebar" type="PanelContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Window/VBoxContainer/Titlebar"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="Window/VBoxContainer/Titlebar/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "PROFILE"
+vertical_alignment = 1
+
+[node name="Content" type="MarginContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/VBoxContainer/Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="NameLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="Sides" type="HBoxContainer" parent="Window/VBoxContainer/Content/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Left" type="VBoxContainer" parent="Window/VBoxContainer/Content/VBoxContainer/Sides"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Kills"
+
+[node name="KillsLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="Label2" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Deaths"
+
+[node name="DeathsLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="Label3" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Damage Dealt"
+
+[node name="DamageDealtLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="Label4" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Time Spent Alive"
+
+[node name="TimeAliveLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "0s"
+
+[node name="Right" type="VBoxContainer" parent="Window/VBoxContainer/Content/VBoxContainer/Sides"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Items Acquired"
+
+[node name="ItemsLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="Label2" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Favourite Item"
+
+[node name="FavouriteItemLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "None"
+
+[node name="Label3" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Nemesis"
+
+[node name="NemesisLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+theme_override_font_sizes/font_size = 14
+text = "None"
+
+[node name="Actions" type="HBoxContainer" parent="Window/VBoxContainer/Content/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="Window/VBoxContainer/Content/VBoxContainer/Actions"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="Window/VBoxContainer/Content/VBoxContainer/Actions/Button" to="." method="_on_button_pressed"]
