@@ -7,7 +7,8 @@ public partial class Root : Node
 
 	public override void _Ready()
 	{
-		if (this.GetSaveGame().Profile.Name == null)
+		var name = this.GetSaveGame().Profile.Name;
+		if (name == null || name == "")
 		{
 			SetScene(Scene.WelcomeMenu);
 		}
