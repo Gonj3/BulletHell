@@ -8,7 +8,6 @@ public partial class Game : Node
 
 	private double Timer;
 	private int Kills;
-	private double DamageTaken;
 
 	public override void _Process(double delta)
 	{
@@ -28,18 +27,23 @@ public partial class Game : Node
 
 	public void _on_player_death()
 	{
+		var saveGame = this.GetSaveGame();
+		saveGame.Profile.Deaths += 1;
+		saveGame.Profile.TimeAlive += Timer;
+		saveGame.Save();
+
 		var deathScreen = ResourceLoader.Load<PackedScene>("res://Game/DeathScreen.tscn");
 		var inst = (DeathScreen)deathScreen.Instantiate();
 		inst.TimeAlive = Timer;
 		inst.Kills = Kills;
 		Overlay.AddItem(inst);
 	}
-	
+
 	private void _on_overlay_overlay_shown()
 	{
 		GetTree().Paused = true;
 	}
-	
+
 	private void _on_overlay_overlay_hidden()
 	{
 		GetTree().Paused = false;

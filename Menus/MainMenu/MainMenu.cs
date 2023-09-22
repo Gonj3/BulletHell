@@ -22,15 +22,14 @@ public partial class MainMenu : Control
 		this.GetRoot().SetScene(Scene.Settings);
 	}
 
+	public void _on_profile_button_pressed()
+	{
+		this.GetRoot().SetScene(Scene.ProfileMenu);
+	}
+
 	// Quit game.
 	public void _on_quit_button_pressed()
 	{
 		GetTree().Quit();
-	}
-
-	// Enter Save Editor.
-	public void _on_saveeditor_button_pressed()
-	{
-		this.GetRoot().SetScene(Scene.SaveEditor);
 	}
 }

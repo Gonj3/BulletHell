@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj8j4fwetxfr0"]
+
+[ext_resource type="Script" path="res://Menus/WelcomeMenu/WelcomeMenu.cs" id="1_ceqw5"]
+
+[node name="WelcomeMenu" type="CenterContainer" node_paths=PackedStringArray("NameEdit")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ceqw5")
+NameEdit = NodePath("Window/VBoxContainer/Content/VBoxContainer/LineEdit")
+
+[node name="Window" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
+layout_mode = 2
+
+[node name="Titlebar" type="PanelContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Window/VBoxContainer/Titlebar"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="Window/VBoxContainer/Titlebar/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "WELCOME"
+vertical_alignment = 1
+
+[node name="Content" type="MarginContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/VBoxContainer/Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="NameLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer"]
+layout_mode = 2
+text = "Enter your name"
+
+[node name="LineEdit" type="LineEdit" parent="Window/VBoxContainer/Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="Window/VBoxContainer/Content/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="Window/VBoxContainer/Content/VBoxContainer/Actions"]
+layout_mode = 2
+text = "Continue"
+
+[connection signal="pressed" from="Window/VBoxContainer/Content/VBoxContainer/Actions/Button" to="." method="_on_button_pressed"]

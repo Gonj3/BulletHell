@@ -2,14 +2,20 @@ using Godot;
 
 public partial class Root : Node
 {
-	private static readonly Scene InitialScene = Scene.MainMenu;
-
 	[Export]
 	private Node SceneContainer;
 
 	public override void _Ready()
 	{
-		SetScene(InitialScene);
+		var name = this.GetSaveGame().Profile.Name;
+		if (name == null || name == "")
+		{
+			SetScene(Scene.WelcomeMenu);
+		}
+		else
+		{
+			SetScene(Scene.MainMenu);
+		}
 	}
 
 	public void SetScene(Scene scene)
