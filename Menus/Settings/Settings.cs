@@ -3,15 +3,7 @@ using System;
 
 public partial class Settings : Control, IOverlayItem
 {
-	private Audio soundInstance;
-
 	public Overlay Overlay { get; set; }
-
-
-	public override void _Ready()
-	{
-		soundInstance = GetNode<Audio>("/root/Audio");
-	}
 
 	// hide/show settings method
 	private void ToggleSettingsPanel(Control panelToShow)
@@ -19,7 +11,7 @@ public partial class Settings : Control, IOverlayItem
 		foreach (Control child in GetNode<Control>("settings").GetChildren())
 		{
 			child.Visible = child == panelToShow;
-			soundInstance.PlayButton();
+			this.GetAudioManager().PlayButton();
 		}
 	}
 	private void _on_button_pressed(Control panelToShow)
@@ -55,7 +47,7 @@ public partial class Settings : Control, IOverlayItem
 	private void _on_main_menu_button_pressed()
 	{
 		Back();
-		soundInstance.PlayButton();
+		this.GetAudioManager().PlayButton();
 	}
 
 	//esc key function

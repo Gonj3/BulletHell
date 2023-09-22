@@ -17,12 +17,12 @@ config/icon="res://Textures/icon.svg"
 
 [audio]
 
-buses/default_bus_layout="res://Audio/AudioFiles/default_bus_layout.tres"
+buses/default_bus_layout="res://Core/AudioManager/default_bus_layout.tres"
 
 [autoload]
 
 SaveGame="*res://Core/SaveGame.cs"
-Audio="*res://Audio/Audio.tscn"
+AudioManager="*res://Core/AudioManager/AudioManager.tscn"
 
 [display]
 

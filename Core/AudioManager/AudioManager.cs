@@ -1,17 +1,19 @@
 using Godot;
 using System;
 
-public partial class Audio : Node
+public partial class AudioManager : Node
 {
+	[Export]
 	public AudioStreamPlayer ButtonSFX;
+
+	[Export]
 	public AudioStreamPlayer MainMenu;
+
+	[Export]
 	public AudioStreamPlayer Game;
-	
+
 	public override void _Ready()
 	{
-		ButtonSFX = GetNode<AudioStreamPlayer>("ButtonSFX");
-		MainMenu = GetNode<AudioStreamPlayer>("MainMenu");
-		Game = GetNode<AudioStreamPlayer>("Game");
 		MainMenu.Play();
 	}
 
@@ -30,6 +32,6 @@ public partial class Audio : Node
 
 	public void PlayButton()
 	{
-	ButtonSFX.Play();
+		ButtonSFX.Play();
 	}
 }
