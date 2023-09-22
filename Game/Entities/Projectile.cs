@@ -16,15 +16,12 @@ public partial class Projectile : Area2D
 		}
 	}
 
+	// Player collision may be removed entirely in favor of player side detection
 	public void _OnBodyEntered(Node2D body)
 	{
-		if (body.IsInGroup("Bounds"))
+		if (body.Name == "BoundsBody")
 		{
-			QueueFree();
-		}
-		else if (body.Name == "Player")
-		{
-			// TODO: afflict/inform player
+			// remove self
 			QueueFree();
 		}
 	}

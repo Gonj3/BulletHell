@@ -24,38 +24,39 @@ Overlay = NodePath("Overlay")
 [node name="World" type="Node2D" parent="."]
 
 [node name="Player" parent="World" instance=ExtResource("1_b3jan")]
-position = Vector2(235, 235)
+position = Vector2(622, 494)
 motion_mode = 1
 
 [node name="Enemy" parent="World" instance=ExtResource("3_akldc")]
-position = Vector2(668, 287)
+position = Vector2(606, 287)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="World"]
+[node name="Enemy2" parent="World" instance=ExtResource("3_akldc")]
+position = Vector2(454, 228)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+[node name="Enemy3" parent="World" instance=ExtResource("3_akldc")]
+position = Vector2(865, 207)
+
+[node name="BoundsBody" type="StaticBody2D" parent="World"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BoundsBody" groups=["Bounds"]]
 position = Vector2(6.5, 318.5)
 shape = SubResource("RectangleShape2D_lfkvk")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/BoundsBody" groups=["Bounds"]]
 position = Vector2(571.5, 7.5)
 shape = SubResource("RectangleShape2D_agc7a")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/BoundsBody" groups=["Bounds"]]
 position = Vector2(574, 637)
 shape = SubResource("RectangleShape2D_4d4bw")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/BoundsBody" groups=["Bounds"]]
 position = Vector2(1146, 317.25)
 shape = SubResource("RectangleShape2D_djjc7")
-
-[node name="Button" type="Button" parent="."]
-offset_right = 85.0
-offset_bottom = 31.0
-text = "Kill player"
 
 [node name="Overlay" parent="." instance=ExtResource("3_jfkpm")]
 
 [connection signal="Death" from="World/Player" to="." method="_on_player_death"]
-[connection signal="pressed" from="Button" to="." method="_on_player_death"]
+[connection signal="Kill" from="World/Player" to="." method="_on_player_kill"]
 [connection signal="OverlayHidden" from="Overlay" to="." method="_on_overlay_overlay_hidden"]
 [connection signal="OverlayShown" from="Overlay" to="." method="_on_overlay_overlay_shown"]

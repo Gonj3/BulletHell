@@ -3,7 +3,7 @@ using Godot;
 public partial class DeathScreen : Control, IOverlayItem
 {
 	public double TimeAlive { get; set; }
-	public int Kills { get; set; }
+	public uint Kills { get; set; }
 	public Overlay Overlay { get; set; }
 
 	[Export]
