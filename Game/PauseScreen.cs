@@ -17,6 +17,7 @@ public partial class PauseScreen : Control, IOverlayItem
 	private void _on_resume_button_pressed()
 	{
 		Overlay.Back();
+		this.GetAudioManager().PlayButton();
 	}
 
 	private void _on_settings_button_pressed()
@@ -24,11 +25,13 @@ public partial class PauseScreen : Control, IOverlayItem
 		var settingsMenu = ResourceLoader.Load<PackedScene>("res://Menus/Settings/Settings.tscn");
 		var inst = (Settings)settingsMenu.Instantiate();
 		Overlay.AddItem(inst);
+		this.GetAudioManager().PlayButton();
 	}
 
 	private void _on_quit_button_pressed()
 	{
 		this.GetRoot().SetScene(Scene.MainMenu);
 		this.GetAudioManager().GameToMenuMusic();
+		this.GetAudioManager().PlayButton();
 	}
 }

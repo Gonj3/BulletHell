@@ -28,6 +28,7 @@ public partial class MainMenu : Control
 	public void _on_profile_button_pressed()
 	{
 		this.GetRoot().SetScene(Scene.ProfileMenu);
+		this.GetAudioManager().PlayButton();
 	}
 
 	// Quit game.
