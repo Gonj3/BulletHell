@@ -130,11 +130,5 @@ public partial class Enemy : Area2D
 			// remove self
 			QueueFree();
 		}
-		else if (body.Name == "Player")
-		{
-			GD.Print("Enemy hit player");
-			// TODO: afflict/inform player
-			QueueFree();
-		}
 	}
 }

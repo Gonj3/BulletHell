@@ -24,11 +24,5 @@ public partial class Projectile : Area2D
 			// remove self
 			QueueFree();
 		}
-		else if (body.Name == "Player")
-		{
-			GD.Print("Projectile hit player");
-			// TODO: afflict/inform player
-			QueueFree();
-		}
 	}
 }

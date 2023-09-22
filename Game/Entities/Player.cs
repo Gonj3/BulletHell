@@ -5,6 +5,9 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void DeathEventHandler();
 
+	[Signal]
+	public delegate void KillEventHandler();
+
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
@@ -69,8 +72,7 @@ public partial class Player : CharacterBody2D
 		{
 			if (Lives <= 0)
 			{
-				//Player is dead and has lost all lives
-				//death screen / restart level
+				EmitSignal(SignalName.Death);
 			}
 			else
 			{
@@ -82,18 +84,21 @@ public partial class Player : CharacterBody2D
 
 	public void _on_area_2d_area_entered(Area2D area)
 	{
-		// Replace with function body.
-		GD.Print(area.Name);
-		if (area.Name == "Projectile")
+		if (!(area is Projectile) && !(area is Enemy))
 		{
-			//this.TakeDamage(20);
-			GD.Print("damaged");
+			return;
 		}
-		else
-		{
-			GD.Print("Hit");
-			this.TakeDamage(20);
-		}
-	}
 
+		if (area is Projectile)
+		{
+			TakeDamage(20);
+		}
+
+		if (area is Enemy)
+		{
+			EmitSignal(SignalName.Kill);
+		}
+
+		area.QueueFree();
+	}
 }

@@ -54,14 +54,9 @@ shape = SubResource("RectangleShape2D_4d4bw")
 position = Vector2(1146, 317.25)
 shape = SubResource("RectangleShape2D_djjc7")
 
-[node name="Button" type="Button" parent="."]
-offset_right = 85.0
-offset_bottom = 31.0
-text = "Kill player"
-
 [node name="Overlay" parent="." instance=ExtResource("3_jfkpm")]
 
 [connection signal="Death" from="World/Player" to="." method="_on_player_death"]
-[connection signal="pressed" from="Button" to="." method="_on_player_death"]
+[connection signal="Kill" from="World/Player" to="." method="_on_player_kill"]
 [connection signal="OverlayHidden" from="Overlay" to="." method="_on_overlay_overlay_hidden"]
 [connection signal="OverlayShown" from="Overlay" to="." method="_on_overlay_overlay_shown"]

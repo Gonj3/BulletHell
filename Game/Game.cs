@@ -7,7 +7,7 @@ public partial class Game : Node
 	private Overlay Overlay;
 
 	private double Timer;
-	private int Kills;
+	private uint Kills;
 
 	public override void _Process(double delta)
 	{
@@ -28,6 +28,7 @@ public partial class Game : Node
 	public void _on_player_death()
 	{
 		var saveGame = this.GetSaveGame();
+		saveGame.Profile.Kills += Kills;
 		saveGame.Profile.Deaths += 1;
 		saveGame.Profile.TimeAlive += Timer;
 		saveGame.Save();
@@ -37,6 +38,11 @@ public partial class Game : Node
 		inst.TimeAlive = Timer;
 		inst.Kills = Kills;
 		Overlay.AddItem(inst);
+	}
+
+	public void _on_player_kill()
+	{
+		Kills++;
 	}
 
 	private void _on_overlay_overlay_shown()
