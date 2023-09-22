@@ -1,21 +1,24 @@
 using Godot;
 using System;
 
-public partial class Settings : Node2D
+public partial class Settings : Control, IOverlayItem
 {
 	private Audio soundInstance;
 
-    public override void _Ready()
-    {   
-        soundInstance = GetNode<Audio>("/root/Audio");
-    }
+	public Overlay Overlay { get; set; }
+
+
+	public override void _Ready()
+	{
+		soundInstance = GetNode<Audio>("/root/Audio");
+	}
 
 	// hide/show settings method
 	private void ToggleSettingsPanel(Control panelToShow)
 	{
 		foreach (Control child in GetNode<Control>("settings").GetChildren())
 		{
-			child.Visible = (child == panelToShow);
+			child.Visible = child == panelToShow;
 			soundInstance.PlayButton();
 		}
 	}
@@ -51,7 +54,7 @@ public partial class Settings : Node2D
 	//main menu/back button functtion
 	private void _on_main_menu_button_pressed()
 	{
-		this.GetRoot().SetScene(Scene.MainMenu);
+		Back();
 		soundInstance.PlayButton();
 	}
 
@@ -60,44 +63,57 @@ public partial class Settings : Node2D
 	{
 		if (@event.IsActionPressed("esc"))
 		{
+			AcceptEvent();
+			Back();
+		}
+	}
+
+	private void Back()
+	{
+		if (Overlay != null)
+		{
+			Overlay.Back();
+		}
+		else
+		{
 			this.GetRoot().SetScene(Scene.MainMenu);
 		}
 	}
 
 	// display option function
- 	private void _on_display_option_item_selected(int index)
+	private void _on_display_option_item_selected(int index)
 	{
 		string selectedOption = ((OptionButton)GetNode("settings/video_settings/display_option")).GetItemText(index);
 
 		if (selectedOption == "Full Screen")
 		{
-			 DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
 		}
 		else if (selectedOption == "Windowed")
 		{
-			 DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+			DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
 		}
 	}
 
 	// resolution function
-    private void _on_resolution_option_item_selected(int index)
+	private void _on_resolution_option_item_selected(int index)
 	{
 		string selectedOption = ((OptionButton)GetNode("settings/video_settings/resolution_option")).GetItemText(index);
 
 		if (selectedOption == "1920x1080")
 		{
-			DisplayServer.WindowSetSize(new Vector2I(1920, 1080));	
+			DisplayServer.WindowSetSize(new Vector2I(1920, 1080));
 		}
 		else if (selectedOption == "1366x768")
 		{
-			DisplayServer.WindowSetSize(new Vector2I(1366, 768));	
+			DisplayServer.WindowSetSize(new Vector2I(1366, 768));
 		}
-       	else if (selectedOption == "1280x720")
+		else if (selectedOption == "1280x720")
 		{
-			DisplayServer.WindowSetSize(new Vector2I(1280, 720));	
+			DisplayServer.WindowSetSize(new Vector2I(1280, 720));
 		}
-        else if (selectedOption == "640x480")
-		{	
+		else if (selectedOption == "640x480")
+		{
 			DisplayServer.WindowSetSize(new Vector2I(640, 480));
 		}
 	}
@@ -109,15 +125,15 @@ public partial class Settings : Node2D
 
 		if (selectedOption == "High")
 		{
-	
+
 		}
 		else if (selectedOption == "Medium")
 		{
-		
+
 		}
-        else if (selectedOption == "Low")
+		else if (selectedOption == "Low")
 		{
-	
+
 		}
 	}
 
@@ -128,21 +144,21 @@ public partial class Settings : Node2D
 
 		if (selectedOption == "Unlimited")
 		{
-			Engine.MaxFps = -0;	
+			Engine.MaxFps = -0;
 		}
 		else if (selectedOption == "144")
 		{
-			Engine.MaxFps = 144;	  
+			Engine.MaxFps = 144;
 		}
-        else if (selectedOption == "120")
+		else if (selectedOption == "120")
 		{
 			Engine.MaxFps = 120;
 		}
-        else if (selectedOption == "60")
+		else if (selectedOption == "60")
 		{
 			Engine.MaxFps = 60;
 		}
-		 else if (selectedOption == "30")
+		else if (selectedOption == "30")
 		{
 			Engine.MaxFps = 30;
 		}
@@ -176,7 +192,7 @@ public partial class Settings : Node2D
 		{
 
 		}
-        else if (selectedOption == "Easy")
+		else if (selectedOption == "Easy")
 		{
 
 		}
@@ -184,8 +200,8 @@ public partial class Settings : Node2D
 
 	// hide hud check box function
 	private void _on_hide_hud_check_pressed()
-	{	
-		
+	{
+
 	}
 
 	// fps display check box function
@@ -199,49 +215,49 @@ public partial class Settings : Node2D
 	//master volume slider function
 	private void _on_master_slider_value_changed(float value)
 	{
-	var master_bus = AudioServer.GetBusIndex("Master");
-	AudioServer.SetBusVolumeDb(master_bus,value);
+		var master_bus = AudioServer.GetBusIndex("Master");
+		AudioServer.SetBusVolumeDb(master_bus, value);
 
-	 if (value == -30)
-    	{
-        AudioServer.SetBusVolumeDb(master_bus, -80);
-   		}
-    else
-   		{
-        AudioServer.SetBusVolumeDb(master_bus, value);
-    	}
+		if (value == -30)
+		{
+			AudioServer.SetBusVolumeDb(master_bus, -80);
+		}
+		else
+		{
+			AudioServer.SetBusVolumeDb(master_bus, value);
+		}
 	}
 
 	//music volume slider function
 	private void _on_music_slider_value_changed(float value)
 	{
-	var music_bus = AudioServer.GetBusIndex("Music");
-	AudioServer.SetBusVolumeDb(music_bus,value);
+		var music_bus = AudioServer.GetBusIndex("Music");
+		AudioServer.SetBusVolumeDb(music_bus, value);
 
-	 if (value == -30)
-    	{
-        AudioServer.SetBusVolumeDb(music_bus, -80);
-   		}
-    else
-    	{
-        AudioServer.SetBusVolumeDb(music_bus, value);
-    	}
+		if (value == -30)
+		{
+			AudioServer.SetBusVolumeDb(music_bus, -80);
+		}
+		else
+		{
+			AudioServer.SetBusVolumeDb(music_bus, value);
+		}
 	}
 
 	//sfx volume slider function
 	private void _on_sfx_slider_value_changed(float value)
 	{
 
-	var sfx_slider = AudioServer.GetBusIndex("SFX");
-	AudioServer.SetBusVolumeDb(sfx_slider,value);
+		var sfx_slider = AudioServer.GetBusIndex("SFX");
+		AudioServer.SetBusVolumeDb(sfx_slider, value);
 
-	 if (value == -30)
-    	{
-        AudioServer.SetBusVolumeDb(sfx_slider, -80);
-    	}
-    	else
-    	{
-        AudioServer.SetBusVolumeDb(sfx_slider, value);
-   		}
+		if (value == -30)
+		{
+			AudioServer.SetBusVolumeDb(sfx_slider, -80);
+		}
+		else
+		{
+			AudioServer.SetBusVolumeDb(sfx_slider, value);
+		}
 	}
 }

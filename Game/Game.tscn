@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://c0sv75gv71xx1"]
+
+[ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
+[ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
+[ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
+[ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfkvk"]
+size = Vector2(33, 657)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_agc7a"]
+size = Vector2(1163, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d4bw"]
+size = Vector2(1150, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_djjc7"]
+size = Vector2(20, 655.5)
+
+[node name="Game" type="Node" node_paths=PackedStringArray("Overlay")]
+script = ExtResource("1_ov3n4")
+Overlay = NodePath("Overlay")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Player" parent="World" instance=ExtResource("1_b3jan")]
+position = Vector2(235, 235)
+motion_mode = 1
+
+[node name="Enemy" parent="World" instance=ExtResource("3_akldc")]
+position = Vector2(668, 287)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+position = Vector2(6.5, 318.5)
+shape = SubResource("RectangleShape2D_lfkvk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+position = Vector2(571.5, 7.5)
+shape = SubResource("RectangleShape2D_agc7a")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+position = Vector2(574, 637)
+shape = SubResource("RectangleShape2D_4d4bw")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/StaticBody2D" groups=["Bounds"]]
+position = Vector2(1146, 317.25)
+shape = SubResource("RectangleShape2D_djjc7")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 85.0
+offset_bottom = 31.0
+text = "Kill player"
+
+[node name="Overlay" parent="." instance=ExtResource("3_jfkpm")]
+
+[connection signal="Death" from="World/Player" to="." method="_on_player_death"]
+[connection signal="pressed" from="Button" to="." method="_on_player_death"]
+[connection signal="OverlayHidden" from="Overlay" to="." method="_on_overlay_overlay_hidden"]
+[connection signal="OverlayShown" from="Overlay" to="." method="_on_overlay_overlay_shown"]

@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://dprfh8lkxfole"]
+
+[ext_resource type="Script" path="res://Game/DeathScreen.cs" id="1_m1o1g"]
+
+[node name="DeathScreen" type="PanelContainer" node_paths=PackedStringArray("TimeAliveLabel", "KillsLabel")]
+custom_minimum_size = Vector2(600, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_m1o1g")
+TimeAliveLabel = NodePath("VBoxContainer/MarginContainer2/Container/TimeAliveLabel")
+KillsLabel = NodePath("VBoxContainer/MarginContainer2/Container/KillsLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Titlebar" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Titlebar"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/Titlebar/MarginContainer"]
+layout_mode = 2
+text = "You died!"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Container" type="VBoxContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/Container"]
+layout_mode = 2
+text = "Time alive: "
+
+[node name="TimeAliveLabel" type="Label" parent="VBoxContainer/MarginContainer2/Container"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2/Container"]
+layout_mode = 2
+text = "Kills:"
+
+[node name="KillsLabel" type="Label" parent="VBoxContainer/MarginContainer2/Container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/Container"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/MarginContainer2/Container/HBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer/MarginContainer2/Container/HBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/Container/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/Container/HBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

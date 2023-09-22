@@ -10,8 +10,6 @@ public partial class SaveGame : Node
 	{
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
 		Profile = file != null ? Profile.FromFile(file) : new Profile();
-
-		Save();
 	}
 
 	public void Save()

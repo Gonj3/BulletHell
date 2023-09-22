@@ -3,11 +3,17 @@
 [ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
 [ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_r2v52"]
 
-[node name="settings" type="Node2D"]
-position = Vector2(640, 360)
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_yn38v")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -23,44 +29,50 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="Panel2" type="Panel" parent="."]
-offset_left = -350.0
-offset_top = -200.0
-offset_right = -100.0
-offset_bottom = 200.0
+layout_mode = 0
+offset_left = 290.0
+offset_top = 160.0
+offset_right = 540.0
+offset_bottom = 560.0
 
 [node name="Panel3" type="Panel" parent="."]
-offset_left = -350.0
-offset_top = -200.0
-offset_right = 350.0
-offset_bottom = -150.0
+layout_mode = 0
+offset_left = 290.0
+offset_top = 160.0
+offset_right = 990.0
+offset_bottom = 210.0
 
 [node name="settings_title" type="Label" parent="."]
-offset_left = -340.0
-offset_top = -190.0
-offset_right = -40.0
-offset_bottom = -140.0
+layout_mode = 0
+offset_left = 300.0
+offset_top = 170.0
+offset_right = 600.0
+offset_bottom = 220.0
 theme_override_font_sizes/font_size = 25
 text = "SETTINGS"
 
 [node name="main_menu_button" type="Button" parent="."]
-offset_left = -562.0
-offset_top = 285.0
-offset_right = -444.0
-offset_bottom = 316.0
+layout_mode = 0
+offset_left = 78.0
+offset_top = 645.0
+offset_right = 196.0
+offset_bottom = 676.0
 text = "BACK"
 
 [node name="esc" type="Label" parent="."]
-offset_left = -615.0
-offset_top = 290.0
-offset_right = -575.0
-offset_bottom = 316.0
+layout_mode = 0
+offset_left = 25.0
+offset_top = 650.0
+offset_right = 65.0
+offset_bottom = 676.0
 text = "ESC"
 
 [node name="setting buttons" type="VBoxContainer" parent="."]
-offset_left = -350.0
-offset_top = -60.0
-offset_right = -100.0
-offset_bottom = 76.0
+layout_mode = 0
+offset_left = 290.0
+offset_top = 300.0
+offset_right = 540.0
+offset_bottom = 436.0
 
 [node name="video_button" type="Button" parent="setting buttons"]
 layout_mode = 2
@@ -79,10 +91,11 @@ layout_mode = 2
 text = "CONTROLS"
 
 [node name="settings" type="VBoxContainer" parent="."]
-offset_left = -40.0
-offset_top = -60.0
-offset_right = 159.0
-offset_bottom = 196.0
+layout_mode = 0
+offset_left = 600.0
+offset_top = 300.0
+offset_right = 836.0
+offset_bottom = 556.0
 
 [node name="video_settings" type="GridContainer" parent="settings"]
 visible = false
@@ -231,8 +244,10 @@ text = "controls"
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 640.0
+offset_top = 360.0
+offset_right = 680.0
+offset_bottom = 400.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control"]
 
