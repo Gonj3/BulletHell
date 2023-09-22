@@ -84,11 +84,12 @@ public partial class Player : CharacterBody2D
 	GD.Print(area.Name);
 		if(area.Name == "Projectile")
 		{
-			this.TakeDamage(20);
+			//this.TakeDamage(20);
 			GD.Print("damaged");
 		}
 		else{
 			GD.Print("Hit");
+			this.TakeDamage(20);
 		}
 	}
 	
