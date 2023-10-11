@@ -1,3 +1,17 @@
-[gd_scene format=3 uid="uid://b6eqfulvemucm"]
+[gd_scene load_steps=4 format=3 uid="uid://b6eqfulvemucm"]
+
+[ext_resource type="Script" path="res://Game/Entities/PowerUp.cs" id="1_1ry1e"]
+[ext_resource type="Texture2D" uid="uid://bswwsehn6yre6" path="res://Textures/icon.svg" id="2_s27ws"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xnki"]
+size = Vector2(121, 118)
 
 [node name="PowerUp" type="Area2D"]
+script = ExtResource("1_1ry1e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_3xnki")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s27ws")

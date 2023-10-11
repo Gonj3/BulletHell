@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=10 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
+[ext_resource type="PackedScene" uid="uid://b6eqfulvemucm" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lfkvk"]
 size = Vector2(33, 657)
@@ -35,6 +36,9 @@ position = Vector2(454, 228)
 
 [node name="Enemy3" parent="World" instance=ExtResource("3_akldc")]
 position = Vector2(865, 207)
+
+[node name="PowerUp" parent="World" instance=ExtResource("4_ospnf")]
+position = Vector2(110, 108)
 
 [node name="BoundsBody" type="StaticBody2D" parent="World"]
 

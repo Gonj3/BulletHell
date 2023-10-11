@@ -84,7 +84,7 @@ public partial class Player : CharacterBody2D
 
 	public void _on_area_2d_area_entered(Area2D area)
 	{
-		if (!(area is Projectile) && !(area is Enemy))
+		if (!(area is Projectile) && !(area is Enemy) && !(area is PowerUp))
 		{
 			return;
 		}
@@ -97,6 +97,12 @@ public partial class Player : CharacterBody2D
 		if (area is Enemy)
 		{
 			EmitSignal(SignalName.Kill);
+		}
+
+		if (area is PowerUp)
+		{
+			GD.Print("+Life");
+			this.Lives++;
 		}
 
 		area.QueueFree();
