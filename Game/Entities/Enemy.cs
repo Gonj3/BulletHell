@@ -10,6 +10,8 @@ public partial class Enemy : Area2D
 	public float FireTimeout { get; set; } = 1.0f;
 	private float fireCount = 0;
 
+	private AnimationPlayer animPlayer;
+
 	public enum FiringStyle
 	{
 		Spin,
@@ -24,10 +26,12 @@ public partial class Enemy : Area2D
 
 	public override void _Ready()
 	{
+		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		InitializeRandomValues();
 		InitializeFiringStyle();
 		InitializeFireTimer();
+		animPlayer.Play("Idle");
 	}
 
 	private void InitializeRandomValues()
@@ -64,10 +68,19 @@ public partial class Enemy : Area2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Position += velocity * (float)delta * speed;
+		
+		// Reset animation
+		if(!animPlayer.IsPlaying()) 
+		{
+			animPlayer.Play("Idle");
+		}
 	}
 
 	public void _OnFireTimerTimeout()
 	{
+		// Shoot Animation
+		animPlayer.Play("Shoot");
+
 		switch (CurrentFiringStyle)
 		{
 			case FiringStyle.Spin:

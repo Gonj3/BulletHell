@@ -1,17 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0fmlgkkfg6d"]
+[gd_scene load_steps=8 format=3 uid="uid://b0fmlgkkfg6d"]
 
 [ext_resource type="Script" path="res://Game/Entities/Enemy.cs" id="1_y85vi"]
-[ext_resource type="Texture2D" uid="uid://dswfwpgvf2pvd" path="res://Textures/EnemySprite.png" id="2_mgad5"]
+[ext_resource type="Texture2D" uid="uid://c1mukco2ovfxa" path="res://Media/Sprites/Enemy.png" id="2_6l3ty"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2nnt"]
 size = Vector2(36, 34)
+
+[sub_resource type="Animation" id="Animation_46vbs"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_et3ph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gsxeb"]
+resource_name = "Shoot"
+length = 1.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a1b15"]
+_data = {
+"Idle": SubResource("Animation_46vbs"),
+"RESET": SubResource("Animation_et3ph"),
+"Shoot": SubResource("Animation_gsxeb")
+}
 
 [node name="Enemy" type="Area2D"]
 script = ExtResource("1_y85vi")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_mgad5")
+texture = ExtResource("2_6l3ty")
+offset = Vector2(0, -27)
+hframes = 17
+vframes = 7
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_s2nnt")
@@ -19,6 +78,12 @@ shape = SubResource("RectangleShape2D_s2nnt")
 [node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.25
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+libraries = {
+"": SubResource("AnimationLibrary_a1b15")
+}
 
 [connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
 [connection signal="timeout" from="FireTimer" to="." method="_OnFireTimerTimeout"]
