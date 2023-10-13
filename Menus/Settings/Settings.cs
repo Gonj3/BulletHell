@@ -3,6 +3,29 @@ using System;
 
 public partial class Settings : Control, IOverlayItem
 {
+[Export]
+private Label Up;
+[Export]
+private Label Down;
+[Export]
+private Label Right;
+[Export]
+private Label Left;
+
+public override void _Ready()
+{
+	string UpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
+   	Up.Text = "Move Up: " + UpKey;
+
+	string DownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
+   	Down.Text = "Move Down: " + DownKey;
+
+	string LeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
+   	Left.Text = "Move Left: " + LeftKey;
+
+	string RightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
+   	Right.Text = "Move Right: " + RightKey;
+}
 	public Overlay Overlay { get; set; }
 
 	// hide/show settings method
@@ -48,16 +71,6 @@ public partial class Settings : Control, IOverlayItem
 	{
 		Back();
 		this.GetAudioManager().PlayButton();
-	}
-
-	//esc key function
-	public override void _Input(InputEvent @event)
-	{
-		if (@event.IsActionPressed("esc"))
-		{
-			AcceptEvent();
-			Back();
-		}
 	}
 
 	private void Back()
@@ -252,4 +265,127 @@ public partial class Settings : Control, IOverlayItem
 			AudioServer.SetBusVolumeDb(sfx_slider, value);
 		}
 	}
-}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("esc"))
+		{
+			AcceptEvent();
+			Back();
+		}
+
+		if (remappingKey && @event is InputEventKey keyEvent && keyEvent.Pressed)
+		{
+
+		string currentUpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
+        string currentDownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
+        string currentLeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
+        string currentRightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
+
+			if (remappingLeftKey)
+			{
+				 while (currentUpKey == keyEvent.AsText() ||currentDownKey == keyEvent.AsText() ||currentRightKey == keyEvent.AsText())
+            {
+                Left.Text = "Move Left: can't assign same key";
+                return;
+            }
+				InputMap.ActionEraseEvents("ui_left");
+				InputMap.ActionAddEvent("ui_left", keyEvent);
+				Left.Text = "Move Left: " + keyEvent.AsText();
+			}
+
+			else if (remappingRightKey)
+			{
+
+				 while (currentUpKey == keyEvent.AsText() || currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText())
+            {
+                Right.Text = "Move Right: can't assign same key";
+                return;
+            }
+
+				InputMap.ActionEraseEvents("ui_right");
+				InputMap.ActionAddEvent("ui_right", keyEvent);
+				Right.Text = "Move Right: " + keyEvent.AsText();
+			}
+
+			else if (remappingUpKey)
+        {
+            while (currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText())
+            {
+                Up.Text = "Move Up: can't assign same key";
+                return;
+            }
+
+            InputMap.ActionEraseEvents("ui_up");
+            InputMap.ActionAddEvent("ui_up", keyEvent);
+            Up.Text = "Move Up: " + keyEvent.AsText();
+        }
+
+        else if (remappingDownKey)
+        {
+           while (currentUpKey == keyEvent.AsText() ||currentLeftKey == keyEvent.AsText() ||currentRightKey == keyEvent.AsText())
+            {
+                Down.Text = "Move Down: can't assign same key";
+                return;
+            }
+            InputMap.ActionEraseEvents("ui_down");
+            InputMap.ActionAddEvent("ui_down", keyEvent);
+            Down.Text = "Move Down: " + keyEvent.AsText();
+        }
+			remappingKey = false;
+			remappingLeftKey = false;
+			remappingRightKey = false;
+			remappingUpKey = false;
+			remappingDownKey = false;
+		}
+	}
+	private bool remappingKey = false;
+	private bool remappingLeftKey = false;
+	private bool remappingRightKey = false;
+	private bool remappingUpKey = false;
+	private bool remappingDownKey = false;
+
+	private void _on_left_button_pressed()
+	{
+		if (remappingKey)
+    {
+        return;
+    }
+		remappingKey = true;
+		remappingLeftKey = true;
+		Left.Text = "Move Left: Press New Key";
+	}
+
+	private void _on_right_button_pressed()
+	{
+		if (remappingKey)
+    {
+        return;
+    }
+		remappingKey = true;
+		remappingRightKey = true;
+		Right.Text = "Move Right: Press New Key";
+	}
+
+	private void _on_up_button_pressed()
+	{
+		if (remappingKey)
+    {
+        return;
+    }
+		remappingKey = true;
+		remappingUpKey = true;
+		Up.Text = "Move Up: Press New Key";
+	}
+
+	private void _on_down_button_pressed()
+	{
+		if (remappingKey)
+    {
+        return;
+    }
+		remappingKey = true;
+		remappingDownKey = true;
+		Down.Text = "Move Down: Press New Key";
+		}
+	}
