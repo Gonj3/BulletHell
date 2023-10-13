@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Godot;
 
 public partial class Player : CharacterBody2D
@@ -12,6 +14,15 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
+
+	// Private animation variables
+	private AnimationPlayer animPlayer;
+	private float angle;
+
+    public override void _Ready()
+    {
+        animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -29,6 +40,44 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+		}
+
+		// Change player animaton
+		angle = velocity.Angle();
+		GD.Print(angle);
+
+		switch(angle) {
+			case -(float)Math.PI/2:
+				if(animPlayer.CurrentAnimation != "Up") 
+				{
+					animPlayer.Play("Up");
+				}
+				break;
+			case 0:
+				if(velocity != Vector2.Zero) 
+				{
+					if(animPlayer.CurrentAnimation != "Right") 
+					{
+						animPlayer.Play("Right");
+					}
+				}
+				else if(animPlayer.CurrentAnimation != "Up") 
+				{
+					animPlayer.Play("Up");
+				}
+				break;
+			case (float)Math.PI/2:
+				if(animPlayer.CurrentAnimation != "Down") 
+				{
+					animPlayer.Play("Down");
+				}
+				break;
+			case (float)Math.PI:
+				if(animPlayer.CurrentAnimation != "Left") 
+				{
+					animPlayer.Play("Left");
+				}
+				break;
 		}
 
 		Velocity = velocity;

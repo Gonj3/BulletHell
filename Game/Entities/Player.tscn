@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dttn837a7u1tf"]
+[gd_scene load_steps=11 format=3 uid="uid://dttn837a7u1tf"]
 
 [ext_resource type="Script" path="res://Game/Entities/Player.cs" id="1_8gdqu"]
-[ext_resource type="Texture2D" uid="uid://bswwsehn6yre6" path="res://Textures/icon.svg" id="2_xpgpb"]
+[ext_resource type="Texture2D" uid="uid://dr0r1700ct5k3" path="res://Media/Sprites/Player.png" id="2_s0h66"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmvwk"]
 size = Vector2(133, 127)
@@ -9,19 +9,113 @@ size = Vector2(133, 127)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2p7v"]
 size = Vector2(102, 102)
 
+[sub_resource type="Animation" id="Animation_0wqef"]
+resource_name = "Up"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_hxui2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8eaxu"]
+resource_name = "Right"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_opt05"]
+resource_name = "Down"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ch5en"]
+resource_name = "Left"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r36ir"]
+_data = {
+"Down": SubResource("Animation_opt05"),
+"Left": SubResource("Animation_ch5en"),
+"RESET": SubResource("Animation_hxui2"),
+"Right": SubResource("Animation_8eaxu"),
+"Up": SubResource("Animation_0wqef")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_8gdqu")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionDetectionBox" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(0.4, 0.4)
+position = Vector2(0, 3)
+scale = Vector2(0.2, 0.45)
 shape = SubResource("RectangleShape2D_gmvwk")
 debug_color = Color(0.8, 0.392157, 0.407843, 0.419608)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_xpgpb")
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_s0h66")
+hframes = 3
+vframes = 4
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -54.0
@@ -36,7 +130,14 @@ offset_right = 60.0
 offset_bottom = 97.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.62, 0.62)
+position = Vector2(0, 3.5)
+scale = Vector2(0.3, 0.6)
 shape = SubResource("RectangleShape2D_l2p7v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+libraries = {
+"": SubResource("AnimationLibrary_r36ir")
+}
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

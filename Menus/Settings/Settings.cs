@@ -190,6 +190,12 @@ public partial class Settings : Control, IOverlayItem
 		}
 	}
 
+	// controls option function
+	private void _on_controls_option_item_selected(int index)
+	{
+		string selectedOption = ((OptionButton)GetNode("settings/gameplay_settings/controls_option")).GetItemText(index);
+	}
+
 	// hide hud check box function
 	private void _on_hide_hud_check_pressed()
 	{
