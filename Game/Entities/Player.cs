@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Xml;
 using Godot;
 
 public partial class Player : CharacterBody2D
@@ -17,11 +18,20 @@ public partial class Player : CharacterBody2D
 
 	// Private animation variables
 	private AnimationPlayer animPlayer;
-	private float angle;
+	private bool running;
+	private Vector2 prevDirection;
+	private string[] animActions = {"Die", 
+	"Attack Up", "Attack Up-Right",
+	 "Attack Right", "Attack Down-Right",
+	  "Attack Down", "Attack Down-Left",
+	   "Attack Left", "Attack Up-Left"};
+
 
     public override void _Ready()
     {
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		prevDirection = Vector2.Zero;
+		running = true;
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -42,44 +52,132 @@ public partial class Player : CharacterBody2D
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
 		}
 
-		// Change player animaton
-		angle = velocity.Angle();
-		GD.Print(angle);
-
-		switch(angle) {
-			case -(float)Math.PI/2:
-				if(animPlayer.CurrentAnimation != "Up") 
-				{
-					animPlayer.Play("Up");
-				}
+		// Chek that the player is not performing a one-off action
+		string animation = animPlayer.CurrentAnimation;
+		foreach (string anim in animActions) 
+		{
+			if (anim == animation) 
+			{
+				running = false;
 				break;
-			case 0:
-				if(velocity != Vector2.Zero) 
+			} 
+			else 
+			{
+				running = true;
+			}
+		}
+		
+		// Start running or idle animations
+		if(running) {
+			if (direction != Vector2.Zero)
+			{
+				if (direction.X > 0) 
 				{
-					if(animPlayer.CurrentAnimation != "Right") 
+					if (direction.Y > 0)
+					{
+						animPlayer.Play("Down-Right");
+						prevDirection = Vector2.Right + Vector2.Down;
+					} 
+					else if (direction.Y < 0)
+					{
+						animPlayer.Play("Up-Right");
+						prevDirection = Vector2.Right + Vector2.Up;
+					}
+					else
 					{
 						animPlayer.Play("Right");
+						prevDirection = Vector2.Right;
+					}
+				} 
+				else if (direction.X < 0)
+				{
+					
+					if (direction.Y > 0)
+					{
+						animPlayer.Play("Down-Left");
+						prevDirection = Vector2.Left + Vector2.Down;
+					} 
+					else if (direction.Y < 0)
+					{
+						animPlayer.Play("Up-Left");
+						prevDirection = Vector2.Left + Vector2.Up;
+					}
+					else
+					{
+						animPlayer.Play("Left");
+						prevDirection = Vector2.Left;
 					}
 				}
-				else if(animPlayer.CurrentAnimation != "Up") 
+				else 
 				{
-					animPlayer.Play("Up");
+					if (direction.Y > 0)
+					{
+						animPlayer.Play("Down");
+						prevDirection = Vector2.Down;
+					} 
+					else if (direction.Y < 0)
+					{
+						animPlayer.Play("Up");
+						prevDirection = Vector2.Up;
+					}
 				}
-				break;
-			case (float)Math.PI/2:
-				if(animPlayer.CurrentAnimation != "Down") 
+			} 
+			else if (prevDirection != Vector2.Zero)
+			{
+				if (prevDirection.X > 0) 
 				{
-					animPlayer.Play("Down");
-				}
-				break;
-			case (float)Math.PI:
-				if(animPlayer.CurrentAnimation != "Left") 
+					if (prevDirection.Y > 0)
+					{
+						animPlayer.Play("Idle Down-Right");
+					} 
+					else if (prevDirection.Y < 0)
+					{
+						animPlayer.Play("Idle Up-Right");
+					}
+					else
+					{
+						animPlayer.Play("Idle Right");
+					}
+				} 
+				else if (prevDirection.X < 0)
 				{
-					animPlayer.Play("Left");
+					
+					if (prevDirection.Y > 0)
+					{
+						animPlayer.Play("Idle Down-Left");
+					} 
+					else if (prevDirection.Y < 0)
+					{
+						animPlayer.Play("Idle Up-Left");
+					}
+					else
+					{
+						animPlayer.Play("Idle Left");
+					}
 				}
-				break;
-		}
+				else 
+				{
+					if (prevDirection.Y > 0)
+					{
+						animPlayer.Play("Idle Down");
+					} 
+					else if (prevDirection.Y < 0)
+					{
+						animPlayer.Play("Idle Up");
+					}	
+				}
 
+			}
+			else 
+			{
+				if (animPlayer.CurrentAnimation != "Die" && animPlayer.IsPlaying() == false) 
+				{
+					animPlayer.Play("Idle Down");
+				}
+			}
+
+		}
+		
 		Velocity = velocity;
 		MoveAndSlide();
 	}
@@ -126,6 +224,11 @@ public partial class Player : CharacterBody2D
 			else
 			{
 				Lives--;
+
+				// Start death one-off animation
+				animPlayer.Stop();
+				animPlayer.Play("Die");
+				
 				Health = 100;
 			}
 		}
@@ -146,6 +249,58 @@ public partial class Player : CharacterBody2D
 		if (area is Enemy)
 		{
 			EmitSignal(SignalName.Kill);
+
+			// Start directional attack one-off animation
+			if (prevDirection != Vector2.Zero)
+			{
+				if (prevDirection.X > 0) 
+				{
+					if (prevDirection.Y > 0)
+					{
+						animPlayer.Play("Attack Down-Right");
+					} 
+					else if (prevDirection.Y < 0)
+					{
+						animPlayer.Play("Attack Up-Right");
+					}
+					else
+					{
+						animPlayer.Play("Attack Right");
+					}
+				} 
+				else if (prevDirection.X < 0)
+				{
+					
+					if (prevDirection.Y > 0)
+					{
+						animPlayer.Play("Attack Down-Left");
+					} 
+					else if (prevDirection.Y < 0)
+					{
+						animPlayer.Play("Attack Up-Left");
+					}
+					else
+					{
+						animPlayer.Play("Attack Left");
+					}
+				}
+				else 
+				{
+					if (prevDirection.Y > 0)
+					{
+						animPlayer.Play("Attack Down");
+					} 
+					else if (prevDirection.Y < 0)
+					{
+						animPlayer.Play("Attack Up");
+					}	
+				}
+
+			}
+			else 
+			{
+				animPlayer.Play("Attack Up");
+			}
 		}
 
 		area.QueueFree();
