@@ -272,11 +272,12 @@ public override void _Ready()
 		{
 			AcceptEvent();
 			Back();
+			return;
 		}
 
 		if (remappingKey && @event is InputEventKey keyEvent && keyEvent.Pressed)
 		{
-
+			
 		string currentUpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
         string currentDownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
         string currentLeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();

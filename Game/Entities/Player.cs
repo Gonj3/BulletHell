@@ -33,6 +33,21 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		//controller joystick controls
+		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down");
+		if (JoystickDirection != Vector2.Zero)
+		{
+			velocity = JoystickDirection.Normalized() * Speed;
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+		}
+
+		Velocity = velocity;
+		MoveAndSlide();
 	}
 
 	//takes health from player based on int damage
