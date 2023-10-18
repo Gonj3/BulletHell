@@ -8,7 +8,7 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void KillEventHandler();
 
-	public const float Speed = 300.0f;
+	public float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
@@ -101,8 +101,20 @@ public partial class Player : CharacterBody2D
 
 		if (area is PowerUp)
 		{
-			GD.Print("+Life");
-			this.Lives++;
+			GD.Print("PowerUp type" + (((PowerUp)area).type));
+			switch((((PowerUp)area).type))
+			{
+				case 0:
+					Heal((((PowerUp)area).healthIncrease));
+					break;
+				case 1:
+					this.Lives += (((PowerUp)area).lifeIncrease);
+					break;
+				case 2:
+					this.Speed += (((PowerUp)area).speedIncrease);
+					break;
+			}
+			
 		}
 
 		area.QueueFree();
