@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
+	public bool NoHealthMode = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -38,7 +39,14 @@ public partial class Player : CharacterBody2D
 	//takes health from player based on int damage
 	public void TakeDamage(int damage)
 	{
-		Health = Health - damage;
+		if(NoHealthMode == true)
+		{
+			Lives--;
+		}
+		else
+		{
+			Health = Health - damage;
+		}
 	}
 
 	//Heals Player by int amount, makes sure health never goes over 100
@@ -78,6 +86,13 @@ public partial class Player : CharacterBody2D
 			{
 				Lives--;
 				Health = 100;
+			}
+		}
+		if(NoHealthMode == true)
+		{
+			if(Lives <= 0)
+			{
+				EmitSignal(SignalName.Death);
 			}
 		}
 	}
