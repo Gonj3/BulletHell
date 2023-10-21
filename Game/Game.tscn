@@ -354,8 +354,6 @@ limit_top = 128
 limit_right = 2432
 limit_bottom = 1664
 limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
 
 [node name="Enemy" parent="World" instance=ExtResource("3_akldc")]
 position = Vector2(1252, 695)
