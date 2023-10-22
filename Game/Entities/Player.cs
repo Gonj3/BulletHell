@@ -13,7 +13,8 @@ public partial class Player : CharacterBody2D
 	public int Health = 100;
 	public int Lives = 3;
 	public bool NoHealthMode = false;
-
+	public int[] Items = {0, 0, 0, 0};
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		UpdateHealth();
@@ -121,12 +122,18 @@ public partial class Player : CharacterBody2D
 			{
 				case 0:
 					Heal((((PowerUp)area).healthIncrease));
+					Items[0]++;
 					break;
 				case 1:
 					this.Lives += (((PowerUp)area).lifeIncrease);
+					Items[1]++;
 					break;
 				case 2:
-					this.Speed += (((PowerUp)area).speedIncrease);
+					this.Speed += (((PowerUp)area).speedIncrease);;
+					Items[2]++;
+					break;
+				case 3:
+					Items[3]++;
 					break;
 			}
 			

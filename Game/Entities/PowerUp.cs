@@ -10,8 +10,14 @@ public partial class PowerUp : Area2D
 	
 	public void InitialiseType()
 	{
+		/*
+		0 - Health Increase
+		1 - Life++
+		2 - Speed Increase
+		3 - Bomb
+		*/
 		Random rand = new Random();
-		type = (int)rand.Next(0, 3);
+		type = (int)rand.Next(0, 4);
 	}
 	
 	// Called when the node enters the scene tree for the first time.
