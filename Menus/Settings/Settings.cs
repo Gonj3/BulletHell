@@ -276,52 +276,45 @@ public override void _Ready()
 		}
 
 		if (remappingKey && @event is InputEventKey keyEvent && keyEvent.Pressed)
-		{
-			
-		string currentUpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
-        string currentDownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
-        string currentLeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
-        string currentRightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
+		{	
+			string currentUpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
+			string currentDownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
+			string currentLeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
+			string currentRightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
 
 			if (remappingLeftKey)
 			{
-				 while (currentUpKey == keyEvent.AsText() ||currentDownKey == keyEvent.AsText() ||currentRightKey == keyEvent.AsText())
-            {
-                Left.Text = "Move Left: can't assign same key";
-                return;
-            }
+				while (currentUpKey == keyEvent.AsText() ||currentDownKey == keyEvent.AsText() ||currentRightKey == keyEvent.AsText())
+            	{
+            		Left.Text = "Move Left: can't assign same key";
+             		return;
+            	}
 				InputMap.ActionEraseEvents("ui_left");
 				InputMap.ActionAddEvent("ui_left", keyEvent);
 				Left.Text = "Move Left: " + keyEvent.AsText();
 			}
-
 			else if (remappingRightKey)
 			{
-
-				 while (currentUpKey == keyEvent.AsText() || currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText())
-            {
-                Right.Text = "Move Right: can't assign same key";
-                return;
+				while (currentUpKey == keyEvent.AsText() || currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText())
+            	{
+                	Right.Text = "Move Right: can't assign same key";
+                	return;
             }
-
-				InputMap.ActionEraseEvents("ui_right");
-				InputMap.ActionAddEvent("ui_right", keyEvent);
-				Right.Text = "Move Right: " + keyEvent.AsText();
+			InputMap.ActionEraseEvents("ui_right");
+			InputMap.ActionAddEvent("ui_right", keyEvent);
+			Right.Text = "Move Right: " + keyEvent.AsText();
 			}
-
 			else if (remappingUpKey)
-        {
-            while (currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText())
-            {
-                Up.Text = "Move Up: can't assign same key";
-                return;
-            }
-
-            InputMap.ActionEraseEvents("ui_up");
-            InputMap.ActionAddEvent("ui_up", keyEvent);
-            Up.Text = "Move Up: " + keyEvent.AsText();
+        	{
+            	while (currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText())
+            	{
+                	Up.Text = "Move Up: can't assign same key";
+                	return;
+           	 	}
+            	InputMap.ActionEraseEvents("ui_up");
+            	InputMap.ActionAddEvent("ui_up", keyEvent);
+            	Up.Text = "Move Up: " + keyEvent.AsText();
         }
-
         else if (remappingDownKey)
         {
            while (currentUpKey == keyEvent.AsText() ||currentLeftKey == keyEvent.AsText() ||currentRightKey == keyEvent.AsText())
@@ -333,13 +326,14 @@ public override void _Ready()
             InputMap.ActionAddEvent("ui_down", keyEvent);
             Down.Text = "Move Down: " + keyEvent.AsText();
         }
-			remappingKey = false;
-			remappingLeftKey = false;
-			remappingRightKey = false;
-			remappingUpKey = false;
-			remappingDownKey = false;
+		remappingKey = false;
+		remappingLeftKey = false;
+		remappingRightKey = false;
+		remappingUpKey = false;
+		remappingDownKey = false;
 		}
 	}
+
 	private bool remappingKey = false;
 	private bool remappingLeftKey = false;
 	private bool remappingRightKey = false;
@@ -349,9 +343,9 @@ public override void _Ready()
 	private void _on_left_button_pressed()
 	{
 		if (remappingKey)
-    {
-        return;
-    }
+    	{
+        	return;
+    	}
 		remappingKey = true;
 		remappingLeftKey = true;
 		Left.Text = "Move Left: Press New Key";
@@ -360,12 +354,12 @@ public override void _Ready()
 	private void _on_right_button_pressed()
 	{
 		if (remappingKey)
-    {
-        return;
-    }
-		remappingKey = true;
-		remappingRightKey = true;
-		Right.Text = "Move Right: Press New Key";
+    	{	
+        	return;
+    	}
+	remappingKey = true;
+	remappingRightKey = true;
+	Right.Text = "Move Right: Press New Key";
 	}
 
 	private void _on_up_button_pressed()
