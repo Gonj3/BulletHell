@@ -6,19 +6,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2nnt"]
 size = Vector2(36, 34)
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_y85vi")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_mgad5")
 
-[node name="HitBox" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_s2nnt")
 
 [node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.25
 autostart = true
 
-[connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
 [connection signal="timeout" from="FireTimer" to="." method="_OnFireTimerTimeout"]

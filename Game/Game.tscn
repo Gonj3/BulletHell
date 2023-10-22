@@ -355,14 +355,17 @@ limit_right = 2432
 limit_bottom = 1664
 limit_smoothed = true
 
-[node name="Enemy" parent="World" instance=ExtResource("3_akldc")]
+[node name="Enemy" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
 position = Vector2(1252, 695)
+player = NodePath("../Player")
 
-[node name="Enemy2" parent="World" instance=ExtResource("3_akldc")]
+[node name="Enemy2" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
 position = Vector2(1100, 636)
+player = NodePath("../Player")
 
-[node name="Enemy3" parent="World" instance=ExtResource("3_akldc")]
+[node name="Enemy3" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
 position = Vector2(1511, 615)
+player = NodePath("../Player")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

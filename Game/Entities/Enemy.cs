@@ -1,14 +1,12 @@
 using Godot;
 using System;
 
-public partial class Enemy : Area2D
+public partial class Enemy : CharacterBody2D, IDamageable
 {
-	private Vector2 velocity = new Vector2();
-	public float speed = 4.0f;
+	public float Speed = 50f;
 	public float ProjectileSpeed { get; set; } = 10.0f;
 	public int ProjectileCount { get; set; } = 1;
 	public float FireTimeout { get; set; } = 1.0f;
-	private float fireCount = 0;
 
 	public enum FiringStyle
 	{
@@ -19,8 +17,14 @@ public partial class Enemy : Area2D
 
 	public FiringStyle CurrentFiringStyle { get; set; } = FiringStyle.Spin;
 
-	private Timer fireTimer;
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
+
+	private float fireCount = 0;
 	private PackedScene projectileScene;
+	private Timer fireTimer;
+
+	[Export]
+	private Player player;
 
 	public override void _Ready()
 	{
@@ -34,7 +38,6 @@ public partial class Enemy : Area2D
 	{
 		Random random = new Random();
 		CurrentFiringStyle = (FiringStyle)random.Next(0, 3);
-		velocity = new Vector2((float)(2 * random.NextDouble()), (float)(2 * random.NextDouble())).Normalized() * speed;
 	}
 
 	private void InitializeFiringStyle()
@@ -63,7 +66,8 @@ public partial class Enemy : Area2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Position += velocity * (float)delta * speed;
+		Velocity = Position.DirectionTo(player.Position) * Speed;
+		MoveAndSlide();
 	}
 
 	public void _OnFireTimerTimeout()
@@ -112,23 +116,17 @@ public partial class Enemy : Area2D
 
 	private void FireProjectiles(float angleOffset)
 	{
-		var projInstance = projectileScene.Instantiate();
-		if (projInstance != null)
-		{
-			Vector2 rotatedVelocity = velocity.Rotated(angleOffset);
-			projInstance.Set("velocity", rotatedVelocity.Normalized() * ProjectileSpeed);
-			projInstance.Set("position", Position);
-			GetParent().AddChild(projInstance);
-		}
+		var projInstance = (Projectile)projectileScene.Instantiate();
+
+		projInstance.Angle = Position.AngleToPoint(player.Position) + angleOffset;
+		projInstance.Position = Position;
+
+		GetParent().AddChild(projInstance);
 	}
 
-	// Player collision may be removed entirely in favor of player side detection
-	public void _OnBodyEntered(Node2D body)
+	public void TakeDamage(int damage)
 	{
-		if (body.Name == "BoundsBody")
-		{
-			// remove self
-			QueueFree();
-		}
+		throw new NotImplementedException();
 	}
+
 }
