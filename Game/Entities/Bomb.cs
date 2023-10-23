@@ -19,12 +19,12 @@ public partial class Bomb : RigidBody2D, IDamageable
 		{
 			if (body is Enemy enemy)
 			{
-				var damage = BaseDamage - (GlobalPosition.DistanceTo(enemy.GlobalPosition)/10);
+				var damage = BaseDamage - (GlobalPosition.DistanceTo(enemy.GlobalPosition) / 10);
 				enemy.TakeDamage((int)damage, GlobalPosition);
 			}
 			else if (body is Player player)
 			{
-				var damage = BaseDamage - (GlobalPosition.DistanceTo(player.GlobalPosition)/10);
+				var damage = BaseDamage - (GlobalPosition.DistanceTo(player.GlobalPosition) / 10);
 				player.TakeDamage((int)damage, GlobalPosition);
 			}
 		}

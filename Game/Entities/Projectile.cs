@@ -8,8 +8,8 @@ public partial class Projectile : Area2D
 		Alt,
 		Player
 	}
-    public float Speed;
-    public int Damage;
+	public float Speed;
+	public int Damage;
 	public float Angle
 	{
 		get => _angle; set
@@ -20,23 +20,23 @@ public partial class Projectile : Area2D
 	}
 	private float _angle;
 	private Vector2 vector;
-    public DamageableKind Target { get; set; } = DamageableKind.Friendly;	
+	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
 
 	public void SetType(Type type)
-    {
+	{
 		var sprite = GetNode<Sprite2D>("Sprite");
 		var collisionShape = GetNode<CollisionShape2D>("HitBox");
-        switch (type)
-        {
-            case Type.Normal:
-                sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
+		switch (type)
+		{
+			case Type.Normal:
+				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
 				sprite.Scale = new Vector2(1f, 1f);
 				collisionShape.Shape = new CircleShape2D { Radius = 8f };
 				Damage = 20;
 				Speed = 200f;
 				break;
-            case Type.Alt:
+			case Type.Alt:
 				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/AltProjectileSprite.png");
 				sprite.Scale = new Vector2(2f, 2f);
 				collisionShape.Shape = new CircleShape2D { Radius = 16f };
@@ -44,14 +44,14 @@ public partial class Projectile : Area2D
 				Speed = 100f;
 				break;
 			case Type.Player:
-                sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
+				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
 				sprite.Scale = new Vector2(1f, 1f);
 				collisionShape.Shape = new CircleShape2D { Radius = 8f };
 				Damage = 30;
 				Speed = 1000f;
 				break;
-        }
-    }
+		}
+	}
 	public override void _PhysicsProcess(double delta)
 	{
 		Position += vector * Speed * (float)delta;

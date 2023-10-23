@@ -8,12 +8,10 @@ public partial class Boss : RigidBody2D, IDamageable
 	[Export]
 	private World world;
 
-	private PackedScene projectileScene;
 	private Timer FireTimer;
 	private Timer AltFireTimer;
 	public override void _Ready()
 	{
-		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		FireTimer = GetNode<Timer>("FireTimer");
 		FireTimer.WaitTime = 0.3f;
 		FireTimer.Start();
@@ -28,12 +26,12 @@ public partial class Boss : RigidBody2D, IDamageable
 	{
 		ConstantForce = Position.DirectionTo(player.Position) * Speed;
 	}
-	
+
 	private int ProjectileCount = 8;
 	private int fireCount = 0;
 	public void _OnFireTimerTimeout()
 	{
-    	for (int i = 0; i < ProjectileCount; i++)
+		for (int i = 0; i < ProjectileCount; i++)
 		{
 			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i) + fireCount * 10000;
 			float angle = Position.AngleToPoint(player.Position) + angleOffset;
@@ -43,8 +41,8 @@ public partial class Boss : RigidBody2D, IDamageable
 	}
 
 	public void _OnAltFireTimerTimeout()
-	{ 
-    	for (int i = 0; i < ProjectileCount; i++)
+	{
+		for (int i = 0; i < ProjectileCount; i++)
 		{
 			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i);
 			float angle = Position.AngleToPoint(player.Position) + angleOffset;
