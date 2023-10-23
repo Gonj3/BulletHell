@@ -14,6 +14,9 @@ public partial class ProfileMenu : Control
 	[Export]
 	private Label TimeAliveLabel;
 
+	[Export]
+	private Label ItemsLabel;
+
 	public override void _Ready()
 	{
 		var p = this.GetSaveGame().Profile;
@@ -22,6 +25,7 @@ public partial class ProfileMenu : Control
 		KillsLabel.Text = p.Kills.ToString();
 		DeathsLabel.Text = p.Deaths.ToString();
 		TimeAliveLabel.Text = Util.FormatSeconds(p.TimeAlive);
+		ItemsLabel.Text = p.ItemsCollected.ToString();
 	}
 	
 	private void _on_button_pressed()

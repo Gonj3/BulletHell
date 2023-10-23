@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
-[ext_resource type="PackedScene" uid="uid://coprixpf0itce" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
+[ext_resource type="PackedScene" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lfkvk"]
 size = Vector2(33, 657)

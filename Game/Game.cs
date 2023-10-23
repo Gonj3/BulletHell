@@ -31,6 +31,9 @@ public partial class Game : Node
 		saveGame.Profile.Kills += Kills;
 		saveGame.Profile.Deaths += 1;
 		saveGame.Profile.TimeAlive += Timer;
+		uint sum = 0;
+		Array.ForEach(((Player)GetNode("World/Player")).Items, delegate(int i) { sum += (uint)i; });
+		saveGame.Profile.ItemsCollected += sum;
 		saveGame.Save();
 
 		var deathScreen = ResourceLoader.Load<PackedScene>("res://Game/DeathScreen.tscn");
