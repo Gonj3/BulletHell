@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Enemy : CharacterBody2D, IDamageable
+public partial class Enemy : RigidBody2D, IDamageable
 {
 	public float Speed = 50f;
 	public float ProjectileSpeed { get; set; } = 10.0f;
@@ -66,8 +66,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Velocity = Position.DirectionTo(player.Position) * Speed;
-		MoveAndSlide();
+		LinearVelocity = Position.DirectionTo(player.Position) * Speed;
 	}
 
 	public void _OnFireTimerTimeout()
