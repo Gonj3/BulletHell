@@ -50,7 +50,6 @@ public partial class Boss : RigidBody2D, IDamageable
 			FireProjectiles(angleOffset);
 		}
 		fireCount = (fireCount + 1) % ProjectileCount;
-		GD.Print(fireCount);
 	}
 	private void FireProjectiles(float angleOffset)
 	{

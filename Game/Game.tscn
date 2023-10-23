@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=11 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
 [ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="6_ual6s"]
+[ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="7_wtxte"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
 texture = ExtResource("2_81bd2")
@@ -360,20 +361,24 @@ script = ExtResource("4_l4yhj")
 tileMap = NodePath("../../TileMap")
 
 [node name="Enemy" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
-position = Vector2(1252, 695)
+position = Vector2(824, 769)
 player = NodePath("../Player")
 
 [node name="Enemy2" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
-position = Vector2(1100, 636)
+position = Vector2(1050, 721)
 player = NodePath("../Player")
 
 [node name="Enemy3" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
-position = Vector2(1511, 615)
+position = Vector2(887, 661)
 player = NodePath("../Player")
 
 [node name="Boss" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("6_ual6s")]
-position = Vector2(879, 683)
+position = Vector2(1275, 639)
 mass = 10000.0
+player = NodePath("../Player")
+
+[node name="Bomb" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("7_wtxte")]
+position = Vector2(909, 926)
 player = NodePath("../Player")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
