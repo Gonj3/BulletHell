@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6eqfulvemucm"]
+[gd_scene load_steps=4 format=3 uid="uid://coprixpf0itce"]
 
 [ext_resource type="Script" path="res://Game/Entities/PowerUp.cs" id="1_1ry1e"]
 [ext_resource type="Texture2D" uid="uid://bswwsehn6yre6" path="res://Textures/icon.svg" id="2_s27ws"]
@@ -16,3 +16,5 @@ shape = SubResource("RectangleShape2D_3xnki")
 position = Vector2(7.62939e-06, -1.19209e-07)
 scale = Vector2(0.4375, 0.449219)
 texture = ExtResource("2_s27ws")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

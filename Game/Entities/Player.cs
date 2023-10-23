@@ -114,31 +114,6 @@ public partial class Player : CharacterBody2D
 		{
 			EmitSignal(SignalName.Kill);
 		}
-
-		if (area is PowerUp)
-		{
-			GD.Print("PowerUp type" + (((PowerUp)area).type));
-			switch((((PowerUp)area).type))
-			{
-				case 0:
-					Heal((((PowerUp)area).healthIncrease));
-					Items[0]++;
-					break;
-				case 1:
-					this.Lives += (((PowerUp)area).lifeIncrease);
-					Items[1]++;
-					break;
-				case 2:
-					this.Speed += (((PowerUp)area).speedIncrease);;
-					Items[2]++;
-					break;
-				case 3:
-					Items[3]++;
-					break;
-			}
-			
-		}
-
 		area.QueueFree();
 	}
 }
