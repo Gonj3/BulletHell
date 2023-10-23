@@ -5,10 +5,11 @@ public partial class Projectile : Area2D
 	public enum Type
 	{
 		Normal,
-		Alt
+		Alt,
+		Player
 	}
-    public float Speed { get; set; } = 200f;
-    public int Damage { get; set; } = 20;
+    public float Speed;
+    public int Damage;
 	public float Angle
 	{
 		get => _angle; set
@@ -30,13 +31,24 @@ public partial class Projectile : Area2D
         {
             case Type.Normal:
                 sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
-				sprite.Scale = new Vector2(0.5f, 0.5f);
+				sprite.Scale = new Vector2(1f, 1f);
 				collisionShape.Shape = new CircleShape2D { Radius = 8f };
+				Damage = 20;
+				Speed = 200f;
 				break;
             case Type.Alt:
 				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/AltProjectileSprite.png");
-				sprite.Scale = new Vector2(1f, 1f);
+				sprite.Scale = new Vector2(2f, 2f);
 				collisionShape.Shape = new CircleShape2D { Radius = 16f };
+				Damage = 40;
+				Speed = 100f;
+				break;
+			case Type.Player:
+                sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
+				sprite.Scale = new Vector2(1f, 1f);
+				collisionShape.Shape = new CircleShape2D { Radius = 8f };
+				Damage = 30;
+				Speed = 1000f;
 				break;
         }
     }

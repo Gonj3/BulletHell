@@ -37,7 +37,7 @@ public partial class Boss : RigidBody2D, IDamageable
 		{
 			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i) + fireCount * 10000;
 			float angle = Position.AngleToPoint(player.Position) + angleOffset;
-			world.SpawnProjectile(Position, angle, 100f, DamageableKind.Friendly, Projectile.Type.Normal);
+			world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 		}
 		fireCount++;
 	}
@@ -48,7 +48,7 @@ public partial class Boss : RigidBody2D, IDamageable
 		{
 			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i);
 			float angle = Position.AngleToPoint(player.Position) + angleOffset;
-			world.SpawnProjectile(Position, angle, 200f, DamageableKind.Friendly, Projectile.Type.Alt);
+			world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Alt);
 		}
 	}
 
