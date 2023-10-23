@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=10 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
+[ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="6_ual6s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
 texture = ExtResource("2_81bd2")
@@ -368,6 +369,11 @@ player = NodePath("../Player")
 
 [node name="Enemy3" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("3_akldc")]
 position = Vector2(1511, 615)
+player = NodePath("../Player")
+
+[node name="Boss" parent="World" node_paths=PackedStringArray("player") instance=ExtResource("6_ual6s")]
+position = Vector2(879, 683)
+mass = 10000.0
 player = NodePath("../Player")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
