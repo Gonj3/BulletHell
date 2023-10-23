@@ -13,7 +13,7 @@ public partial class Projectile : Area2D
 
 	public float Speed { get; set; } = 200f;
 	public int Damage { get; set; } = 20;
-	public DamageableKind target { get; set; } = DamageableKind.Friendly;
+	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
 
 	private float _angle;
@@ -29,9 +29,9 @@ public partial class Projectile : Area2D
 		if (body is TileMap)
 			QueueFree();
 
-		if (body is IDamageable damageable && damageable.DamageableKind == target)
+		if (body is IDamageable damageable && damageable.DamageableKind == Target)
 		{
-			damageable.TakeDamage(Damage);
+			damageable.TakeDamage(Damage, vector);
 			QueueFree();
 		}
 	}

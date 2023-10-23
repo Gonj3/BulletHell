@@ -8,6 +8,8 @@ public partial class Enemy : RigidBody2D, IDamageable
 	public int ProjectileCount { get; set; } = 1;
 	public float FireTimeout { get; set; } = 1.0f;
 
+	public int Health = 100;
+
 	public enum FiringStyle
 	{
 		Spin,
@@ -20,15 +22,19 @@ public partial class Enemy : RigidBody2D, IDamageable
 	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 
 	private float fireCount = 0;
-	private PackedScene projectileScene;
 	private Timer fireTimer;
 
 	[Export]
 	private Player player;
 
+	[Export]
+	private World world;
+
+	[Export]
+	private AnimationPlayer spriteAnim;
+
 	public override void _Ready()
 	{
-		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		InitializeRandomValues();
 		InitializeFiringStyle();
 		InitializeFireTimer();
@@ -66,7 +72,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		LinearVelocity = Position.DirectionTo(player.Position) * Speed;
+		ConstantForce = Position.DirectionTo(player.Position) * Speed;
 	}
 
 	public void _OnFireTimerTimeout()
@@ -115,17 +121,17 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	private void FireProjectiles(float angleOffset)
 	{
-		var projInstance = (Projectile)projectileScene.Instantiate();
-
-		projInstance.Angle = Position.AngleToPoint(player.Position) + angleOffset;
-		projInstance.Position = Position;
-
-		GetParent().AddChild(projInstance);
+		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly);
 	}
 
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, Vector2 direction)
 	{
-		throw new NotImplementedException();
-	}
+		Health -= damage;
 
+		spriteAnim.Play("damage_flash");
+		ApplyImpulse(direction * 40);
+
+		if (Health <= 0)
+			QueueFree();
+	}
 }
