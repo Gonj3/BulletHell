@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://Game/Entities/Bomb.cs" id="1_s50lt"]
 [ext_resource type="Texture2D" uid="uid://bvtfjeagv5khq" path="res://Textures/bombplaceholder.png" id="1_uf5ia"]
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_eoesy"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xmdq4"]
+radius = 23.0217
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lpr28"]
 radius = 334.724
@@ -12,7 +13,7 @@ radius = 334.724
 script = ExtResource("1_s50lt")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("ConvexPolygonShape2D_eoesy")
+shape = SubResource("CircleShape2D_xmdq4")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -24,5 +25,6 @@ texture = ExtResource("1_uf5ia")
 
 [node name="Area" type="CollisionShape2D" parent="ExplosionRadius"]
 shape = SubResource("CircleShape2D_lpr28")
+debug_color = Color(0.811765, 0, 0.109804, 0.419608)
 
 [connection signal="timeout" from="ExplosionTimer" to="." method="_OnExplosionTimerTimeout"]
