@@ -62,8 +62,9 @@ _data = {
 "Shoot": SubResource("Animation_gsxeb")
 }
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" node_paths=PackedStringArray("animPlayer")]
 script = ExtResource("1_y85vi")
+animPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -46,8 +46,9 @@ _data = {
 "idle": SubResource("Animation_syjv1")
 }
 
-[node name="Projectile" type="Area2D"]
+[node name="Projectile" type="Area2D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_358jk")
+sprite = NodePath("Sprite")
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_w5b1n")

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Xml;
 using Godot;
@@ -17,21 +18,17 @@ public partial class Player : CharacterBody2D
 	public int Lives = 3;
 
 	// Private animation variables
+	[Export]
 	private AnimationPlayer animPlayer;
-	private bool running;
+	private bool animBusy = false;
 	private Vector2 prevDirection;
 	private string[] animActions = {"Die", 
-	"Attack Up", "Attack Up-Right",
-	 "Attack Right", "Attack Down-Right",
-	  "Attack Down", "Attack Down-Left",
-	   "Attack Left", "Attack Up-Left"};
-
+	"Attack0", "Attack1", "Attack2", "Attack3",
+	"Attack4", "Attack5", "Attack6", "Attack7"};
 
     public override void _Ready()
     {
-        animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		prevDirection = Vector2.Zero;
-		running = true;
+		animPlayer.Play("Idle Down");
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -58,124 +55,27 @@ public partial class Player : CharacterBody2D
 		{
 			if (anim == animation) 
 			{
-				running = false;
+				animBusy = true;
 				break;
 			} 
 			else 
 			{
-				running = true;
+				animBusy = false;
 			}
 		}
 		
 		// Start running or idle animations
-		if(running) {
-			if (direction != Vector2.Zero)
+		if (!animBusy)
+		{
+			if(direction != Vector2.Zero) 
 			{
-				if (direction.X > 0) 
-				{
-					if (direction.Y > 0)
-					{
-						animPlayer.Play("Down-Right");
-						prevDirection = Vector2.Right + Vector2.Down;
-					} 
-					else if (direction.Y < 0)
-					{
-						animPlayer.Play("Up-Right");
-						prevDirection = Vector2.Right + Vector2.Up;
-					}
-					else
-					{
-						animPlayer.Play("Right");
-						prevDirection = Vector2.Right;
-					}
-				} 
-				else if (direction.X < 0)
-				{
-					
-					if (direction.Y > 0)
-					{
-						animPlayer.Play("Down-Left");
-						prevDirection = Vector2.Left + Vector2.Down;
-					} 
-					else if (direction.Y < 0)
-					{
-						animPlayer.Play("Up-Left");
-						prevDirection = Vector2.Left + Vector2.Up;
-					}
-					else
-					{
-						animPlayer.Play("Left");
-						prevDirection = Vector2.Left;
-					}
-				}
-				else 
-				{
-					if (direction.Y > 0)
-					{
-						animPlayer.Play("Down");
-						prevDirection = Vector2.Down;
-					} 
-					else if (direction.Y < 0)
-					{
-						animPlayer.Play("Up");
-						prevDirection = Vector2.Up;
-					}
-				}
-			} 
-			else if (prevDirection != Vector2.Zero)
-			{
-				if (prevDirection.X > 0) 
-				{
-					if (prevDirection.Y > 0)
-					{
-						animPlayer.Play("Idle Down-Right");
-					} 
-					else if (prevDirection.Y < 0)
-					{
-						animPlayer.Play("Idle Up-Right");
-					}
-					else
-					{
-						animPlayer.Play("Idle Right");
-					}
-				} 
-				else if (prevDirection.X < 0)
-				{
-					
-					if (prevDirection.Y > 0)
-					{
-						animPlayer.Play("Idle Down-Left");
-					} 
-					else if (prevDirection.Y < 0)
-					{
-						animPlayer.Play("Idle Up-Left");
-					}
-					else
-					{
-						animPlayer.Play("Idle Left");
-					}
-				}
-				else 
-				{
-					if (prevDirection.Y > 0)
-					{
-						animPlayer.Play("Idle Down");
-					} 
-					else if (prevDirection.Y < 0)
-					{
-						animPlayer.Play("Idle Up");
-					}	
-				}
-
+				animPlayer.Play("" + _getAnimSide(direction));
+				prevDirection = direction;
 			}
-			else 
+			else
 			{
-				if (animPlayer.CurrentAnimation != "Die" && animPlayer.IsPlaying() == false) 
-				{
-					animPlayer.Play("Idle Down");
-				}
+				animPlayer.Play("Idle" + _getAnimSide(prevDirection));
 			}
-
 		}
 		
 		Velocity = velocity;
@@ -251,58 +151,18 @@ public partial class Player : CharacterBody2D
 			EmitSignal(SignalName.Kill);
 
 			// Start directional attack one-off animation
-			if (prevDirection != Vector2.Zero)
-			{
-				if (prevDirection.X > 0) 
-				{
-					if (prevDirection.Y > 0)
-					{
-						animPlayer.Play("Attack Down-Right");
-					} 
-					else if (prevDirection.Y < 0)
-					{
-						animPlayer.Play("Attack Up-Right");
-					}
-					else
-					{
-						animPlayer.Play("Attack Right");
-					}
-				} 
-				else if (prevDirection.X < 0)
-				{
-					
-					if (prevDirection.Y > 0)
-					{
-						animPlayer.Play("Attack Down-Left");
-					} 
-					else if (prevDirection.Y < 0)
-					{
-						animPlayer.Play("Attack Up-Left");
-					}
-					else
-					{
-						animPlayer.Play("Attack Left");
-					}
-				}
-				else 
-				{
-					if (prevDirection.Y > 0)
-					{
-						animPlayer.Play("Attack Down");
-					} 
-					else if (prevDirection.Y < 0)
-					{
-						animPlayer.Play("Attack Up");
-					}	
-				}
-
-			}
-			else 
-			{
-				animPlayer.Play("Attack Up");
-			}
+			animPlayer.Play("Attack" + _getAnimSide(prevDirection));
 		}
 
 		area.QueueFree();
 	}
+
+	// Private function to get an integer referring to the animation direction from a vector of movement
+	
+	private int _getAnimSide(Vector2 animDirection) 
+	{
+		int animAngle = Mathf.RoundToInt(Mathf.Snapped(animDirection.Angle(), (Math.PI / 4)) / (Math.PI / 4));
+		animAngle = Mathf.Wrap(animAngle, 0, 8);
+		return animAngle;
+	} 
 }

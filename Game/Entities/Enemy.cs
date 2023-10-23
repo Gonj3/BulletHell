@@ -10,6 +10,7 @@ public partial class Enemy : Area2D
 	public float FireTimeout { get; set; } = 1.0f;
 	private float fireCount = 0;
 
+	[Export]
 	private AnimationPlayer animPlayer;
 
 	public enum FiringStyle
@@ -26,7 +27,6 @@ public partial class Enemy : Area2D
 
 	public override void _Ready()
 	{
-		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		InitializeRandomValues();
 		InitializeFiringStyle();

@@ -6,12 +6,8 @@ public partial class Projectile : Area2D
 	public float duration = 40;
 
 	// Private variable to improve performance
+	[Export]
 	private Sprite2D sprite;
-
-    public override void _Ready()
-    {
-        sprite = GetNode<Sprite2D>("Sprite");
-    }
 
     public override void _PhysicsProcess(double delta)
 	{
