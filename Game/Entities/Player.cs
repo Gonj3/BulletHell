@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IDamageable
 {
 	[Signal]
 	public delegate void DeathEventHandler();
@@ -13,8 +13,19 @@ public partial class Player : CharacterBody2D
 	public int Health = 100;
 	public int Lives = 3;
 
+	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
+
+	private bool takenDamageThisTick = false;
+
+	[Export]
+	private World world;
+
+	[Export]
+	private Timer fireTimer;
+
 	public override void _PhysicsProcess(double delta)
 	{
+		takenDamageThisTick = false;
 		UpdateHealth();
 		UpdateLives();
 		CheckLostLives();
@@ -35,12 +46,22 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
+		{
+			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy);
+			fireTimer.Start();
+		}
 	}
 
 	//takes health from player based on int damage
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, Vector2 _)
 	{
-		Health = Health - damage;
+		if (!takenDamageThisTick)
+		{
+			takenDamageThisTick = true;
+			Health -= damage;
+		}
 	}
 
 	//Heals Player by int amount, makes sure health never goes over 100
@@ -82,25 +103,5 @@ public partial class Player : CharacterBody2D
 				Health = 100;
 			}
 		}
-	}
-
-	public void _on_area_2d_area_entered(Area2D area)
-	{
-		if (!(area is Projectile) && !(area is Enemy))
-		{
-			return;
-		}
-
-		if (area is Projectile)
-		{
-			TakeDamage(20);
-		}
-
-		if (area is Enemy)
-		{
-			EmitSignal(SignalName.Kill);
-		}
-
-		area.QueueFree();
 	}
 }
