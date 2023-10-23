@@ -17,6 +17,12 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	private bool takenDamageThisTick = false;
 
+	[Export]
+	private World world;
+
+	[Export]
+	private Timer fireTimer;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		takenDamageThisTick = false;
@@ -38,10 +44,16 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
+		{
+			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy);
+			fireTimer.Start();
+		}
 	}
 
 	//takes health from player based on int damage
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, Vector2 _)
 	{
 		if (!takenDamageThisTick)
 		{

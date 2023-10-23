@@ -6,8 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2p7v"]
 size = Vector2(102, 102)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("fireTimer")]
 script = ExtResource("1_8gdqu")
+fireTimer = NodePath("FireTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -28,3 +29,8 @@ offset_bottom = 97.0
 [node name="Collision" type="CollisionShape2D" parent="."]
 scale = Vector2(0.62, 0.62)
 shape = SubResource("RectangleShape2D_l2p7v")
+
+[node name="FireTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
