@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bisw6ask4hfnm"]
+
+[ext_resource type="Script" path="res://Game/Entities/Bomb.cs" id="1_s50lt"]
+[ext_resource type="Texture2D" uid="uid://bvtfjeagv5khq" path="res://Textures/bombplaceholder.png" id="1_uf5ia"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hfhti"]
+
+[node name="Bomb" type="RigidBody2D"]
+script = ExtResource("1_s50lt")
+
+[node name="Area" type="CollisionShape2D" parent="."]
+scale = Vector2(9, 9)
+shape = SubResource("CircleShape2D_hfhti")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_uf5ia")
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ExplosionTimer" to="." method="_OnExplosionTimerTimeout"]

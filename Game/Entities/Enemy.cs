@@ -8,6 +8,8 @@ public partial class Enemy : RigidBody2D, IDamageable
 	public int ProjectileCount { get; set; } = 1;
 	public float FireTimeout { get; set; } = 1.0f;
 
+	public int Health = 30;
+
 	public enum FiringStyle
 	{
 		Spin,
@@ -125,7 +127,9 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	public void TakeDamage(int damage)
 	{
-		throw new NotImplementedException();
+		Health -= damage;
+        if (Health <= 0)
+            QueueFree();
 	}
 
 }

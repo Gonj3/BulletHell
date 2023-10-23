@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dco8dowi0gb0n"]
+
+[ext_resource type="Script" path="res://Game/Entities/Boss.cs" id="1_7safe"]
+[ext_resource type="Texture2D" uid="uid://dswfwpgvf2pvd" path="res://Textures/EnemySprite.png" id="1_xtt24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6x3od"]
+size = Vector2(36, 34)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+script = ExtResource("1_7safe")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_6x3od")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("1_xtt24")
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="AltFireTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FireTimer" to="." method="_OnFireTimerTimeout"]
+[connection signal="timeout" from="AltFireTimer" to="." method="_OnAltFireTimerTimeout"]
