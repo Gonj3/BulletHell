@@ -121,7 +121,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	private void FireProjectiles(float angleOffset)
 	{
-		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly);
+		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly, Projectile.ProjectileType.Normal);
 	}
 
 	public void TakeDamage(int damage, Vector2 direction)

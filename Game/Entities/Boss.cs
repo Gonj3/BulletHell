@@ -13,6 +13,8 @@ public partial class Boss : RigidBody2D, IDamageable
 	private Timer AltFireTimer;
 	[Export]
 	private Player player;
+	[Export]
+	private World world;
 	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 
 	public override void _Ready()
@@ -29,7 +31,7 @@ public partial class Boss : RigidBody2D, IDamageable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		LinearVelocity = Position.DirectionTo(player.Position) * Speed;
+		ConstantForce = Position.DirectionTo(player.Position) * Speed;
 	}
 	
 	public void _OnFireTimerTimeout()
@@ -53,17 +55,14 @@ public partial class Boss : RigidBody2D, IDamageable
 	}
 	private void FireProjectile(float angleOffset)
 	{
-		var projInstance = (Projectile)projectileScene.Instantiate();
-
-		projInstance.Position = Position;
-		projInstance.Angle = angleOffset;
-
-		GetParent().AddChild(projInstance);
+		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly, Projectile.ProjectileType.Alt);
 	}
 
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, Vector2 direction)
 	{
 		Health -= damage;
+
+		ApplyImpulse(direction * 40);
 		if (Health <= 0)
 		{
 			QueueFree();

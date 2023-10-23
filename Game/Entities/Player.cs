@@ -47,7 +47,7 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
-			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy);
+			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy, Projectile.ProjectileType.Normal);
 			fireTimer.Start();
 		}
 	}

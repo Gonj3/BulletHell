@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=12 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
-[ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="6_ual6s"]
-[ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="7_wtxte"]
+[ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="7_ngsqc"]
+[ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="8_cax2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
 texture = ExtResource("2_81bd2")
@@ -377,6 +377,14 @@ world = NodePath("..")
 position = Vector2(1511, 615)
 player = NodePath("../Player")
 world = NodePath("..")
+
+[node name="Boss" parent="World" node_paths=PackedStringArray("player", "world") instance=ExtResource("7_ngsqc")]
+position = Vector2(894, 823)
+player = NodePath("../Player")
+world = NodePath("..")
+
+[node name="Bomb" parent="World" instance=ExtResource("8_cax2o")]
+position = Vector2(1123, 818)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

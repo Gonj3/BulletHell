@@ -1,10 +1,11 @@
 using Godot;
 
-public partial class Bomb : RigidBody2D
+public partial class Bomb : RigidBody2D, IDamageable
 {
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	private Timer timer;
 	private int Damage = 50;
-	private float Timeout = 2f;
+	private float Timeout = 5f;
 	
 	public override void _Ready()
 	{
@@ -20,11 +21,11 @@ public partial class Bomb : RigidBody2D
 		{
 			if (body is Enemy enemy)
 			{
-				enemy.TakeDamage(Damage - (int)(GlobalPosition.DistanceTo(enemy.GlobalPosition)/10));
+				enemy.TakeDamage(Damage - (int)(GlobalPosition.DistanceTo(enemy.GlobalPosition)/10), GlobalPosition);
 			}
 			if (body is Player player)
 			{
-				player.TakeDamage(Damage - (int)(GlobalPosition.DistanceTo(player.GlobalPosition)/10));
+				player.TakeDamage(Damage - (int)(GlobalPosition.DistanceTo(player.GlobalPosition)/10), GlobalPosition);
 			}
 		}
 		foreach (var proj in area.GetOverlappingAreas())
@@ -32,5 +33,9 @@ public partial class Bomb : RigidBody2D
 			proj.QueueFree();
 		}
 		QueueFree();
+	}
+	public void TakeDamage(int damage, Vector2 direction)
+	{
+		ApplyImpulse(direction * 40);
 	}
 }
