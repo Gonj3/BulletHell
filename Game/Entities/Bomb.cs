@@ -1,11 +1,7 @@
 using Godot;
-using System;
 
 public partial class Bomb : RigidBody2D
 {
-	[Export]
-	private Player player;
-	
 	private Timer timer;
 	private int Damage = 50;
 	private float Timeout = 2f;

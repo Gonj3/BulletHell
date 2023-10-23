@@ -47,11 +47,11 @@ public partial class Boss : RigidBody2D, IDamageable
     	for (int i = 0; i < ProjectileCount; i++)
 		{
 			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i) + fireCount * 1000;
-			FireProjectiles(angleOffset);
+			FireProjectile(angleOffset);
 		}
 		fireCount = (fireCount + 1) % ProjectileCount;
 	}
-	private void FireProjectiles(float angleOffset)
+	private void FireProjectile(float angleOffset)
 	{
 		var projInstance = (Projectile)projectileScene.Instantiate();
 
