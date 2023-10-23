@@ -3,61 +3,57 @@ using System;
 
 public partial class Boss : RigidBody2D, IDamageable
 {
-	public float Speed = 10f;
-	public int Health = 200;
-	private float ProjectileSpeed = 50f;
-	private int ProjectileCount = 8;
-	private int fireCount = 0;
-	private PackedScene projectileScene;
-	private Timer FireTimer;
-	private Timer AltFireTimer;
 	[Export]
 	private Player player;
 	[Export]
 	private World world;
-	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 
+	private PackedScene projectileScene;
+	private Timer FireTimer;
+	private Timer AltFireTimer;
 	public override void _Ready()
 	{
 		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		FireTimer = GetNode<Timer>("FireTimer");
-		FireTimer.WaitTime = 0.7f;
+		FireTimer.WaitTime = 0.3f;
 		FireTimer.Start();
 
 		AltFireTimer = GetNode<Timer>("AltFireTimer");
-		AltFireTimer.WaitTime = 10f;
+		AltFireTimer.WaitTime = 3f;
 		AltFireTimer.Start();
 	}
 
+	public float Speed = 10f;
 	public override void _PhysicsProcess(double delta)
 	{
 		ConstantForce = Position.DirectionTo(player.Position) * Speed;
 	}
 	
+	private int ProjectileCount = 8;
+	private int fireCount = 0;
 	public void _OnFireTimerTimeout()
 	{
-		Fire();
+    	for (int i = 0; i < ProjectileCount; i++)
+		{
+			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i) + fireCount * 10000;
+			float angle = Position.AngleToPoint(player.Position) + angleOffset;
+			world.SpawnProjectile(Position, angle, 100f, DamageableKind.Friendly, Projectile.Type.Normal);
+		}
+		fireCount++;
 	}
 
 	public void _OnAltFireTimerTimeout()
 	{ 
-		// Todo: adaptable projectile types.
-	}
-
-	private void Fire()
-	{
     	for (int i = 0; i < ProjectileCount; i++)
 		{
-			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i) + fireCount * 1000;
-			FireProjectile(angleOffset);
+			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i);
+			float angle = Position.AngleToPoint(player.Position) + angleOffset;
+			world.SpawnProjectile(Position, angle, 200f, DamageableKind.Friendly, Projectile.Type.Alt);
 		}
-		fireCount = (fireCount + 1) % ProjectileCount;
-	}
-	private void FireProjectile(float angleOffset)
-	{
-		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly, Projectile.ProjectileType.Alt);
 	}
 
+	public int Health = 200;
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	public void TakeDamage(int damage, Vector2 direction)
 	{
 		Health -= damage;

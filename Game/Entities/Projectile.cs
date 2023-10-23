@@ -2,7 +2,7 @@ using System;
 using Godot;
 public partial class Projectile : Area2D
 {
-	public enum ProjectileType
+	public enum Type
 	{
 		Normal,
 		Alt
@@ -22,18 +22,18 @@ public partial class Projectile : Area2D
     public DamageableKind Target { get; set; } = DamageableKind.Friendly;	
 
 
-	public void SetType(ProjectileType type)
+	public void SetType(Type type)
     {
 		var sprite = GetNode<Sprite2D>("Sprite");
 		var collisionShape = GetNode<CollisionShape2D>("HitBox");
         switch (type)
         {
-            case ProjectileType.Normal:
+            case Type.Normal:
                 sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
 				sprite.Scale = new Vector2(0.5f, 0.5f);
 				collisionShape.Shape = new CircleShape2D { Radius = 8f };
 				break;
-            case ProjectileType.Alt:
+            case Type.Alt:
 				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/AltProjectileSprite.png");
 				sprite.Scale = new Vector2(1f, 1f);
 				collisionShape.Shape = new CircleShape2D { Radius = 16f };

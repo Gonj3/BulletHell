@@ -9,7 +9,7 @@ public partial class World : Node2D
 		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 	}
 
-	public void SpawnProjectile(Vector2 pos, float angle, float speed, DamageableKind target, Projectile.ProjectileType type)
+	public void SpawnProjectile(Vector2 pos, float angle, float speed, DamageableKind target, Projectile.Type type)
 	{
 		var projInstance = (Projectile)projectileScene.Instantiate();
 

@@ -2,11 +2,8 @@ using Godot;
 
 public partial class Bomb : RigidBody2D, IDamageable
 {
-	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
+	private float Timeout = 3f;
 	private Timer timer;
-	private int Damage = 50;
-	private float Timeout = 5f;
-	
 	public override void _Ready()
 	{
 		timer = GetNode<Timer>("ExplosionTimer");
@@ -14,6 +11,7 @@ public partial class Bomb : RigidBody2D, IDamageable
 		timer.Start();
 	}
 
+	private int BaseDamage = 50;
 	private void _OnExplosionTimerTimeout()
 	{
 		var area = GetNode<Area2D>("ExplosionRadius");
@@ -21,19 +19,26 @@ public partial class Bomb : RigidBody2D, IDamageable
 		{
 			if (body is Enemy enemy)
 			{
-				enemy.TakeDamage(Damage - (int)(GlobalPosition.DistanceTo(enemy.GlobalPosition)/10), GlobalPosition);
+				var damage = BaseDamage - (GlobalPosition.DistanceTo(enemy.GlobalPosition)/10);
+				enemy.TakeDamage((int)damage, GlobalPosition);
 			}
-			if (body is Player player)
+			else if (body is Player player)
 			{
-				player.TakeDamage(Damage - (int)(GlobalPosition.DistanceTo(player.GlobalPosition)/10), GlobalPosition);
+				var damage = BaseDamage - (GlobalPosition.DistanceTo(player.GlobalPosition)/10);
+				player.TakeDamage((int)damage, GlobalPosition);
 			}
 		}
 		foreach (var proj in area.GetOverlappingAreas())
 		{
-			proj.QueueFree();
+			if (proj is Projectile)
+			{
+				proj.QueueFree();
+			}
 		}
 		QueueFree();
 	}
+
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	public void TakeDamage(int damage, Vector2 direction)
 	{
 		ApplyImpulse(direction * 40);

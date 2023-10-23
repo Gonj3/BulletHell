@@ -94,7 +94,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 	private void FireSpin()
 	{
 		float angleOffset = (float)Math.PI / 180 * 20 * fireCount;
-		FireProjectiles(angleOffset);
+		FireProjectile(angleOffset);
 		fireCount++;
 	}
 
@@ -106,7 +106,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 		for (int i = 0; i < ProjectileCount; i++)
 		{
 			float angleOffset = startAngle + coneAngle / (ProjectileCount - 1) * i;
-			FireProjectiles(angleOffset);
+			FireProjectile(angleOffset);
 		}
 	}
 
@@ -115,13 +115,14 @@ public partial class Enemy : RigidBody2D, IDamageable
 		for (int i = 0; i < ProjectileCount; i++)
 		{
 			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i);
-			FireProjectiles(angleOffset);
+			FireProjectile(angleOffset);
 		}
 	}
 
-	private void FireProjectiles(float angleOffset)
+	private void FireProjectile(float angleOffset)
 	{
-		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly, Projectile.ProjectileType.Normal);
+		float angle = Position.AngleToPoint(player.Position) + angleOffset;
+		world.SpawnProjectile(Position, angle, 200f, DamageableKind.Friendly, Projectile.Type.Normal);
 	}
 
 	public void TakeDamage(int damage, Vector2 direction)
