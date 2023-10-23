@@ -31,10 +31,12 @@ public partial class Player : CharacterBody2D, IDamageable
 		CheckLostLives();
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down"); 
+		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down"); 
+		var resultVec = direction + JoystickDirection;
+		if (resultVec != Vector2.Zero)
 		{
-			velocity = direction.Normalized() * Speed;
+			velocity = resultVec.Normalized() * Speed;
 		}
 		else
 		{

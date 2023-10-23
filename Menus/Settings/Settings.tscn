@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
 [ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_r2v52"]
 
-[node name="Settings" type="Control"]
+[node name="Settings" type="Control" node_paths=PackedStringArray("Up", "Down", "Right", "Left", "power_up", "bomb", "dash")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yn38v")
+Up = NodePath("settings/controls_settings/up")
+Down = NodePath("settings/controls_settings/down")
+Right = NodePath("settings/controls_settings/right")
+Left = NodePath("settings/controls_settings/left")
+power_up = NodePath("settings/controls_settings/PowerUp")
+bomb = NodePath("settings/controls_settings/bomb")
+dash = NodePath("settings/controls_settings/dash")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -234,12 +241,66 @@ text = "FPS Display"
 layout_mode = 2
 
 [node name="controls_settings" type="GridContainer" parent="settings"]
-visible = false
 layout_mode = 2
+columns = 2
 
-[node name="Label" type="Label" parent="settings/controls_settings"]
+[node name="up" type="Label" parent="settings/controls_settings"]
 layout_mode = 2
-text = "controls"
+text = "Move Up:
+"
+
+[node name="up_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
+
+[node name="down" type="Label" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Move Down:
+"
+
+[node name="down_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
+
+[node name="left" type="Label" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Move Left:"
+
+[node name="left_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
+
+[node name="right" type="Label" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Move Right:"
+
+[node name="right_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
+
+[node name="PowerUp" type="Label" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Power Up:"
+
+[node name="power_up_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
+
+[node name="bomb" type="Label" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Bomb:"
+
+[node name="bomb_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
+
+[node name="dash" type="Label" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Dash:"
+
+[node name="dash_button" type="Button" parent="settings/controls_settings"]
+layout_mode = 2
+text = "Change"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -276,3 +337,10 @@ script = ExtResource("2_r2v52")
 [connection signal="item_selected" from="settings/gameplay_settings/diffculty_option" to="." method="_on_diffculty_option_item_selected"]
 [connection signal="pressed" from="settings/gameplay_settings/hide_hud_check" to="." method="_on_hide_hud_check_pressed"]
 [connection signal="pressed" from="settings/gameplay_settings/fps_display_check" to="." method="_on_fps_display_check_pressed"]
+[connection signal="pressed" from="settings/controls_settings/up_button" to="." method="_on_up_button_pressed"]
+[connection signal="pressed" from="settings/controls_settings/down_button" to="." method="_on_down_button_pressed"]
+[connection signal="pressed" from="settings/controls_settings/left_button" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="settings/controls_settings/right_button" to="." method="_on_right_button_pressed"]
+[connection signal="pressed" from="settings/controls_settings/power_up_button" to="." method="_on_power_up_button_pressed"]
+[connection signal="pressed" from="settings/controls_settings/bomb_button" to="." method="_on_bomb_button_pressed"]
+[connection signal="pressed" from="settings/controls_settings/dash_button" to="." method="_on_dash_button_pressed"]
