@@ -36,23 +36,20 @@ public partial class PowerUp : Area2D
 		if(body is Player player)
 		{
 			GD.Print("powerUpEnteredPlayerBody" + type);
+			player.Items[type]++;
 			switch(type)
 			{
 				case 0:
 					player.Heal(healthIncrease);
-					player.Items[0]++;
 					break;
 				case 1:
 					player.Lives += lifeIncrease;
-					player.Items[1]++;
 					break;
 				case 2:
 					player.Speed += speedIncrease;
-					player.Items[2]++;
 					break;
-				case 3:
-					player.Items[3]++;
-					break;
+				//case 3:
+					//break;
 			}	
 		}
 	}
