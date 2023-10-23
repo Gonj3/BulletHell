@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IDamageable
 {
 	[Signal]
 	public delegate void DeathEventHandler();
@@ -13,8 +13,13 @@ public partial class Player : CharacterBody2D
 	public int Health = 100;
 	public int Lives = 3;
 
+	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
+
+	private bool takenDamageThisTick = false;
+
 	public override void _PhysicsProcess(double delta)
 	{
+		takenDamageThisTick = false;
 		UpdateHealth();
 		UpdateLives();
 		CheckLostLives();
@@ -38,7 +43,11 @@ public partial class Player : CharacterBody2D
 	//takes health from player based on int damage
 	public void TakeDamage(int damage)
 	{
-		Health = Health - damage;
+		if (!takenDamageThisTick)
+		{
+			takenDamageThisTick = true;
+			Health -= damage;
+		}
 	}
 
 	//Heals Player by int amount, makes sure health never goes over 100
@@ -80,25 +89,5 @@ public partial class Player : CharacterBody2D
 				Health = 100;
 			}
 		}
-	}
-
-	public void _on_area_2d_area_entered(Area2D area)
-	{
-		if (!(area is Projectile) && !(area is Enemy))
-		{
-			return;
-		}
-
-		if (area is Projectile)
-		{
-			TakeDamage(20);
-		}
-
-		if (area is Enemy)
-		{
-			EmitSignal(SignalName.Kill);
-		}
-
-		area.QueueFree();
 	}
 }
