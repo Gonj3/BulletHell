@@ -6,7 +6,7 @@ public partial class Bomb : RigidBody2D, IDamageable
 	private int BaseDamage = 50;
 	[Export]
 	private Area2D ExplosionRadius;
-	public Vector2 vector;
+	public Vector2 vector { get; private set; }
 	public void SetAngle(float angle)
 	{
 		vector = Vector2.FromAngle(angle).Normalized();
