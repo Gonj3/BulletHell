@@ -31,6 +31,9 @@ public partial class Enemy : RigidBody2D, IDamageable
 	}
 	public FiringStyle CurrentFiringStyle;
 
+	[Export]
+	private AnimationPlayer healthBarAnim;
+
 	public override void _Ready()
 	{
 		InitializeRandomValues();
@@ -67,6 +70,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 	public override void _PhysicsProcess(double delta)
 	{
 		ConstantForce = Position.DirectionTo(player.Position) * Speed;
+		UpdateHealth();
 	}
 
 	public void _OnFireTimerTimeout()
@@ -125,5 +129,10 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 		if (Health <= 0)
 			QueueFree();
+	}
+
+	private void UpdateHealth()
+	{
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 10 * 10));
 	}
 }

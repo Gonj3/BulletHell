@@ -27,8 +27,13 @@ public partial class Player : CharacterBody2D, IDamageable
 	private Timer fireTimer;
 
 	[Export]
+	private AnimationPlayer healthBarAnim;
+  
+  [Export]
 	private Timer dashTimer;
-	private Timer bombTimer;
+	
+  [Export]
+  private Timer bombTimer;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -121,7 +126,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	//updates the HealthBar value to the current players Health
 	public void UpdateHealth()
 	{
-		GetNode<ProgressBar>("HealthBar").Value = Health;
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health/10 * 10));
 	}
 
 	public void UpdateLives()
