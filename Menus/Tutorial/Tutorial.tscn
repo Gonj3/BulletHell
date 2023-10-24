@@ -114,106 +114,71 @@ layout_mode = 2
 [node name="Gameplay" type="RichTextLabel" parent="Background/Info/Tutorials"]
 custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
-text = "Welcome to Bullet Hell, a fast-paced and challenging shoot 'em up game where you must dodge bullets and shoot enemies to survive as long as possible. You can collect items to power up your player.
+text = "Welcome to Bullet Hell! The goal of the game is to dodge bullets and shoot enemies to survive as long as possible. You can collect items and you have a set number of lives.
 
-Controls
+The profile menu will show you your total stats, such as:
+ - Kills.
+ - Deaths.
+ - Time alive.
+ - Etc...
 
-You can control your player using the arrow keys, WASD, or a joystick. Check the settings menu!
-
-Move: Use the arrow keys, WASD, or joystick move your player.
-Shoot: Click the mouse to shoot.
-Dash: Hit the spacebar to dash!
-
-The stats menu will show you your total stats, such as:
-- Kills: The number of enemies you have killed.
-- Deaths: The number of times you have been killed.
-- Items Collected: The number of items you have collected.
-- Time Alive: The total amount of time you have spent alive in the game.
-- Longest Run: The longest amount of time you have survived in a single run.
-- Highest Waves: The highest number of waves you have reached in a single run.
-
-Settings
-
-The settings menu is where you can change your preferences, such as video settings, difficulty, sound settings, and controls.
-
-Here are a few tips to help you survive in Bullet Hell:
-
-- Keep moving: The best way to avoid bullets is to keep moving. Don't stay in one place for too long.
-- Be aware of your surroundings: Pay attention to where the enemies are and what patterns their bullets are firing in.
-- Use your items wisely: The items you collect can give you a significant advantage, but use them wisely. Don't waste them on weak enemies.
-- Don't be afraid to die: Everyone dies in Bullet Hell. It's all part of the learning process. The more you play, the better you will become at dodging bullets and surviving."
+The settings menu is where you go to change your preferences. You can change anything from video settings, to difficulty, sound settings, and controls."
 
 [node name="Player" type="RichTextLabel" parent="Background/Info/Tutorials"]
 visible = false
 custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
-text = "You control a player character that you must keep alive to progress through the game.
-- Your player has a set speed and damage, but power-ups can temporarily change these stats.
-- Every time your player dies, you lose a life. If you have one life left and you die, the game ends. You start with three lives.
-- You take damage from colliding with enemies and enemy projectiles.
-- You can pick up power-ups by colliding with them.
-- You cannot exit the world bounds.
+text = "The player is the character that you move around the game to keep alive. The player has a set speed and damage, and power ups will change those temporarily. Everytime your player dies, you lose a life. If you have one life left and you die, the game ends. You start with 3 lives.
 
-Tips
+You takes damage from colliding with enemies and enemy projectiles.
 
-- To keep your player alive, be aware of your surroundings and avoid colliding with enemies and enemy projectiles.
-- Use power-ups to your advantage to increase your speed, damage, or other stats.
-- Don't be afraid to die and try again. The more you play, the better you will become at surviving."
+You pick up power ups by colliding with them.
+
+You cannot exit world bounds!"
 
 [node name="Enemies" type="RichTextLabel" parent="Background/Info/Tutorials"]
 visible = false
 custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
-text = "Enemies are the characters you must eliminate to progress through the game.
-- They spawn randomly at random locations.
-- Enemies are damaged by friendly projectiles.
-- Enemies cannot escape the world bounds.
-- Some enemies, called \"bosses,\" are particularly powerful and difficult to defeat.
+text = "The enemies are the characters you need to try to eliminate. They spawn randomly, and they are a pest to the Bullet Hell world. Be careful though! There are some mighty enemies called 'Bosses', and they're quite tough. Kill them by attacking with your projectiles. Use those power ups to help you!
 
-Tips
+Enemies spawn randomly at random locations.
 
-- Be aware of your surroundings and be prepared to dodge enemy projectiles.
-- Use power-ups to increase your damage output or give yourself other advantages.
-- Don't be afraid to experiment with different strategies to find what works best for you.
-"
+Enemies are damaged by friendly projectiles.
+
+Enemies cannot escape world bounds."
 
 [node name="PowerUps" type="RichTextLabel" parent="Background/Info/Tutorials"]
 visible = false
 custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
-text = "Power-ups are items that can be picked up to temporarily increase your player's abilities.
-Power-ups spawn randomly at random locations within the world bounds.
-Power-ups can only be picked up by the player.
-Power-ups picked up are counted in the profile menu.
-Power-ups can help you increase your chances of survival and winning the game.
+text = "Power ups is what you need to get ahead in the game of Bullet Hell! They are items that increase your abilites, and can be picked up in the game. Power ups spawn randomly at random locations and they are one-time use. Be on the lookout for those! You can increase your abilities such as:
+ - Running speed.
+ - Damage.
+ - Health.
+ - Lives.
 
-Types of Power-Ups
+Power ups spawn within world bounds randomly, and at random locations.
 
-There are many different types of power-ups in Bullet Hell, each with its own unique effect. Here are a few examples:
-- Speed: Increases your player's movement speed.
-- Damage: Increases the damage output of your player's projectiles.
-- Health: Increases your player's health bar.
-- Lives: Gives you an extra life.
+Power ups can only by picked up by a player.
 
-Be on the lookout for power-ups and pick them up whenever you can.
-Use power-ups wisely. For example, if you are low on health, you may want to use a health power-up.
-Don't be afraid to experiment with different power-ups to see what works best for you."
+Power ups picked up are counted in the profile menu.
+
+Power ups help you win the game!"
 
 [node name="Projectiles" type="RichTextLabel" parent="Background/Info/Tutorials"]
 visible = false
 custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
-text = "Projectiles are flying entities that can cause damage to either the player or enemies.
-They are mainly used by the player to damage enemies, but enemies can also use projectiles to attack the player.
-When a player or enemy collides with a projectile, they take damage.
-There are two types of projectiles: enemy and friendly.
-Only friendly projectiles can damage enemies.
-Only enemy projectiles can damage the player.
-Tips
+text = "Projectiles, also known as bullets, are flying entities that can cause damage to either the player or enemies. Projectiles are mainly used by the enemies to try to eliminate the player. Projectiles are also used by the player to damage enemies. When a player collides with an enemy projectile, you lose health, and the same goes for the enemy when they collide with your projectile.
 
-Be aware of your surroundings and be prepared to dodge enemy projectiles.
-Use your own projectiles to attack enemies from a distance.
-Experiment with different projectile types and firing patterns to find what works best for you."
+There are two types of projectiles:
+ - Enemy.
+ - Friendly.
+
+Only friendly projectiles damage enemies.
+
+Only enemy projectiles damge you."
 
 [node name="Exit" type="Button" parent="."]
 layout_mode = 1
