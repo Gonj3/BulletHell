@@ -34,4 +34,9 @@ public partial class AudioManager : Node
 	{
 		ButtonSFX.Play();
 	}
+
+	public void PlaySound(string name)
+	{
+		GetNode<AudioStreamPlayer>(name).Play();
+	}
 }

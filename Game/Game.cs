@@ -55,6 +55,9 @@ public partial class Game : Node
 			// Spawn boss
 		}
 
+		this.GetAudioManager().PlaySound("WaveSFX");
+
+
 		waveTimer.Start();
 	}
 

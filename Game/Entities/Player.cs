@@ -67,6 +67,7 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
+			this.GetAudioManager().PlaySound("ShootSFX");
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
@@ -80,7 +81,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 	}
 
-	public void CheckIfDashing()
+	private void CheckIfDashing()
 	{
 		if (dashTimer.TimeLeft < 4)
 		{
@@ -121,24 +122,24 @@ public partial class Player : CharacterBody2D, IDamageable
 	}
 
 	//updates the HealthBar value to the current players Health
-	public void UpdateHealth()
+	private void UpdateHealth()
 	{
 		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 10 * 10));
 	}
 
-	public void UpdateLives()
+	private void UpdateLives()
 	{
 		GetNode<Label>("LivesLabel").Text = Lives + "Live(s)";
 	}
 
 	//Checks if the Player is 0 or less than 0 health, if so removes life and resets health
-	public void CheckLostLives()
+	private void CheckLostLives()
 	{
 		if (Health <= 0)
 		{
 			if (Lives <= 0)
 			{
-				EmitSignal(SignalName.Death);
+				KillPlayer();
 			}
 			else
 			{
@@ -150,8 +151,14 @@ public partial class Player : CharacterBody2D, IDamageable
 		{
 			if (Lives <= 0)
 			{
-				EmitSignal(SignalName.Death);
+				KillPlayer();
 			}
 		}
+	}
+
+	private void KillPlayer()
+	{
+		this.GetAudioManager().PlaySound("DeathSFX");
+		EmitSignal(SignalName.Death);
 	}
 }
