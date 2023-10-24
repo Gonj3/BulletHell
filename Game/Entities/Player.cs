@@ -13,6 +13,8 @@ public partial class Player : CharacterBody2D, IDamageable
 	public int Health = 100;
 	public int Lives = 3;
 	public bool Dashing = false;
+	public bool NoHealthMode = false;
+	public int[] Items = {0, 0, 0, 0};
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
 
@@ -90,8 +92,16 @@ public partial class Player : CharacterBody2D, IDamageable
 	{
 		if (!takenDamageThisTick && Dashing == false)
 		{
-			takenDamageThisTick = true;
-			Health -= damage;
+				if(NoHealthMode == true)
+			{
+				Lives--;
+				takenDamageThisTick = true;
+			}
+			else
+			{
+				Health -= damage;
+				takenDamageThisTick = true;
+			}
 		}
 	}
 
@@ -132,6 +142,13 @@ public partial class Player : CharacterBody2D, IDamageable
 			{
 				Lives--;
 				Health = 100;
+			}
+		}
+		if(NoHealthMode == true)
+		{
+			if(Lives <= 0)
+			{
+				EmitSignal(SignalName.Death);
 			}
 		}
 	}
