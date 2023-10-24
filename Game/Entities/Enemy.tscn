@@ -2,22 +2,23 @@
 
 [ext_resource type="Script" path="res://Game/Entities/Enemy.cs" id="1_y85vi"]
 [ext_resource type="Texture2D" uid="uid://do6x8yfo0ca7c" path="res://Textures/Enemy.png" id="2_8mgyi"]
-[ext_resource type="Texture2D" uid="uid://b77yggd61lbwe" path="res://Textures/EnemyHealthBar.png" id="3_owfwy"]
+[ext_resource type="Texture2D" path="res://Textures/EnemyHealthBar.png" id="3_owfwy"]
 
-[sub_resource type="Animation" id="Animation_av61q"]
-resource_name = "Attack"
-length = 1.1
+[sub_resource type="Animation" id="Animation_a446f"]
+resource_name = "damage_flash"
+length = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 46]
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ch6vm"]
@@ -52,21 +53,20 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_a446f"]
-resource_name = "damage_flash"
-length = 0.1
-step = 0.05
+[sub_resource type="Animation" id="Animation_av61q"]
+resource_name = "Attack"
+length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 46]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7cis0"]
