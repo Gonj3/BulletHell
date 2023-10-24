@@ -83,7 +83,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	//updates the HealthBar value to the current players Health
 	public void UpdateHealth()
 	{
-		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health/10 * 10));
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Mathf.RoundToInt(Health / 10) * 10));
 	}
 
 	public void UpdateLives()
