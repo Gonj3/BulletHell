@@ -1,22 +1,193 @@
-[gd_scene load_steps=4 format=3 uid="uid://dco8dowi0gb0n"]
+[gd_scene load_steps=28 format=3 uid="uid://dco8dowi0gb0n"]
 
 [ext_resource type="Script" path="res://Game/Entities/Boss.cs" id="1_7safe"]
-[ext_resource type="Texture2D" uid="uid://dswfwpgvf2pvd" path="res://Textures/EnemySprite.png" id="1_xtt24"]
+[ext_resource type="Texture2D" uid="uid://dx0l5m7qsh3ju" path="res://Textures/Boss/summon.png" id="2_bw47c"]
+[ext_resource type="Texture2D" uid="uid://cn4pj2q6yoc3t" path="res://Textures/Boss/skill1.png" id="3_1801a"]
+[ext_resource type="Texture2D" uid="uid://k6ten7hi2l3d" path="res://Textures/Boss/idle.png" id="4_p2lgq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtj0c"]
+atlas = ExtResource("2_bw47c")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suwwx"]
+atlas = ExtResource("2_bw47c")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkm5a"]
+atlas = ExtResource("2_bw47c")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl62v"]
+atlas = ExtResource("2_bw47c")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkijh"]
+atlas = ExtResource("2_bw47c")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tx6n"]
+atlas = ExtResource("3_1801a")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gomw2"]
+atlas = ExtResource("3_1801a")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwgm6"]
+atlas = ExtResource("3_1801a")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgeo2"]
+atlas = ExtResource("3_1801a")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6aj6"]
+atlas = ExtResource("3_1801a")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skuja"]
+atlas = ExtResource("3_1801a")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvs6m"]
+atlas = ExtResource("3_1801a")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6win4"]
+atlas = ExtResource("3_1801a")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1yfp"]
+atlas = ExtResource("3_1801a")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wg24o"]
+atlas = ExtResource("3_1801a")
+region = Rect2(300, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjfuh"]
+atlas = ExtResource("3_1801a")
+region = Rect2(400, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deqjd"]
+atlas = ExtResource("3_1801a")
+region = Rect2(500, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmx1n"]
+atlas = ExtResource("4_p2lgq")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuftb"]
+atlas = ExtResource("4_p2lgq")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rorfh"]
+atlas = ExtResource("4_p2lgq")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bd8s"]
+atlas = ExtResource("4_p2lgq")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1mx6x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtj0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_suwwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkm5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl62v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkijh")
+}],
+"loop": true,
+"name": &"alt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tx6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gomw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwgm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgeo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6aj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skuja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvs6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6win4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1yfp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wg24o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjfuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_deqjd")
+}],
+"loop": true,
+"name": &"bomb",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmx1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuftb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rorfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bd8s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6x3od"]
-size = Vector2(36, 34)
+size = Vector2(41, 86)
 
-[node name="Boss" type="RigidBody2D"]
+[node name="Boss" type="RigidBody2D" node_paths=PackedStringArray("body")]
+mass = 33.4
+lock_rotation = true
 script = ExtResource("1_7safe")
+body = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_1mx6x")
+animation = &"alt"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-7.5, 5)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_6x3od")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(3, 3)
-texture = ExtResource("1_xtt24")
 
 [node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.4
@@ -26,5 +197,10 @@ autostart = true
 wait_time = 2.5
 autostart = true
 
+[node name="BombTimer" type="Timer" parent="."]
+wait_time = 2.277
+autostart = true
+
 [connection signal="timeout" from="FireTimer" to="." method="_OnFireTimerTimeout"]
 [connection signal="timeout" from="AltFireTimer" to="." method="_OnAltFireTimerTimeout"]
+[connection signal="timeout" from="BombTimer" to="." method="_OnBombTimerTimeout"]
