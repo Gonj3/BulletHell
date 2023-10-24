@@ -141,6 +141,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	private void UpdateHealth()
 	{
-		healthBarAnim.Play("Health" + Mathf.RoundToInt(Mathf.Snapped(Health, 10)));
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 10 * 10));
 	}
 }
