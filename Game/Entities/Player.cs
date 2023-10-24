@@ -40,12 +40,19 @@ public partial class Player : CharacterBody2D, IDamageable
 		CheckLostLives();
 		CheckIfDashing();
 
-		if (Input.IsActionPressed("ui_select") && dashTimer.TimeLeft == 0)
+		if (Input.IsActionPressed("dash") && dashTimer.TimeLeft == 0)
 		{
-			Speed = 800.0f;
+			Velocity *= 4;
 			Dashing = true;
 			dashTimer.Start();
 		}
+
+		if (Dashing)
+		{
+			MoveAndSlide();
+			return;
+		}
+
 		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
@@ -83,10 +90,9 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	private void CheckIfDashing()
 	{
-		if (dashTimer.TimeLeft < 4)
+		if (dashTimer.TimeLeft < 4.8)
 		{
 			Dashing = false;
-			Speed = 300.0f;
 		}
 	}
 
