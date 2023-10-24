@@ -39,6 +39,8 @@ public partial class Bomb : RigidBody2D, IDamageable
 			}
 		}
 		QueueFree();
+
+		this.GetAudioManager().PlaySound("BombSFX");
 	}
 
 	public void TakeDamage(int damage, Vector2 direction)
