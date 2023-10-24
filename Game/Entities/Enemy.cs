@@ -40,6 +40,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 	{
 		InitializeRandomValues();
 		InitializeFiringStyle();
+		spriteAnim.Play("Idle");
 	}
 
 	private void InitializeFiringStyle()
@@ -89,6 +90,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 				FireSpread();
 				break;
 		}
+		spriteAnim.Play("Attack");
 	}
 
 	private void FireSpin()
@@ -142,6 +144,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	private void UpdateHealth()
 	{
-		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 10 * 10));
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 30 * 100 / 10 * 10));
 	}
 }

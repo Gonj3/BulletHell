@@ -20,6 +20,9 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Export]
 	private Timer bombTimer;
 
+	[Export]
+	private AnimationPlayer playerAnimator;
+
 	public float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
@@ -31,8 +34,19 @@ public partial class Player : CharacterBody2D, IDamageable
 	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
 
 	private bool takenDamageThisTick = false;
+	private bool animBusy = false;
+	private float animAngle = 2;
+	private Vector2 prevDirection;
+	private string[] animActions = {"Die", 
+	"Attack0", "Attack1", "Attack2", "Attack3",
+	"Attack4", "Attack5", "Attack6", "Attack7"};
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Ready()
+    {
+        playerAnimator.Play("Idle2");
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
 		takenDamageThisTick = false;
 		UpdateHealth();
@@ -62,11 +76,41 @@ public partial class Player : CharacterBody2D, IDamageable
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
 		}
 
+		// Chek that the player is not performing a one-off action
+		string animation = playerAnimator.CurrentAnimation;
+		foreach (string anim in animActions) 
+		{
+			if (anim == animation) 
+			{
+				animBusy = true;
+				break;
+			} 
+			else 
+			{
+				animBusy = false;
+			}
+		}
+
+		// Start running or idle animations
+		if (!animBusy)
+		{
+			if(direction != Vector2.Zero) 
+			{
+				playerAnimator.Play("Run" + _getAnimSide(direction.Angle()));
+				prevDirection = direction;
+			}
+			else
+			{
+				playerAnimator.Play("Idle" + _getAnimSide(prevDirection.Angle()));
+			}
+		}
+
 		Velocity = velocity;
 		MoveAndSlide();
 
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
+			playerAnimator.Play("Attack" + _getAnimSide(Position.AngleToPoint(GetGlobalMousePosition())));
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
@@ -142,6 +186,7 @@ public partial class Player : CharacterBody2D, IDamageable
 			}
 			else
 			{
+				playerAnimator.Play("Die");
 				Lives--;
 				Health = 100;
 			}
@@ -153,5 +198,12 @@ public partial class Player : CharacterBody2D, IDamageable
 				EmitSignal(SignalName.Death);
 			}
 		}
+	}
+
+	private int _getAnimSide(float animDirection) 
+	{
+		int animAngle = Mathf.RoundToInt(Mathf.Snapped(animDirection, Mathf.Pi / 4) / (Mathf.Pi / 4));
+		animAngle = Mathf.Wrap(animAngle, 0, 8);
+		return animAngle;
 	}
 }
