@@ -62,10 +62,13 @@ public partial class Boss : RigidBody2D, IDamageable
 		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
 		ApplyImpulse(impulse);
 
+		this.GetAudioManager().PlaySound("HitSFX");
+
 		// take damage
 		Health -= damage;
 		if (Health <= 0)
 		{
+			this.GetAudioManager().PlaySound("DeathSFX");
 			EmitSignal(SignalName.Death);
 			QueueFree();
 		}
