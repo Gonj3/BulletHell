@@ -12,9 +12,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
-	public bool CanDash = true;
 	public bool Dashing = false;
-	public int DashCounter = 10;
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
 
@@ -26,31 +24,24 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Export]
 	private Timer fireTimer;
 
+	[Export]
+	private Timer dashTimer;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		takenDamageThisTick = false;
 		UpdateHealth();
 		UpdateLives();
 		CheckLostLives();
-		CheckIfCanDash();
+		CheckIfDashing();
 		
-		if(Input.IsActionPressed("ui_select"))
+		if (Input.IsActionPressed("ui_select") && dashTimer.TimeLeft == 0)
 		{
-			if(CanDash == true)
-			{
-				Speed = 800.0f;
-				Dashing = true;
-				CanDash = false;
-				DashCounter = 150;
-			}
+			Speed = 800.0f;
+			Dashing = true;
+			dashTimer.Start();
 		}
-		
-		if(DashCounter != 0)
-		{
-			GD.Print(DashCounter);
-			DashCounter--;
-		}
-		
+		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
@@ -74,15 +65,10 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 	}
 
-	public void CheckIfCanDash()
+	public void CheckIfDashing()
 	{
-		if(DashCounter == 0)
+		if(dashTimer.TimeLeft < 4)
 		{
-			CanDash = true;
-		}
-		if(DashCounter == 120)
-		{
-			//GD.Print("stopped dashing");
 			Dashing = false;
 			Speed = 300.0f;
 		}
