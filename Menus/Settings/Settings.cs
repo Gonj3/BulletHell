@@ -133,25 +133,6 @@ public partial class Settings : Control, IOverlayItem
 		}
 	}
 
-	// quality option function
-	private void _on_quality_option_item_selected(int index)
-	{
-		string selectedOption = ((OptionButton)GetNode("settings/video_settings/quality_option")).GetItemText(index);
-
-		if (selectedOption == "High")
-		{
-
-		}
-		else if (selectedOption == "Medium")
-		{
-
-		}
-		else if (selectedOption == "Low")
-		{
-
-		}
-	}
-
 	// frame rate option function
 	private void _on_frame_rate_option_item_selected(int index)
 	{
@@ -211,12 +192,6 @@ public partial class Settings : Control, IOverlayItem
 		{
 
 		}
-	}
-
-	// hide hud check box function
-	private void _on_hide_hud_check_pressed()
-	{
-
 	}
 
 	// fps display check box function

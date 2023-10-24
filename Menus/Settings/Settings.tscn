@@ -104,7 +104,6 @@ offset_right = 836.0
 offset_bottom = 556.0
 
 [node name="video_settings" type="GridContainer" parent="settings"]
-visible = false
 layout_mode = 2
 columns = 2
 
@@ -135,20 +134,6 @@ popup/item_2/text = "1280x720"
 popup/item_2/id = 2
 popup/item_3/text = "640x480"
 popup/item_3/id = 3
-
-[node name="quality" type="Label" parent="settings/video_settings"]
-layout_mode = 2
-text = "Quality"
-
-[node name="quality_option" type="OptionButton" parent="settings/video_settings"]
-layout_mode = 2
-item_count = 3
-popup/item_0/text = "High"
-popup/item_0/id = 0
-popup/item_1/text = "Medium"
-popup/item_1/id = 1
-popup/item_2/text = "Low"
-popup/item_2/id = 2
 
 [node name="frame_rate" type="Label" parent="settings/video_settings"]
 layout_mode = 2
@@ -225,13 +210,6 @@ popup/item_1/id = 1
 popup/item_2/text = "Easy"
 popup/item_2/id = 2
 
-[node name="hide_hud" type="Label" parent="settings/gameplay_settings"]
-layout_mode = 2
-text = "Hide HUD"
-
-[node name="hide_hud_check" type="CheckBox" parent="settings/gameplay_settings"]
-layout_mode = 2
-
 [node name="FPS Display" type="Label" parent="settings/gameplay_settings"]
 layout_mode = 2
 text = "FPS Display"
@@ -240,6 +218,7 @@ text = "FPS Display"
 layout_mode = 2
 
 [node name="controls_settings" type="GridContainer" parent="settings"]
+visible = false
 layout_mode = 2
 columns = 2
 
@@ -319,14 +298,12 @@ script = ExtResource("2_r2v52")
 [connection signal="pressed" from="setting buttons/controls_button" to="." method="_on_controls_button_pressed"]
 [connection signal="item_selected" from="settings/video_settings/display_option" to="." method="_on_display_option_item_selected"]
 [connection signal="item_selected" from="settings/video_settings/resolution_option" to="." method="_on_resolution_option_item_selected"]
-[connection signal="item_selected" from="settings/video_settings/quality_option" to="." method="_on_quality_option_item_selected"]
 [connection signal="item_selected" from="settings/video_settings/frame_rate_option" to="." method="_on_frame_rate_option_item_selected"]
 [connection signal="pressed" from="settings/video_settings/vsync_check" to="." method="_on_vsync_check_pressed"]
 [connection signal="value_changed" from="settings/audio_settings/master_slider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="settings/audio_settings/music_slider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="settings/audio_settings/sfx_slider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="item_selected" from="settings/gameplay_settings/diffculty_option" to="." method="_on_diffculty_option_item_selected"]
-[connection signal="pressed" from="settings/gameplay_settings/hide_hud_check" to="." method="_on_hide_hud_check_pressed"]
 [connection signal="pressed" from="settings/gameplay_settings/fps_display_check" to="." method="_on_fps_display_check_pressed"]
 [connection signal="pressed" from="settings/controls_settings/up_button" to="." method="_on_up_button_pressed"]
 [connection signal="pressed" from="settings/controls_settings/down_button" to="." method="_on_down_button_pressed"]
