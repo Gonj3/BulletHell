@@ -1,15 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5mkjm7datytj"]
+[gd_scene load_steps=11 format=3 uid="uid://b5mkjm7datytj"]
 
 [ext_resource type="Script" path="res://Core/AudioManager/AudioManager.cs" id="1_u3685"]
 [ext_resource type="AudioStream" uid="uid://cjq1ck1oqrdkg" path="res://Media/Button_sfx.mp3" id="2_8gkiv"]
+[ext_resource type="AudioStream" uid="uid://dt7wxg84r1fa" path="res://Media/shoot.wav" id="2_8sgms"]
 [ext_resource type="AudioStream" uid="uid://dmnslei1conp5" path="res://Media/Intro.wav" id="2_p5iax"]
+[ext_resource type="AudioStream" uid="uid://lnfda67hk1so" path="res://Media/hit.wav" id="2_sg7io"]
+[ext_resource type="AudioStream" uid="uid://j6nabmboganc" path="res://Media/kill.wav" id="3_6dttw"]
+[ext_resource type="AudioStream" uid="uid://c7aqe0nlvm1pf" path="res://Media/death.wav" id="3_lvc0s"]
 [ext_resource type="AudioStream" uid="uid://chcg8hn0vokx5" path="res://Media/Soundtrack 1.wav" id="3_smuoc"]
+[ext_resource type="AudioStream" uid="uid://cuemq4xjedcus" path="res://Media/explosion.wav" id="6_2otyi"]
+[ext_resource type="AudioStream" uid="uid://bc13yh73uqysy" path="res://Media/wave.wav" id="6_xredl"]
 
 [node name="AudioManager" type="Node" node_paths=PackedStringArray("ButtonSFX", "MainMenu", "Game")]
+process_mode = 3
 script = ExtResource("1_u3685")
 ButtonSFX = NodePath("ButtonSFX")
 MainMenu = NodePath("MainMenu")
 Game = NodePath("Game")
+
+[node name="ShootSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8sgms")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="KillSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6dttw")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lvc0s")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_sg7io")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="BombSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2otyi")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="WaveSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_xredl")
+volume_db = -5.0
+bus = &"SFX"
 
 [node name="ButtonSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_8gkiv")

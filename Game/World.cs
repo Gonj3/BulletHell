@@ -17,6 +17,11 @@ public partial class World : Node2D
 	[Export]
 	private PackedScene enemyScene;
 
+	[Export]
+	private PackedScene bossScene;
+
+	private Vector2 bossSpawnPos = new Vector2(1000, 1000);
+
 	public void SpawnProjectile(Vector2 pos, float angle, DamageableKind target, Projectile.Type type)
 	{
 		var projInstance = (Projectile)projectileScene.Instantiate();
@@ -44,6 +49,17 @@ public partial class World : Node2D
 		AddChild(enemyInstance);
 	}
 
+	public void SpawnBoss(Callable deathCallback)
+	{
+		var bossInstance = (Boss)bossScene.Instantiate();
+
+		bossInstance.Position = bossSpawnPos;
+		bossInstance.World = this;
+		bossInstance.Connect("Death", deathCallback);
+
+		AddChild(bossInstance);
+	}
+
 	private Vector2 GetSpawnableTile()
 	{
 		var cells = tileMap.GetUsedCells(0);
@@ -56,13 +72,13 @@ public partial class World : Node2D
 		}
 	}
 	// no target because a bomb should hit everything.
-	public void ThrowBomb(Vector2 pos, float angle)
+	public void ThrowBomb(Vector2 pos, float angle, int force)
 	{
 		var bombInstance = (Bomb)bombScene.Instantiate();
 		bombInstance.Position = pos;
 		bombInstance.SetAngle(angle);
 
 		GetParent().AddChild(bombInstance);
-		bombInstance.ApplyImpulse(bombInstance.vector * 40);
+		bombInstance.ApplyImpulse(bombInstance.vector * force);
 	}
 }

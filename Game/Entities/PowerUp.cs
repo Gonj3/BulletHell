@@ -3,15 +3,15 @@ using System;
 
 public partial class PowerUp : Area2D
 {
-	
+
 	[Export]
 	private AnimatedSprite2D sprite2D;
-	
+
 	public int healthIncrease = 40;
 	public int lifeIncrease = 1;
 	public float speedIncrease = 100f;
 	public int type { get; set; } = 0;
-	
+
 	public void InitialiseType()
 	{
 		/*
@@ -24,7 +24,7 @@ public partial class PowerUp : Area2D
 		type = (int)rand.Next(0, 4);
 		_SetTexture();
 	}
-	
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -33,7 +33,7 @@ public partial class PowerUp : Area2D
 
 	private void _SetTexture()
 	{
-		switch(type)
+		switch (type)
 		{
 			case 0:
 				sprite2D.Animation = "Health";
@@ -55,14 +55,14 @@ public partial class PowerUp : Area2D
 	public override void _Process(double delta)
 	{
 	}
-	
+
 	public void _on_body_entered(Node2D body)
 	{
-		if(body is Player player)
+		if (body is Player player)
 		{
 			GD.Print("powerUpEnteredPlayerBody" + type);
 			player.Items[type]++;
-			switch(type)
+			switch (type)
 			{
 				case 0:
 					player.Heal(healthIncrease);
@@ -73,7 +73,7 @@ public partial class PowerUp : Area2D
 				case 2:
 					player.Speed += speedIncrease;
 					break;
-			}	
+			}
 			QueueFree();
 		}
 	}
