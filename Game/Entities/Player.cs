@@ -70,8 +70,8 @@ public partial class Player : CharacterBody2D, IDamageable
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
-		// NOTE: needs its own action, ill leave controls for someone whos been working with them
-		if (Input.IsActionPressed("shoot") && bombTimer.TimeLeft == 0)
+
+		if (Input.IsActionPressed("bomb") && bombTimer.TimeLeft == 0)
 		{
 			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
 			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;

@@ -33,8 +33,7 @@ public partial class World : Node2D
 	{
 		var enemyInstance = (Enemy)enemyScene.Instantiate();
 
-
-		var spawnPos = GetSpawnableTile();
+		var spawnPos = GetSpawnableTile() + new Vector2(8, 8);
 
 		enemyInstance.Position = spawnPos;
 		enemyInstance.World = this;
