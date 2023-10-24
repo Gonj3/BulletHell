@@ -6,11 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2p7v"]
 size = Vector2(102, 102)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("fireTimer", "dashTimer", "bombTimer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("fireTimer", "dashTimer")]
 script = ExtResource("1_8gdqu")
 fireTimer = NodePath("FireTimer")
 dashTimer = NodePath("DashTimer")
-bombTimer = NodePath("BombTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -40,6 +39,8 @@ one_shot = true
 [node name="DashTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 5.0
+one_shot = true
+
 [node name="BombTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
