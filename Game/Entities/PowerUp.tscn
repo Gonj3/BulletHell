@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://coprixpf0itce"]
+[gd_scene load_steps=4 format=3 uid="uid://ck7khiyi7417f"]
 
 [ext_resource type="Script" path="res://Game/Entities/PowerUp.cs" id="1_1ry1e"]
 [ext_resource type="Texture2D" uid="uid://bswwsehn6yre6" path="res://Textures/icon.svg" id="2_s27ws"]

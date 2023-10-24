@@ -48,9 +48,8 @@ public partial class PowerUp : Area2D
 				case 2:
 					player.Speed += speedIncrease;
 					break;
-				//case 3:
-					//break;
 			}	
+			QueueFree();
 		}
 	}
 }
