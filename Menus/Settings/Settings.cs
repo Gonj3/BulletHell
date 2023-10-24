@@ -1,47 +1,46 @@
 using Godot;
-using System;
 
 public partial class Settings : Control, IOverlayItem
 {
-[Export]
-private Label Up;
-[Export]
-private Label Down;
-[Export]
-private Label Right;
-[Export]
-private Label Left;
-[Export]
-private Label power_up;
-[Export]
-private Label bomb;
-[Export]
-private Label dash;
+	[Export]
+	private Label Up;
+	[Export]
+	private Label Down;
+	[Export]
+	private Label Right;
+	[Export]
+	private Label Left;
+	[Export]
+	private Label power_up;
+	[Export]
+	private Label bomb;
+	[Export]
+	private Label dash;
 
-public override void _Ready()
-{
-	string UpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
-   	Up.Text = "Move Up: " + UpKey;
+	public override void _Ready()
+	{
+		string UpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
+		Up.Text = "Move Up: " + UpKey;
 
-	string DownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
-   	Down.Text = "Move Down: " + DownKey;
+		string DownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
+		Down.Text = "Move Down: " + DownKey;
 
-	string LeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
-   	Left.Text = "Move Left: " + LeftKey;
+		string LeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
+		Left.Text = "Move Left: " + LeftKey;
 
-	string RightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
-   	Right.Text = "Move Right: " + RightKey;
- 	
-	string PowerUpKey = InputMap.ActionGetEvents("PowerUp")[0].AsText();
-   	power_up.Text = "Power Up: " + PowerUpKey;
+		string RightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
+		Right.Text = "Move Right: " + RightKey;
 
-	string BombKey = InputMap.ActionGetEvents("bomb")[0].AsText();
-   	bomb.Text = "Bomb: " + BombKey;
+		string PowerUpKey = InputMap.ActionGetEvents("PowerUp")[0].AsText();
+		power_up.Text = "Power Up: " + PowerUpKey;
 
-	string DashKey = InputMap.ActionGetEvents("dash")[0].AsText();
-   	dash.Text = "dash: " + DashKey;
+		string BombKey = InputMap.ActionGetEvents("bomb")[0].AsText();
+		bomb.Text = "Bomb: " + BombKey;
 
-}
+		string DashKey = InputMap.ActionGetEvents("dash")[0].AsText();
+		dash.Text = "dash: " + DashKey;
+
+	}
 	public Overlay Overlay { get; set; }
 
 	// hide/show settings method
@@ -292,7 +291,7 @@ public override void _Ready()
 		}
 
 		if (remappingKey && @event is InputEventKey keyEvent && keyEvent.Pressed)
-		{	
+		{
 			string currentUpKey = InputMap.ActionGetEvents("ui_up")[0].AsText();
 			string currentDownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
 			string currentLeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
@@ -300,7 +299,7 @@ public override void _Ready()
 			string currentPowerUpKey = InputMap.ActionGetEvents("PowerUp")[0].AsText();
 			string currentBombKey = InputMap.ActionGetEvents("bomb")[0].AsText();
 			string currentDashKey = InputMap.ActionGetEvents("dash")[0].AsText();
-			
+
 
 			if (remappingLeftKey)
 			{
@@ -308,7 +307,7 @@ public override void _Ready()
 						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
 				{
 					Left.Text = "Move Left: can't assign same key";
-			 		return;
+					return;
 				}
 				InputMap.ActionEraseEvents("ui_left");
 				InputMap.ActionAddEvent("ui_left", keyEvent);
@@ -321,10 +320,10 @@ public override void _Ready()
 				{
 					Right.Text = "Move Right: can't assign same key";
 					return;
-			}
-			InputMap.ActionEraseEvents("ui_right");
-			InputMap.ActionAddEvent("ui_right", keyEvent);
-			Right.Text = "Move Right: " + keyEvent.AsText();
+				}
+				InputMap.ActionEraseEvents("ui_right");
+				InputMap.ActionAddEvent("ui_right", keyEvent);
+				Right.Text = "Move Right: " + keyEvent.AsText();
 			}
 			else if (remappingUpKey)
 			{
@@ -333,68 +332,68 @@ public override void _Ready()
 				{
 					Up.Text = "Move Up: can't assign same key";
 					return;
-		   	 	}
+				}
 				InputMap.ActionEraseEvents("ui_up");
 				InputMap.ActionAddEvent("ui_up", keyEvent);
 				Up.Text = "Move Up: " + keyEvent.AsText();
-		}
-		else if (remappingDownKey)
-		{
-		   while (currentUpKey == keyEvent.AsText() ||currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-		   			|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
-			{
-				Down.Text = "Move Down: can't assign same key";
-				return;
 			}
-			InputMap.ActionEraseEvents("ui_down");
-			InputMap.ActionAddEvent("ui_down", keyEvent);
-			Down.Text = "Move Down: " + keyEvent.AsText();
-		}
-		
-		else if (remappingPowerUpKey)
-		{
-			while (currentUpKey == keyEvent.AsText() ||currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-		   			|| currentDownKey == keyEvent.AsText() || currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
+			else if (remappingDownKey)
 			{
-				power_up.Text = "Power Up: can't assign same key";
-				return;
+				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
+							|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
+				{
+					Down.Text = "Move Down: can't assign same key";
+					return;
+				}
+				InputMap.ActionEraseEvents("ui_down");
+				InputMap.ActionAddEvent("ui_down", keyEvent);
+				Down.Text = "Move Down: " + keyEvent.AsText();
 			}
-			InputMap.ActionEraseEvents("PowerUp");
-			InputMap.ActionAddEvent("PowerUp", keyEvent);
-			power_up.Text = "Power Up: " + keyEvent.AsText();
-		}
-		else if (remappingBombKey)
-		{
-			while (currentUpKey == keyEvent.AsText() ||currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-		   			|| currentDownKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
+
+			else if (remappingPowerUpKey)
 			{
-				bomb.Text = "Bomb: can't assign same key";
-				return;
+				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
+						   || currentDownKey == keyEvent.AsText() || currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
+				{
+					power_up.Text = "Power Up: can't assign same key";
+					return;
+				}
+				InputMap.ActionEraseEvents("PowerUp");
+				InputMap.ActionAddEvent("PowerUp", keyEvent);
+				power_up.Text = "Power Up: " + keyEvent.AsText();
 			}
-			InputMap.ActionEraseEvents("bomb");
-			InputMap.ActionAddEvent("bomb", keyEvent);
-			bomb.Text = "Bomb: " + keyEvent.AsText();
-		}
-		else if (remappingDashKey)
-		{
-			while (currentUpKey == keyEvent.AsText() ||currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-		   			|| currentDownKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText() || currentBombKey == keyEvent.AsText())
+			else if (remappingBombKey)
 			{
-				dash.Text = "Dash: can't assign same key";
-				return;
+				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
+						   || currentDownKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
+				{
+					bomb.Text = "Bomb: can't assign same key";
+					return;
+				}
+				InputMap.ActionEraseEvents("bomb");
+				InputMap.ActionAddEvent("bomb", keyEvent);
+				bomb.Text = "Bomb: " + keyEvent.AsText();
 			}
-			InputMap.ActionEraseEvents("dash");
-			InputMap.ActionAddEvent("dash", keyEvent);
-			dash.Text = "Dash: " + keyEvent.AsText();
-		}
-		remappingKey = false;
-		remappingLeftKey = false;
-		remappingRightKey = false;
-		remappingUpKey = false;
-		remappingDownKey = false;
-		remappingPowerUpKey = false;
-		remappingBombKey = false;
-		remappingDashKey = false;
+			else if (remappingDashKey)
+			{
+				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
+						   || currentDownKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText() || currentBombKey == keyEvent.AsText())
+				{
+					dash.Text = "Dash: can't assign same key";
+					return;
+				}
+				InputMap.ActionEraseEvents("dash");
+				InputMap.ActionAddEvent("dash", keyEvent);
+				dash.Text = "Dash: " + keyEvent.AsText();
+			}
+			remappingKey = false;
+			remappingLeftKey = false;
+			remappingRightKey = false;
+			remappingUpKey = false;
+			remappingDownKey = false;
+			remappingPowerUpKey = false;
+			remappingBombKey = false;
+			remappingDashKey = false;
 		}
 	}
 
@@ -406,7 +405,7 @@ public override void _Ready()
 	private bool remappingPowerUpKey = false;
 	private bool remappingBombKey = false;
 	private bool remappingDashKey = false;
-	
+
 	private void _on_left_button_pressed()
 	{
 		if (remappingKey)
@@ -421,7 +420,7 @@ public override void _Ready()
 	private void _on_right_button_pressed()
 	{
 		if (remappingKey)
-		{	
+		{
 			return;
 		}
 		remappingKey = true;
@@ -449,11 +448,11 @@ public override void _Ready()
 		remappingKey = true;
 		remappingDownKey = true;
 		Down.Text = "Move Down: Press New Key";
-		}
+	}
 
-		private void _on_power_up_button_pressed()
+	private void _on_power_up_button_pressed()
 	{
-		  if (remappingKey)
+		if (remappingKey)
 		{
 			return;
 		}
@@ -477,9 +476,9 @@ public override void _Ready()
 		if (remappingKey)
 		{
 			return;
-   		}
+		}
 		remappingKey = true;
 		remappingDashKey = true;
 		dash.Text = "Dash: Press New Key";
-	}	
+	}
 }

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Menus/Tutorial/Tutorial.cs" id="1_7fcnb"]
 
-[node name="Tutorial" type="Control"]
+[node name="Tutorial" type="Control" node_paths=PackedStringArray("tutorials", "gameplay", "player", "enemies", "powerups", "projectiles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +10,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7fcnb")
+tutorials = NodePath("Background/Info/Tutorials")
+gameplay = NodePath("Background/Info/Tutorials/Gameplay")
+player = NodePath("Background/Info/Tutorials/Player")
+enemies = NodePath("Background/Info/Tutorials/Enemies")
+powerups = NodePath("Background/Info/Tutorials/PowerUps")
+projectiles = NodePath("Background/Info/Tutorials/Projectiles")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -93,13 +99,11 @@ layout_mode = 2
 text = "Projectiles"
 
 [node name="Info" type="ScrollContainer" parent="Background"]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -450.0
+layout_mode = 2
+offset_left = 250.0
 offset_top = 50.0
+offset_right = 700.0
+offset_bottom = 400.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -108,7 +112,6 @@ custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
 
 [node name="Gameplay" type="RichTextLabel" parent="Background/Info/Tutorials"]
-visible = false
 custom_minimum_size = Vector2(450, 350)
 layout_mode = 2
 text = "Welcome to Bullet Hell! The goal of the game is to dodge bullets and shoot enemies to survive as long as possible. You can collect items and you have a set number of lives.
@@ -116,7 +119,7 @@ text = "Welcome to Bullet Hell! The goal of the game is to dodge bullets and sho
 The profile menu will show you your total stats, such as:
  - Kills.
  - Deaths.
- - Time alive. 
+ - Time alive.
  - Etc...
 
 The settings menu is where you go to change your preferences. You can change anything from video settings, to difficulty, sound settings, and controls."
@@ -187,7 +190,7 @@ offset_top = -100.0
 offset_right = 150.0
 offset_bottom = -50.0
 grow_vertical = 0
-text = "Exit"
+text = "Back"
 
 [connection signal="pressed" from="Background/Tabs/TabsButtons/Gameplay" to="." method="_on_gameplay_pressed"]
 [connection signal="pressed" from="Background/Tabs/TabsButtons/Player" to="." method="_on_player_pressed"]

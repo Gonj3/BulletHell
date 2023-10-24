@@ -20,14 +20,10 @@ public partial class Game : Node
 	private uint kills;
 	private uint waveCount;
 
-	public override void _Ready()
-	{
-	}
-
 	public override void _Process(double delta)
 	{
 		timer += delta;
-		if (!world.GetChildren().Any(c => c is Enemy))
+		if (!world.GetChildren().Any(c => c is Enemy || c is Boss))
 			StartWave();
 	}
 
@@ -47,8 +43,17 @@ public partial class Game : Node
 		waveCount++;
 		waveLabel.Text = $"Wave {waveCount}";
 
-		for (var i = 0; i < waveCount * 2; i++)
+
+		var enemyCount = waveCount % 5 == 0 ? waveCount / 2 : waveCount + 2;
+
+		for (var i = 0; i < enemyCount; i++)
 			world.SpawnEnemy(new Callable(this, "_on_player_kill"));
+
+
+		if (waveCount % 5 == 0)
+		{
+			// Spawn boss
+		}
 
 		waveTimer.Start();
 	}

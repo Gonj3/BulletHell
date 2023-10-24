@@ -5,18 +5,6 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Signal]
 	public delegate void DeathEventHandler();
 
-	public float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
-	public int Health = 100;
-	public int Lives = 3;
-	public bool Dashing = false;
-	public bool NoHealthMode = false;
-	public int[] Items = { 0, 0, 0, 0 };
-
-	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
-
-	private bool takenDamageThisTick = false;
-
 	[Export]
 	private World world;
 
@@ -31,6 +19,18 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	[Export]
 	private Timer bombTimer;
+
+	public float Speed = 300.0f;
+	public const float JumpVelocity = -400.0f;
+	public int Health = 100;
+	public int Lives = 3;
+	public bool Dashing = false;
+	public bool NoHealthMode = false;
+	public int[] Items = { 0, 0, 0, 0 };
+
+	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
+
+	private bool takenDamageThisTick = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -70,8 +70,8 @@ public partial class Player : CharacterBody2D, IDamageable
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
-		// NOTE: needs its own action, ill leave controls for someone whos been working with them
-		if (Input.IsActionPressed("shoot") && bombTimer.TimeLeft == 0)
+
+		if (Input.IsActionPressed("bomb") && bombTimer.TimeLeft == 0)
 		{
 			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
 			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;

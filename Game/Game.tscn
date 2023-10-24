@@ -1,16 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=27 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
 [ext_resource type="Script" path="res://Game/World.cs" id="2_0nuof"]
 [ext_resource type="Texture2D" uid="uid://b8mpu72f7d01i" path="res://Textures/Tiles/Dungeon_Tileset.png" id="2_81bd2"]
-[ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
+[ext_resource type="PackedScene" uid="uid://2ot3583nq2mg" path="res://Game/Entities/Projectile.tscn" id="3_gupa2"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
+[ext_resource type="PackedScene" path="res://Game/Entities/Bomb.tscn" id="4_yhpye"]
+[ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="5_0vl3q"]
 [ext_resource type="Texture2D" uid="uid://ck6dujkfxosye" path="res://Textures/ PlayerHealthBar.png" id="8_f5g53"]
-[ext_resource type="PackedScene" uid="uid://ck7khiyi7417f" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
-[ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="7_ngsqc"]
-[ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="8_cax2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
 texture = ExtResource("2_81bd2")
@@ -590,6 +589,11 @@ world = NodePath("World")
 
 [node name="World" type="Node2D" parent="." node_paths=PackedStringArray("Player", "tileMap")]
 script = ExtResource("2_0nuof")
+Player = NodePath("Player")
+tileMap = NodePath("TileMap")
+projectileScene = ExtResource("3_gupa2")
+bombScene = ExtResource("4_yhpye")
+enemyScene = ExtResource("5_0vl3q")
 
 [node name="TileMap" type="TileMap" parent="World"]
 scale = Vector2(4, 4)
@@ -622,6 +626,7 @@ position = Vector2(145, 33)
 scale = Vector2(6, 6)
 texture = ExtResource("8_f5g53")
 hframes = 11
+frame = 10
 
 [node name="HealthbarAnimator" type="AnimationPlayer" parent="UILayer"]
 method_call_mode = 1

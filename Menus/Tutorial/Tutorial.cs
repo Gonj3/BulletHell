@@ -3,43 +3,61 @@ using System;
 
 public partial class Tutorial : Control, IOverlayItem
 {
+	[Export]
+	private VBoxContainer tutorials;
+
+	[Export]
+	private RichTextLabel gameplay;
+
+	[Export]
+	private RichTextLabel player;
+
+	[Export]
+	private RichTextLabel enemies;
+
+	[Export]
+	private RichTextLabel powerups;
+
+	[Export]
+	private RichTextLabel projectiles;
+
 	public Overlay Overlay { get; set; }
 
 	private void ToggleTutorial(RichTextLabel labellToShow)
 	{
-		foreach (RichTextLabel child in GetNode<VBoxContainer>("Tutorials").GetChildren())
+		foreach (RichTextLabel child in tutorials.GetChildren())
 		{
 			child.Visible = child == labellToShow;
 			this.GetAudioManager().PlayButton();
 		}
 	}
 
-	private void _on_gameplay_pressed() 
+	private void _on_gameplay_pressed()
 	{
-		ToggleTutorial(GetNode<RichTextLabel>("Gameplay"));
+		ToggleTutorial(gameplay);
 	}
 
 	private void _on_player_pressed()
 	{
-		ToggleTutorial(GetNode<RichTextLabel>("Player"));
+		ToggleTutorial(player);
 	}
 
-	private void _on_power_ups_pressed() 
+	private void _on_power_ups_pressed()
 	{
-		ToggleTutorial(GetNode<RichTextLabel>("PowerUps"));
+		ToggleTutorial(powerups);
 	}
 
 	private void _on_enemies_pressed()
 	{
-		ToggleTutorial(GetNode<RichTextLabel>("Enemies"));
+		ToggleTutorial(enemies);
 	}
 
 	private void _on_projectiles_pressed()
 	{
-		ToggleTutorial(GetNode<RichTextLabel>("Projectiles"));
+		ToggleTutorial(projectiles);
 	}
 
-	private void _on_exit_pressed() 
+	private void _on_exit_pressed()
 	{
 		Back();
 		this.GetAudioManager().PlayButton();

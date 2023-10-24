@@ -33,8 +33,9 @@ public partial class World : Node2D
 	{
 		var enemyInstance = (Enemy)enemyScene.Instantiate();
 
+		var offset = tileMap.CellQuadrantSize / 2;
 
-		var spawnPos = GetSpawnableTile();
+		var spawnPos = GetSpawnableTile() + new Vector2(offset, offset);
 
 		enemyInstance.Position = spawnPos;
 		enemyInstance.World = this;
