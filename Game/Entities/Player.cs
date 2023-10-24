@@ -60,9 +60,9 @@ public partial class Player : CharacterBody2D, IDamageable
 			Dashing = true;
 			dashTimer.Start();
 		}
-else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
+		else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
 		{
-			Speed = 800.0f;
+			Velocity *= 4;
 			Dashing = true;
 			dashTimer.Start();
 		}
@@ -108,10 +108,10 @@ else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
 		// Start running or idle animations
 		if (!animBusy)
 		{
-			if (direction != Vector2.Zero)
+			if (resultVec != Vector2.Zero)
 			{
-				playerAnimator.Play("Run" + GetAnimSide(direction.Angle()));
-				prevDirection = direction;
+				playerAnimator.Play("Run" + GetAnimSide(resultVec.Angle()));
+				prevDirection = resultVec;
 			}
 			else
 			{
@@ -133,6 +133,8 @@ else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
 		}
 		else if (Input.IsActionPressed("controller_shoot") && fireTimer.TimeLeft == 0)
 		{
+			this.GetAudioManager().PlaySound("ShootSFX");
+			playerAnimator.Play("Attack" + GetAnimSide(joystickAngle));
 			world.SpawnProjectile(Position, joystickAngle, DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
@@ -147,7 +149,7 @@ else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
 		else if (Input.IsActionPressed("controller_bomb") && bombTimer.TimeLeft == 0)
 		{
 			var offsetPosition = Position + Vector2.Right.Rotated(joystickAngle) * 60;
-			world.ThrowBomb(offsetPosition, joystickAngle);
+			world.ThrowBomb(offsetPosition, joystickAngle, 40);
 			bombTimer.Start();
 		}
 	}
