@@ -26,7 +26,10 @@ public class ProfileTests
         Assert.Equal(result.Name, name);
         Assert.Equal(result.Kills, kills);
         Assert.Equal(result.Deaths, deaths);
+        Assert.Equal(result.ItemsCollected, items);
         Assert.Equal(result.TimeAlive, timeAlive);
+        Assert.Equal(result.LongestRun, longestRun);
+        Assert.Equal(result.HighestWave, highestWave);
     }
 
     [Fact]
