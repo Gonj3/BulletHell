@@ -26,6 +26,7 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	[Export]
 	private Timer dashTimer;
+	private Timer bombTimer;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -44,10 +45,12 @@ public partial class Player : CharacterBody2D, IDamageable
 		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down"); 
+		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down"); 
+		var resultVec = direction + JoystickDirection;
+		if (resultVec != Vector2.Zero)
 		{
-			velocity = direction.Normalized() * Speed;
+			velocity = resultVec.Normalized() * Speed;
 		}
 		else
 		{
@@ -60,8 +63,16 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
-			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy);
+			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
+		}
+		// NOTE: needs its own action, ill leave controls for someone whos been working with them
+		if (Input.IsActionPressed("shoot") && bombTimer.TimeLeft == 0)
+		{
+			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
+			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;
+			world.ThrowBomb(offsetPosition, mouseAngle);
+			bombTimer.Start();
 		}
 	}
 
