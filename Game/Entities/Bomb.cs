@@ -32,6 +32,8 @@ public partial class Bomb : RigidBody2D, IDamageable
 		idle.Hide();
 		explosion.Show();
 		explosion.Play("explode");
+		this.GetAudioManager().PlaySound("BombSFX");
+
 		foreach (var body in ExplosionRadius.GetOverlappingBodies())
 		{
 			if (body is Player player)
@@ -55,8 +57,6 @@ public partial class Bomb : RigidBody2D, IDamageable
 		}
 		await ToSignal(explosion, "animation_finished");
 		QueueFree();
-
-		this.GetAudioManager().PlaySound("BombSFX");
 	}
 
 	public void TakeDamage(int damage, float angle, int force)
