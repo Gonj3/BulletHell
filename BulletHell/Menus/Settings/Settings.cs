@@ -11,8 +11,6 @@ public partial class Settings : Control, IOverlayItem
 	[Export]
 	private Label Left;
 	[Export]
-	private Label power_up;
-	[Export]
 	private Label bomb;
 	[Export]
 	private Label dash;
@@ -31,16 +29,13 @@ public partial class Settings : Control, IOverlayItem
 		string RightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
 		Right.Text = "Move Right: " + RightKey;
 
-		string PowerUpKey = InputMap.ActionGetEvents("PowerUp")[0].AsText();
-		power_up.Text = "Power Up: " + PowerUpKey;
-
 		string BombKey = InputMap.ActionGetEvents("bomb")[0].AsText();
 		bomb.Text = "Bomb: " + BombKey;
 
 		string DashKey = InputMap.ActionGetEvents("dash")[0].AsText();
 		dash.Text = "dash: " + DashKey;
-
 	}
+	
 	public Overlay Overlay { get; set; }
 
 	// hide/show settings method
@@ -138,25 +133,6 @@ public partial class Settings : Control, IOverlayItem
 		}
 	}
 
-	// quality option function
-	private void _on_quality_option_item_selected(int index)
-	{
-		string selectedOption = ((OptionButton)GetNode("settings/video_settings/quality_option")).GetItemText(index);
-
-		if (selectedOption == "High")
-		{
-
-		}
-		else if (selectedOption == "Medium")
-		{
-
-		}
-		else if (selectedOption == "Low")
-		{
-
-		}
-	}
-
 	// frame rate option function
 	private void _on_frame_rate_option_item_selected(int index)
 	{
@@ -216,12 +192,6 @@ public partial class Settings : Control, IOverlayItem
 		{
 
 		}
-	}
-
-	// hide hud check box function
-	private void _on_hide_hud_check_pressed()
-	{
-
 	}
 
 	// fps display check box function
@@ -296,7 +266,6 @@ public partial class Settings : Control, IOverlayItem
 			string currentDownKey = InputMap.ActionGetEvents("ui_down")[0].AsText();
 			string currentLeftKey = InputMap.ActionGetEvents("ui_left")[0].AsText();
 			string currentRightKey = InputMap.ActionGetEvents("ui_right")[0].AsText();
-			string currentPowerUpKey = InputMap.ActionGetEvents("PowerUp")[0].AsText();
 			string currentBombKey = InputMap.ActionGetEvents("bomb")[0].AsText();
 			string currentDashKey = InputMap.ActionGetEvents("dash")[0].AsText();
 
@@ -304,7 +273,7 @@ public partial class Settings : Control, IOverlayItem
 			if (remappingLeftKey)
 			{
 				while (currentUpKey == keyEvent.AsText() || currentDownKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
+						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
 				{
 					Left.Text = "Move Left: can't assign same key";
 					return;
@@ -316,7 +285,7 @@ public partial class Settings : Control, IOverlayItem
 			else if (remappingRightKey)
 			{
 				while (currentUpKey == keyEvent.AsText() || currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText()
-						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
+						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
 				{
 					Right.Text = "Move Right: can't assign same key";
 					return;
@@ -328,7 +297,7 @@ public partial class Settings : Control, IOverlayItem
 			else if (remappingUpKey)
 			{
 				while (currentDownKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
+						|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
 				{
 					Up.Text = "Move Up: can't assign same key";
 					return;
@@ -340,7 +309,7 @@ public partial class Settings : Control, IOverlayItem
 			else if (remappingDownKey)
 			{
 				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-							|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText())
+							|| currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
 				{
 					Down.Text = "Move Down: can't assign same key";
 					return;
@@ -349,23 +318,10 @@ public partial class Settings : Control, IOverlayItem
 				InputMap.ActionAddEvent("ui_down", keyEvent);
 				Down.Text = "Move Down: " + keyEvent.AsText();
 			}
-
-			else if (remappingPowerUpKey)
-			{
-				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-						   || currentDownKey == keyEvent.AsText() || currentBombKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
-				{
-					power_up.Text = "Power Up: can't assign same key";
-					return;
-				}
-				InputMap.ActionEraseEvents("PowerUp");
-				InputMap.ActionAddEvent("PowerUp", keyEvent);
-				power_up.Text = "Power Up: " + keyEvent.AsText();
-			}
 			else if (remappingBombKey)
 			{
 				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-						   || currentDownKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText() || currentDashKey == keyEvent.AsText())
+						   || currentDownKey == keyEvent.AsText())
 				{
 					bomb.Text = "Bomb: can't assign same key";
 					return;
@@ -377,7 +333,7 @@ public partial class Settings : Control, IOverlayItem
 			else if (remappingDashKey)
 			{
 				while (currentUpKey == keyEvent.AsText() || currentLeftKey == keyEvent.AsText() || currentRightKey == keyEvent.AsText()
-						   || currentDownKey == keyEvent.AsText() || currentPowerUpKey == keyEvent.AsText() || currentBombKey == keyEvent.AsText())
+						   || currentDownKey == keyEvent.AsText())
 				{
 					dash.Text = "Dash: can't assign same key";
 					return;
@@ -391,7 +347,6 @@ public partial class Settings : Control, IOverlayItem
 			remappingRightKey = false;
 			remappingUpKey = false;
 			remappingDownKey = false;
-			remappingPowerUpKey = false;
 			remappingBombKey = false;
 			remappingDashKey = false;
 		}
@@ -402,7 +357,6 @@ public partial class Settings : Control, IOverlayItem
 	private bool remappingRightKey = false;
 	private bool remappingUpKey = false;
 	private bool remappingDownKey = false;
-	private bool remappingPowerUpKey = false;
 	private bool remappingBombKey = false;
 	private bool remappingDashKey = false;
 
@@ -448,17 +402,6 @@ public partial class Settings : Control, IOverlayItem
 		remappingKey = true;
 		remappingDownKey = true;
 		Down.Text = "Move Down: Press New Key";
-	}
-
-	private void _on_power_up_button_pressed()
-	{
-		if (remappingKey)
-		{
-			return;
-		}
-		remappingKey = true;
-		remappingPowerUpKey = true;
-		power_up.Text = "Power Up: Press New Key";
 	}
 
 	private void _on_bomb_button_pressed()
