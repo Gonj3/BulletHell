@@ -60,9 +60,9 @@ public partial class Player : CharacterBody2D, IDamageable
 			Dashing = true;
 			dashTimer.Start();
 		}
-else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
+		else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
 		{
-			Speed = 800.0f;
+			Velocity *= 4;
 			Dashing = true;
 			dashTimer.Start();
 		}
@@ -147,7 +147,7 @@ else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
 		else if (Input.IsActionPressed("controller_bomb") && bombTimer.TimeLeft == 0)
 		{
 			var offsetPosition = Position + Vector2.Right.Rotated(joystickAngle) * 60;
-			world.ThrowBomb(offsetPosition, joystickAngle);
+			world.ThrowBomb(offsetPosition, joystickAngle, 40);
 			bombTimer.Start();
 		}
 	}
