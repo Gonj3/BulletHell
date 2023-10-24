@@ -3,6 +3,10 @@ using System;
 
 public partial class PowerUp : Area2D
 {
+	
+	[Export]
+	private AnimatedSprite2D sprite2D;
+	
 	public int healthIncrease = 40;
 	public int lifeIncrease = 1;
 	public float speedIncrease = 100f;
@@ -18,12 +22,33 @@ public partial class PowerUp : Area2D
 		*/
 		Random rand = new Random();
 		type = (int)rand.Next(0, 4);
+		_SetTexture();
 	}
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		InitialiseType();
+	}
+
+	private void _SetTexture()
+	{
+		switch(type)
+		{
+			case 0:
+				sprite2D.Animation = "Health";
+				break;
+			case 1:
+				sprite2D.Animation = "Life";
+				break;
+			case 2:
+				sprite2D.Animation = "Speed";
+				break;
+			case 3:
+				sprite2D.Animation = "Bomb";
+				sprite2D.Play();
+				break;
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
-[ext_resource type="PackedScene" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
+[ext_resource type="PackedScene" uid="uid://ck7khiyi7417f" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
 texture = ExtResource("2_81bd2")
