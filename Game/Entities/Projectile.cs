@@ -2,6 +2,14 @@ using System;
 using Godot;
 public partial class Projectile : Area2D
 {
+	[Export]
+	private Sprite2D sprite;
+	[Export]
+	private CollisionShape2D hitBox;
+	[Export]
+	private Texture2D ProjTexture;
+	[Export]
+	private Texture2D AltProjTexture;
 	public enum Type
 	{
 		Normal,
@@ -22,14 +30,6 @@ public partial class Projectile : Area2D
 	private Vector2 vector;
 	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
-	[Export]
-	private Sprite2D sprite;
-	[Export]
-	private CollisionShape2D hitBox;
-	[Export]
-	private Texture2D ProjTexture;
-	[Export]
-	private Texture2D AltProjTexture;
 	public void SetType(Type type)
 	{
 		switch (type)

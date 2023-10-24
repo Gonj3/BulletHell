@@ -4,19 +4,25 @@ using System;
 public partial class Enemy : RigidBody2D, IDamageable
 {
 	[Export]
+	private AnimationPlayer spriteAnim;
+
+	public float Speed = 50f;
+
+	[Export]
 	private Player player;
 	[Export]
 	private World world;
 
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
+	public int Health = 30;
+
 	[Export]
-	private AnimationPlayer spriteAnim;
+	private Timer fireTimer;
 
-	public override void _Ready()
-	{
-		InitializeRandomValues();
-		InitializeFiringStyle();
-	}
-
+	public float ProjectileSpeed;
+	public int ProjectileCount;
+	private float fireCount = 0;
+	public float FireTimeout;
 	public enum FiringStyle
 	{
 		Spin,
@@ -24,12 +30,13 @@ public partial class Enemy : RigidBody2D, IDamageable
 		Spread
 	}
 	public FiringStyle CurrentFiringStyle;
-	public float ProjectileSpeed;
-	public int ProjectileCount;
-	private float fireCount = 0;
-	[Export]
-	private Timer fireTimer;
-	public float FireTimeout;
+
+	public override void _Ready()
+	{
+		InitializeRandomValues();
+		InitializeFiringStyle();
+	}
+
 	private void InitializeFiringStyle()
 	{
 		switch (CurrentFiringStyle)
@@ -57,7 +64,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 		CurrentFiringStyle = (FiringStyle)random.Next(0, 3);
 	}
 
-	public float Speed = 50f;
 	public override void _PhysicsProcess(double delta)
 	{
 		ConstantForce = Position.DirectionTo(player.Position) * Speed;
@@ -110,8 +116,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 		world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 	}
 
-	public int Health = 30;
-	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	public void TakeDamage(int damage, Vector2 direction)
 	{
 		Health -= damage;
