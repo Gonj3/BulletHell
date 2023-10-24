@@ -6,6 +6,9 @@ public partial class Projectile : Area2D
 	private Sprite2D sprite;
 
 	[Export]
+	private AnimationPlayer animator;
+
+	[Export]
 	private CollisionShape2D hitBox;
 
 	[Export]
@@ -35,21 +38,24 @@ public partial class Projectile : Area2D
 		switch (type)
 		{
 			case Type.Normal:
-				sprite.Texture = projTexture;
+				//sprite.Texture = projTexture;
+				animator.Play("Shoot");
 				sprite.Scale = new Vector2(1f, 1f);
 				hitBox.Shape = new CircleShape2D { Radius = 8f };
 				Damage = 20;
 				Speed = 200f;
 				break;
 			case Type.Alt:
-				sprite.Texture = altProjTexture;
+				//sprite.Texture = altProjTexture;
+				animator.Play("ShootAlt");
 				sprite.Scale = new Vector2(2f, 2f);
 				hitBox.Shape = new CircleShape2D { Radius = 16f };
 				Damage = 40;
 				Speed = 100f;
 				break;
 			case Type.Player:
-				sprite.Texture = altProjTexture;
+				//sprite.Texture = altProjTexture;
+				animator.Play("ShootPlayer");
 				sprite.Scale = new Vector2(1f, 1f);
 				hitBox.Shape = new CircleShape2D { Radius = 10f };
 				Damage = 30;
@@ -60,6 +66,7 @@ public partial class Projectile : Area2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Position += vector * Speed * (float)delta;
+		sprite.Rotation = vector.Angle();
 	}
 
 	public void _OnBodyEntered(Node2D body)
