@@ -8,4 +8,5 @@ public class Scene
 	public static readonly Scene Game = new("res://Game/Game.tscn");
 	public static readonly Scene Settings = new("res://Menus/Settings/Settings.tscn");
 	public static readonly Scene ProfileMenu = new("res://Menus/ProfileMenu/ProfileMenu.tscn");
+	public static readonly Scene Tutorial = new("res://Menus/Tutorial/Tutorial.tscn");
 }

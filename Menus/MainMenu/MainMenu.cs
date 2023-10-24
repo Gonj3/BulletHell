@@ -25,6 +25,12 @@ public partial class MainMenu : Control
 		this.GetAudioManager().PlayButton();
 	}
 
+	public void _on_tutorial_button_pressed()
+	{
+		this.GetRoot().SetScene(Scene.Tutorial);
+		this.GetAudioManager().PlayButton();
+	}
+
 	public void _on_profile_button_pressed()
 	{
 		this.GetRoot().SetScene(Scene.ProfileMenu);

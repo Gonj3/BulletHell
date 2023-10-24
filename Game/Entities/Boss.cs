@@ -5,17 +5,21 @@ public partial class Boss : RigidBody2D, IDamageable
 {
 	[Export]
 	private Player player;
+
 	[Export]
 	private World world;
 
 	[Export]
 	private AnimatedSprite2D body;
 
+	[Signal]
+	public delegate void DeathEventHandler();
+
 	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	public int Health = 200;
 	public float Speed = 10f;
 
-	private int ProjectileCount = 8;
+	private int projectileCount = 8;
 	private int fireCount = 0;
 
     public override void _Ready()
@@ -29,9 +33,9 @@ public partial class Boss : RigidBody2D, IDamageable
 
 	public void _OnFireTimerTimeout()
 	{
-		for (int i = 0; i < ProjectileCount; i++)
+		for (int i = 0; i < projectileCount; i++)
 		{
-			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i) + fireCount * 10000;
+			float angleOffset = (float)(2 * Math.PI / projectileCount * i) + fireCount * 10000;
 			float angle = Position.AngleToPoint(player.Position) + angleOffset;
 			world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 		}
@@ -41,9 +45,9 @@ public partial class Boss : RigidBody2D, IDamageable
 	public void _OnAltFireTimerTimeout()
 	{
 		body.Play("alt");
-		for (int i = 0; i < ProjectileCount; i++)
+		for (int i = 0; i < projectileCount; i++)
 		{
-			float angleOffset = (float)(2 * Math.PI / ProjectileCount * i);
+			float angleOffset = (float)(2 * Math.PI / projectileCount * i);
 			float angle = Position.AngleToPoint(player.Position) + angleOffset;
 			world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Alt);
 		}
@@ -61,6 +65,7 @@ public partial class Boss : RigidBody2D, IDamageable
 		ApplyImpulse(direction * 40);
 		if (Health <= 0)
 		{
+			EmitSignal(SignalName.Death);
 			QueueFree();
 		}
 	}

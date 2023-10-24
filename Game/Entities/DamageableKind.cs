@@ -1,5 +1,5 @@
 public enum DamageableKind
 {
-    Friendly,
-    Enemy
+	Friendly,
+	Enemy
 }
