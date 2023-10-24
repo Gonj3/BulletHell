@@ -12,9 +12,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 	private AnimationPlayer spriteAnim;
 
 	[Export]
-	private Player player;
-
-	[Export]
 	public World World { get; set; }
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
@@ -121,7 +118,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 	}
 	private void FireProjectile(float angleOffset)
 	{
-		float angle = Position.AngleToPoint(player.Position) + angleOffset;
+		float angle = Position.AngleToPoint(World.Player.Position) + angleOffset;
 		World.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 	}
 

@@ -613,34 +613,6 @@ limit_smoothed = true
 script = ExtResource("4_l4yhj")
 tileMap = NodePath("../../TileMap")
 
-[node name="Enemy" parent="World" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_akldc")]
-position = Vector2(1252, 695)
-player = NodePath("../Player")
-world = NodePath("..")
-
-[node name="Enemy2" parent="World" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_akldc")]
-position = Vector2(1100, 636)
-player = NodePath("../Player")
-world = NodePath("..")
-
-[node name="PowerUp" parent="World" instance=ExtResource("4_ospnf")]
-position = Vector2(568, 613)
-
-[node name="BoundsBody" type="StaticBody2D" parent="World"]
-
-[node name="Enemy3" parent="World" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_akldc")]
-position = Vector2(1511, 615)
-player = NodePath("../Player")
-world = NodePath("..")
-
-[node name="Boss" parent="World" node_paths=PackedStringArray("player", "world") instance=ExtResource("7_ngsqc")]
-position = Vector2(894, 823)
-player = NodePath("../Player")
-world = NodePath("..")
-
-[node name="Bomb" parent="World" instance=ExtResource("8_cax2o")]
-position = Vector2(1123, 818)
-
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="Overlay" parent="UILayer" instance=ExtResource("3_jfkpm")]

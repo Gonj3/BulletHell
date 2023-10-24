@@ -14,6 +14,9 @@ public partial class World : Node2D
 	[Export]
 	private PackedScene bombScene;
 
+	[Export]
+	private PackedScene enemyScene;
+
 	public void SpawnProjectile(Vector2 pos, float angle, DamageableKind target, Projectile.Type type)
 	{
 		var projInstance = (Projectile)projectileScene.Instantiate();
