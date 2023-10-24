@@ -56,13 +56,13 @@ public partial class World : Node2D
 		}
 	}
 	// no target because a bomb should hit everything.
-	public void ThrowBomb(Vector2 pos, float angle)
+	public void ThrowBomb(Vector2 pos, float angle, int force)
 	{
 		var bombInstance = (Bomb)bombScene.Instantiate();
 		bombInstance.Position = pos;
 		bombInstance.SetAngle(angle);
 
 		GetParent().AddChild(bombInstance);
-		bombInstance.ApplyImpulse(bombInstance.vector * 40);
+		bombInstance.ApplyImpulse(bombInstance.vector * force);
 	}
 }

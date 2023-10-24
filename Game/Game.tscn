@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://2ot3583nq2mg" path="res://Game/Entities/Projectile.tscn" id="3_gupa2"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
-[ext_resource type="PackedScene" path="res://Game/Entities/Bomb.tscn" id="4_yhpye"]
+[ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="4_yhpye"]
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="5_0vl3q"]
-[ext_resource type="Texture2D" path="res://Textures/ PlayerHealthBar.png" id="8_f5g53"]
+[ext_resource type="Texture2D" uid="uid://ck6dujkfxosye" path="res://Textures/ PlayerHealthBar.png" id="8_f5g53"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
 texture = ExtResource("2_81bd2")

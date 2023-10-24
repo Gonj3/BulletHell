@@ -26,10 +26,12 @@ public partial class Projectile : Area2D
 	public float Speed;
 	public int Damage;
 	private Vector2 vector;
+	private float _angle;
 	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
 	public void SetAngle(float angle)
 	{
+		_angle = angle;
 		vector = Vector2.FromAngle(angle).Normalized();
 	}
 
@@ -54,10 +56,10 @@ public partial class Projectile : Area2D
 				Speed = 100f;
 				break;
 			case Type.Player:
-				//sprite.Texture = projTexture;
+				//sprite.Texture = altProjTexture;
 				animator.Play("ShootPlayer");
 				sprite.Scale = new Vector2(1f, 1f);
-				hitBox.Shape = new CircleShape2D { Radius = 8f };
+				hitBox.Shape = new CircleShape2D { Radius = 10f };
 				Damage = 30;
 				Speed = 1000f;
 				break;
@@ -76,7 +78,7 @@ public partial class Projectile : Area2D
 
 		if (body is IDamageable damageable && damageable.DamageableKind == Target)
 		{
-			damageable.TakeDamage(Damage, vector);
+			damageable.TakeDamage(Damage, _angle, 30);
 			QueueFree();
 		}
 	}

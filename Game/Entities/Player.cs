@@ -119,7 +119,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		{
 			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
 			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;
-			world.ThrowBomb(offsetPosition, mouseAngle);
+			world.ThrowBomb(offsetPosition, mouseAngle, 40);
 			bombTimer.Start();
 		}
 	}
@@ -134,7 +134,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	}
 
 	//takes health from player based on int damage
-	public void TakeDamage(int damage, Vector2 _)
+	public void TakeDamage(int damage, float _, int __)
 	{
 		if (!takenDamageThisTick && Dashing == false)
 		{
