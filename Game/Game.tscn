@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=12 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
 [ext_resource type="Script" path="res://Game/World.cs" id="2_0nuof"]
 [ext_resource type="Texture2D" uid="uid://b8mpu72f7d01i" path="res://Textures/Tiles/Dungeon_Tileset.png" id="2_81bd2"]
-[ext_resource type="PackedScene" uid="uid://2ot3583nq2mg" path="res://Game/Entities/Projectile.tscn" id="3_83oo0"]
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
@@ -343,8 +342,6 @@ Overlay = NodePath("UILayer/Overlay")
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("2_0nuof")
-projectileScene = ExtResource("3_83oo0")
-bombScene = ExtResource("8_cax2o")
 
 [node name="TileMap" type="TileMap" parent="World"]
 scale = Vector2(4, 4)

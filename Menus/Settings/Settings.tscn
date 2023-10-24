@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Menus/Settings/Settings.cs" id="1_yn38v"]
 [ext_resource type="Script" path="res://Menus/Settings/Fps.cs" id="2_r2v52"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("Up", "Down", "Right", "Left", "power_up", "bomb", "dash")]
+[node name="Settings" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,13 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yn38v")
-Up = NodePath("settings/controls_settings/up")
-Down = NodePath("settings/controls_settings/down")
-Right = NodePath("settings/controls_settings/right")
-Left = NodePath("settings/controls_settings/left")
-power_up = NodePath("settings/controls_settings/PowerUp")
-bomb = NodePath("settings/controls_settings/bomb")
-dash = NodePath("settings/controls_settings/dash")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

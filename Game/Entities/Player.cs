@@ -12,9 +12,9 @@ public partial class Player : CharacterBody2D, IDamageable
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
+	public bool Dashing = false;
 	public bool NoHealthMode = false;
 	public int[] Items = {0, 0, 0, 0};
-	
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
 
@@ -27,6 +27,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	private Timer fireTimer;
 
 	[Export]
+	private Timer dashTimer;
 	private Timer bombTimer;
 
 	public override void _PhysicsProcess(double delta)
@@ -35,6 +36,15 @@ public partial class Player : CharacterBody2D, IDamageable
 		UpdateHealth();
 		UpdateLives();
 		CheckLostLives();
+		CheckIfDashing();
+		
+		if (Input.IsActionPressed("ui_select") && dashTimer.TimeLeft == 0)
+		{
+			Speed = 800.0f;
+			Dashing = true;
+			dashTimer.Start();
+		}
+		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down"); 
@@ -68,10 +78,19 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 	}
 
+	public void CheckIfDashing()
+	{
+		if(dashTimer.TimeLeft < 4)
+		{
+			Dashing = false;
+			Speed = 300.0f;
+		}
+	}
+
 	//takes health from player based on int damage
 	public void TakeDamage(int damage, Vector2 _)
 	{
-		if (!takenDamageThisTick)
+		if (!takenDamageThisTick && Dashing == false)
 		{
 				if(NoHealthMode == true)
 			{
