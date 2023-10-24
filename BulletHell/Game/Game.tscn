@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c0sv75gv71xx1"]
+[gd_scene load_steps=29 format=3 uid="uid://c0sv75gv71xx1"]
 
 [ext_resource type="PackedScene" uid="uid://dttn837a7u1tf" path="res://Game/Entities/Player.tscn" id="1_b3jan"]
 [ext_resource type="Script" path="res://Game/Game.cs" id="1_ov3n4"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="4_yhpye"]
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="5_0vl3q"]
 [ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="6_ilxuo"]
+[ext_resource type="PackedScene" uid="uid://ck7khiyi7417f" path="res://Game/Entities/PowerUp.tscn" id="7_l7sb8"]
 [ext_resource type="Texture2D" uid="uid://ck6dujkfxosye" path="res://Textures/ PlayerHealthBar.png" id="8_f5g53"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvq5k"]
@@ -634,6 +635,7 @@ projectileScene = ExtResource("3_gupa2")
 bombScene = ExtResource("4_yhpye")
 enemyScene = ExtResource("5_0vl3q")
 bossScene = ExtResource("6_ilxuo")
+powerupScene = ExtResource("7_l7sb8")
 
 [node name="TileMap" type="TileMap" parent="World"]
 scale = Vector2(4, 4)

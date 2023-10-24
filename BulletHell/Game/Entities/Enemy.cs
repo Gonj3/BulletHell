@@ -139,6 +139,9 @@ public partial class Enemy : RigidBody2D, IDamageable
 		Health -= damage;
 		if (Health <= 0)
 		{
+			if (new Random().Next(4) == 0)
+				World.SpawnPowerup(Position);
+
 			this.GetAudioManager().PlaySound("KillSFX");
 			EmitSignal(SignalName.Death);
 			QueueFree();

@@ -68,6 +68,7 @@ public partial class Boss : RigidBody2D, IDamageable
 		Health -= damage;
 		if (Health <= 0)
 		{
+			World.SpawnPowerup(Position);
 			this.GetAudioManager().PlaySound("DeathSFX");
 			EmitSignal(SignalName.Death);
 			QueueFree();

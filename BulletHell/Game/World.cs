@@ -20,6 +20,10 @@ public partial class World : Node2D
 	[Export]
 	private PackedScene bossScene;
 
+	[Export]
+	private PackedScene powerupScene;
+
+
 	private Vector2 bossSpawnPos = new Vector2(1000, 1000);
 
 	public void SpawnProjectile(Vector2 pos, float angle, DamageableKind target, Projectile.Type type)
@@ -58,6 +62,15 @@ public partial class World : Node2D
 		bossInstance.Connect("Death", deathCallback);
 
 		AddChild(bossInstance);
+	}
+
+	public void SpawnPowerup(Vector2 pos)
+	{
+		var powerupInstance = (PowerUp)powerupScene.Instantiate();
+
+		powerupInstance.Position = pos;
+
+		AddChild(powerupInstance);
 	}
 
 	private Vector2 GetSpawnableTile()
