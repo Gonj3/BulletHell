@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvtfjeagv5khq"
-path="res://.godot/imported/bombplaceholder.png-94611d8aa6128ea482eff4b78c440a36.ctex"
+uid="uid://k6ten7hi2l3d"
+path="res://.godot/imported/idle.png-7102b149326813a60261d48d018cb8ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/bombplaceholder.png"
-dest_files=["res://.godot/imported/bombplaceholder.png-94611d8aa6128ea482eff4b78c440a36.ctex"]
+source_file="res://Textures/Boss/idle.png"
+dest_files=["res://.godot/imported/idle.png-7102b149326813a60261d48d018cb8ff.ctex"]
 
 [params]
 
