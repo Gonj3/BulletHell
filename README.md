@@ -1,7 +1,7 @@
 # BulletHell
 
 This game is a bullet hell style 2D wave-based survival shooter, Made in Godot4 with scripting in C# for windows10 and above.
-
+![Alt text](preview.png)
 ## Installation
 
 Prebuilt exports are available in [Releases](https://github.com/Gonj3/BulletHell/releases).
