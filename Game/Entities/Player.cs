@@ -108,10 +108,10 @@ public partial class Player : CharacterBody2D, IDamageable
 		// Start running or idle animations
 		if (!animBusy)
 		{
-			if (direction != Vector2.Zero)
+			if (resultVec != Vector2.Zero)
 			{
-				playerAnimator.Play("Run" + GetAnimSide(direction.Angle()));
-				prevDirection = direction;
+				playerAnimator.Play("Run" + GetAnimSide(resultVec.Angle()));
+				prevDirection = resultVec;
 			}
 			else
 			{
@@ -133,6 +133,8 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 		else if (Input.IsActionPressed("controller_shoot") && fireTimer.TimeLeft == 0)
 		{
+			this.GetAudioManager().PlaySound("ShootSFX");
+			playerAnimator.Play("Attack" + GetAnimSide(joystickAngle));
 			world.SpawnProjectile(Position, joystickAngle, DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
