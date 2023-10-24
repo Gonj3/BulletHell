@@ -1,27 +1,37 @@
+using System;
 using Godot;
 public partial class Projectile : Area2D
 {
-	public Vector2 velocity = new Vector2();
-	public float speed = 30f;
-	public float duration = 40;
-
-	public override void _PhysicsProcess(double delta)
+	public float Angle
 	{
-		Position += velocity * (float)delta * speed;
-		// ensure maximum duration
-		duration -= (float)delta;
-		if (duration <= 0)
+		get => _angle; set
 		{
-			QueueFree();
+			_angle = value;
+			vector = new Vector2((float)Math.Cos(value), (float)Math.Sin(value)).Normalized();
 		}
 	}
 
-	// Player collision may be removed entirely in favor of player side detection
+	public float Speed { get; set; } = 200f;
+	public int Damage { get; set; } = 20;
+	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
+
+
+	private float _angle;
+	private Vector2 vector;
+
+	public override void _PhysicsProcess(double delta)
+	{
+		Position += vector * Speed * (float)delta;
+	}
+
 	public void _OnBodyEntered(Node2D body)
 	{
-		if (body.Name == "BoundsBody")
+		if (body is TileMap)
+			QueueFree();
+
+		if (body is IDamageable damageable && damageable.DamageableKind == Target)
 		{
-			// remove self
+			damageable.TakeDamage(Damage, vector);
 			QueueFree();
 		}
 	}

@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public partial class Enemy : Area2D
+public partial class Enemy : RigidBody2D, IDamageable
 {
-	private Vector2 velocity = new Vector2();
-	public float speed = 4.0f;
+	public float Speed = 50f;
 	public float ProjectileSpeed { get; set; } = 10.0f;
 	public int ProjectileCount { get; set; } = 1;
 	public float FireTimeout { get; set; } = 1.0f;
-	private float fireCount = 0;
+
+	public int Health = 100;
 
 	public enum FiringStyle
 	{
@@ -19,12 +19,22 @@ public partial class Enemy : Area2D
 
 	public FiringStyle CurrentFiringStyle { get; set; } = FiringStyle.Spin;
 
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
+
+	private float fireCount = 0;
 	private Timer fireTimer;
-	private PackedScene projectileScene;
+
+	[Export]
+	private Player player;
+
+	[Export]
+	private World world;
+
+	[Export]
+	private AnimationPlayer spriteAnim;
 
 	public override void _Ready()
 	{
-		projectileScene = GD.Load<PackedScene>("res://Game/Entities/Projectile.tscn");
 		InitializeRandomValues();
 		InitializeFiringStyle();
 		InitializeFireTimer();
@@ -34,7 +44,6 @@ public partial class Enemy : Area2D
 	{
 		Random random = new Random();
 		CurrentFiringStyle = (FiringStyle)random.Next(0, 3);
-		velocity = new Vector2((float)(2 * random.NextDouble()), (float)(2 * random.NextDouble())).Normalized() * speed;
 	}
 
 	private void InitializeFiringStyle()
@@ -63,7 +72,7 @@ public partial class Enemy : Area2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Position += velocity * (float)delta * speed;
+		ConstantForce = Position.DirectionTo(player.Position) * Speed;
 	}
 
 	public void _OnFireTimerTimeout()
@@ -112,23 +121,17 @@ public partial class Enemy : Area2D
 
 	private void FireProjectiles(float angleOffset)
 	{
-		var projInstance = projectileScene.Instantiate();
-		if (projInstance != null)
-		{
-			Vector2 rotatedVelocity = velocity.Rotated(angleOffset);
-			projInstance.Set("velocity", rotatedVelocity.Normalized() * ProjectileSpeed);
-			projInstance.Set("position", Position);
-			GetParent().AddChild(projInstance);
-		}
+		world.SpawnProjectile(Position, Position.AngleToPoint(player.Position) + angleOffset, 200f, DamageableKind.Friendly);
 	}
 
-	// Player collision may be removed entirely in favor of player side detection
-	public void _OnBodyEntered(Node2D body)
+	public void TakeDamage(int damage, Vector2 direction)
 	{
-		if (body.Name == "BoundsBody")
-		{
-			// remove self
+		Health -= damage;
+
+		spriteAnim.Play("damage_flash");
+		ApplyImpulse(direction * 40);
+
+		if (Health <= 0)
 			QueueFree();
-		}
 	}
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IDamageable
 {
 	[Signal]
 	public delegate void DeathEventHandler();
@@ -15,17 +15,31 @@ public partial class Player : CharacterBody2D
 	public bool NoHealthMode = false;
 	public int[] Items = {0, 0, 0, 0};
 	
+
+	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
+
+	private bool takenDamageThisTick = false;
+
+	[Export]
+	private World world;
+
+	[Export]
+	private Timer fireTimer;
+
 	public override void _PhysicsProcess(double delta)
 	{
+		takenDamageThisTick = false;
 		UpdateHealth();
 		UpdateLives();
 		CheckLostLives();
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down"); 
+		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down"); 
+		var resultVec = direction + JoystickDirection;
+		if (resultVec != Vector2.Zero)
 		{
-			velocity = direction.Normalized() * Speed;
+			velocity = resultVec.Normalized() * Speed;
 		}
 		else
 		{
@@ -35,18 +49,29 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
+		{
+			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy);
+			fireTimer.Start();
+		}
 	}
 
 	//takes health from player based on int damage
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, Vector2 _)
 	{
-		if(NoHealthMode == true)
+		if (!takenDamageThisTick)
 		{
-			Lives--;
-		}
-		else
-		{
-			Health = Health - damage;
+				if(NoHealthMode == true)
+			{
+				Lives--;
+				takenDamageThisTick = true;
+			}
+			else
+			{
+				Health -= damage;
+				takenDamageThisTick = true;
+			}
 		}
 	}
 
@@ -96,24 +121,5 @@ public partial class Player : CharacterBody2D
 				EmitSignal(SignalName.Death);
 			}
 		}
-	}
-
-	public void _on_area_2d_area_entered(Area2D area)
-	{
-		if (!(area is Projectile) && !(area is Enemy) && !(area is PowerUp))
-		{
-			return;
-		}
-
-		if (area is Projectile)
-		{
-			TakeDamage(20);
-		}
-
-		if (area is Enemy)
-		{
-			EmitSignal(SignalName.Kill);
-		}
-		area.QueueFree();
 	}
 }
