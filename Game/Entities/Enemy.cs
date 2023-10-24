@@ -129,14 +129,17 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 		spriteAnim.Play("damage_flash");
 
+		this.GetAudioManager().PlaySound("HitSFX");
+
 		// take "knockback"
 		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
 		ApplyImpulse(impulse);
-		
+
 		// take damage
 		Health -= damage;
 		if (Health <= 0)
 		{
+			this.GetAudioManager().PlaySound("KillSFX");
 			EmitSignal(SignalName.Death);
 			QueueFree();
 		}
@@ -144,6 +147,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	private void UpdateHealth()
 	{
-		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 30 * 100 / 10 * 10));
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 30 * 100));
 	}
 }

@@ -37,16 +37,16 @@ public partial class Player : CharacterBody2D, IDamageable
 	private bool animBusy = false;
 	private float animAngle = 2;
 	private Vector2 prevDirection;
-	private string[] animActions = {"Die", 
+	private string[] animActions = {"Die",
 	"Attack0", "Attack1", "Attack2", "Attack3",
 	"Attack4", "Attack5", "Attack6", "Attack7"};
 
-    public override void _Ready()
-    {
-        playerAnimator.Play("Idle2");
-    }
+	public override void _Ready()
+	{
+		playerAnimator.Play("Idle2");
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		takenDamageThisTick = false;
 		UpdateHealth();
@@ -54,12 +54,19 @@ public partial class Player : CharacterBody2D, IDamageable
 		CheckLostLives();
 		CheckIfDashing();
 
-		if (Input.IsActionPressed("ui_select") && dashTimer.TimeLeft == 0)
+		if (Input.IsActionPressed("dash") && dashTimer.TimeLeft == 0)
 		{
-			Speed = 800.0f;
+			Velocity *= 4;
 			Dashing = true;
 			dashTimer.Start();
 		}
+
+		if (Dashing)
+		{
+			MoveAndSlide();
+			return;
+		}
+
 		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
@@ -78,14 +85,14 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		// Chek that the player is not performing a one-off action
 		string animation = playerAnimator.CurrentAnimation;
-		foreach (string anim in animActions) 
+		foreach (string anim in animActions)
 		{
-			if (anim == animation) 
+			if (anim == animation)
 			{
 				animBusy = true;
 				break;
-			} 
-			else 
+			}
+			else
 			{
 				animBusy = false;
 			}
@@ -94,14 +101,14 @@ public partial class Player : CharacterBody2D, IDamageable
 		// Start running or idle animations
 		if (!animBusy)
 		{
-			if(direction != Vector2.Zero) 
+			if (direction != Vector2.Zero)
 			{
-				playerAnimator.Play("Run" + _getAnimSide(direction.Angle()));
+				playerAnimator.Play("Run" + GetAnimSide(direction.Angle()));
 				prevDirection = direction;
 			}
 			else
 			{
-				playerAnimator.Play("Idle" + _getAnimSide(prevDirection.Angle()));
+				playerAnimator.Play("Idle" + GetAnimSide(prevDirection.Angle()));
 			}
 		}
 
@@ -110,7 +117,8 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
-			playerAnimator.Play("Attack" + _getAnimSide(Position.AngleToPoint(GetGlobalMousePosition())));
+			this.GetAudioManager().PlaySound("ShootSFX");
+			playerAnimator.Play("Attack" + GetAnimSide(Position.AngleToPoint(GetGlobalMousePosition())));
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
@@ -124,12 +132,11 @@ public partial class Player : CharacterBody2D, IDamageable
 		}
 	}
 
-	public void CheckIfDashing()
+	private void CheckIfDashing()
 	{
-		if (dashTimer.TimeLeft < 4)
+		if (dashTimer.TimeLeft < 4.8)
 		{
 			Dashing = false;
-			Speed = 300.0f;
 		}
 	}
 
@@ -165,24 +172,24 @@ public partial class Player : CharacterBody2D, IDamageable
 	}
 
 	//updates the HealthBar value to the current players Health
-	public void UpdateHealth()
+	private void UpdateHealth()
 	{
 		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 10 * 10));
 	}
 
-	public void UpdateLives()
+	private void UpdateLives()
 	{
 		GetNode<Label>("LivesLabel").Text = Lives + "Live(s)";
 	}
 
 	//Checks if the Player is 0 or less than 0 health, if so removes life and resets health
-	public void CheckLostLives()
+	private void CheckLostLives()
 	{
 		if (Health <= 0)
 		{
 			if (Lives <= 0)
 			{
-				EmitSignal(SignalName.Death);
+				KillPlayer();
 			}
 			else
 			{
@@ -195,12 +202,18 @@ public partial class Player : CharacterBody2D, IDamageable
 		{
 			if (Lives <= 0)
 			{
-				EmitSignal(SignalName.Death);
+				KillPlayer();
 			}
 		}
 	}
 
-	private int _getAnimSide(float animDirection) 
+	private void KillPlayer()
+	{
+		this.GetAudioManager().PlaySound("DeathSFX");
+		EmitSignal(SignalName.Death);
+	}
+
+	private int GetAnimSide(float animDirection)
 	{
 		int animAngle = Mathf.RoundToInt(Mathf.Snapped(animDirection, Mathf.Pi / 4) / (Mathf.Pi / 4));
 		animAngle = Mathf.Wrap(animAngle, 0, 8);

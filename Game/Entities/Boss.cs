@@ -4,10 +4,7 @@ using System;
 public partial class Boss : RigidBody2D, IDamageable
 {
 	[Export]
-	private Player player;
-
-	[Export]
-	private World world;
+	public World World { get; set; }
 
 	[Export]
 	private AnimatedSprite2D body;
@@ -26,9 +23,10 @@ public partial class Boss : RigidBody2D, IDamageable
 	{
 		body.Play("idle");
 	}
+
 	public override void _PhysicsProcess(double delta)
 	{
-		ConstantForce = Position.DirectionTo(player.Position) * Speed;
+		ConstantForce = Position.DirectionTo(World.Player.Position) * Speed;
 	}
 
 	public void _OnFireTimerTimeout()
@@ -36,8 +34,8 @@ public partial class Boss : RigidBody2D, IDamageable
 		for (int i = 0; i < projectileCount; i++)
 		{
 			float angleOffset = (float)(2 * Math.PI / projectileCount * i) + fireCount * 10000;
-			float angle = Position.AngleToPoint(player.Position) + angleOffset;
-			world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
+			float angle = Position.AngleToPoint(World.Player.Position) + angleOffset;
+			World.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 		}
 		fireCount++;
 	}
@@ -48,14 +46,14 @@ public partial class Boss : RigidBody2D, IDamageable
 		for (int i = 0; i < projectileCount; i++)
 		{
 			float angleOffset = (float)(2 * Math.PI / projectileCount * i);
-			float angle = Position.AngleToPoint(player.Position) + angleOffset;
-			world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Alt);
+			float angle = Position.AngleToPoint(World.Player.Position) + angleOffset;
+			World.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Alt);
 		}
 	}
 	public void _OnBombTimerTimeout()
 	{
 		body.Play("bomb");
-		world.ThrowBomb(Position, Position.AngleToPoint(player.Position), 120);
+		World.ThrowBomb(Position, Position.AngleToPoint(World.Player.Position), 120);
 	}
 
 	public void TakeDamage(int damage, float angle, int force)
@@ -63,11 +61,14 @@ public partial class Boss : RigidBody2D, IDamageable
 		// take "knockback"
 		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
 		ApplyImpulse(impulse);
-		
+
+		this.GetAudioManager().PlaySound("HitSFX");
+
 		// take damage
 		Health -= damage;
 		if (Health <= 0)
 		{
+			this.GetAudioManager().PlaySound("DeathSFX");
 			EmitSignal(SignalName.Death);
 			QueueFree();
 		}

@@ -26,9 +26,14 @@ public partial class Bomb : RigidBody2D, IDamageable
 	}
 	private async void _OnExplosionTimerTimeout()
 	{
+		Freeze = true;
+		Rotation = 0;
+
 		idle.Hide();
 		explosion.Show();
 		explosion.Play("explode");
+		this.GetAudioManager().PlaySound("BombSFX");
+
 		foreach (var body in ExplosionRadius.GetOverlappingBodies())
 		{
 			if (body is Player player)
