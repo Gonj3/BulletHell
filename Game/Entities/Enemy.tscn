@@ -1,8 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://b0fmlgkkfg6d"]
+[gd_scene load_steps=23 format=3 uid="uid://b0fmlgkkfg6d"]
 
 [ext_resource type="Script" path="res://Game/Entities/Enemy.cs" id="1_y85vi"]
-[ext_resource type="Texture2D" uid="uid://dswfwpgvf2pvd" path="res://Textures/EnemySprite.png" id="2_mgad5"]
-[ext_resource type="Texture2D" uid="uid://b77yggd61lbwe" path="res://Textures/EnemyHealthBar.png" id="3_owfwy"]
+[ext_resource type="Texture2D" uid="uid://do6x8yfo0ca7c" path="res://Textures/Enemy.png" id="2_8mgyi"]
+[ext_resource type="Texture2D" path="res://Textures/EnemyHealthBar.png" id="3_owfwy"]
 
 [sub_resource type="Animation" id="Animation_a446f"]
 resource_name = "damage_flash"
@@ -21,8 +21,59 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_ch6vm"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_0jjr0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_av61q"]
+resource_name = "Attack"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 46]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7cis0"]
 _data = {
+"Attack": SubResource("Animation_av61q"),
+"Idle": SubResource("Animation_ch6vm"),
+"RESET": SubResource("Animation_0jjr0"),
 "damage_flash": SubResource("Animation_a446f")
 }
 
@@ -245,7 +296,10 @@ healthBarAnim = NodePath("HealthBarAnimator")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_mgad5")
+position = Vector2(0, -25)
+texture = ExtResource("2_8mgyi")
+hframes = 17
+vframes = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 libraries = {

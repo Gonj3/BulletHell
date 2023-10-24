@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Menus/Tutorial/Tutorial.cs" id="1_7fcnb"]
 
-[node name="Tutorial" type="Control" node_paths=PackedStringArray("tutorials", "gameplay", "player", "enemies", "powerups", "projectiles")]
+[node name="Tutorial" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,12 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7fcnb")
-tutorials = NodePath("Background/Info/Tutorials")
-gameplay = NodePath("Background/Info/Tutorials/Gameplay")
-player = NodePath("Background/Info/Tutorials/Player")
-enemies = NodePath("Background/Info/Tutorials/Enemies")
-powerups = NodePath("Background/Info/Tutorials/PowerUps")
-projectiles = NodePath("Background/Info/Tutorials/Projectiles")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
