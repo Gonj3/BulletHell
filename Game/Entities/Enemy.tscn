@@ -28,10 +28,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2nnt"]
 size = Vector2(36, 34)
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("spriteAnim")]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("spriteAnim", "fireTimer")]
 lock_rotation = true
 script = ExtResource("1_y85vi")
 spriteAnim = NodePath("Sprite/AnimationPlayer")
+fireTimer = NodePath("FireTimer")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
