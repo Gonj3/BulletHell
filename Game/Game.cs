@@ -20,10 +20,6 @@ public partial class Game : Node
 	private uint kills;
 	private uint waveCount;
 
-	public override void _Ready()
-	{
-	}
-
 	public override void _Process(double delta)
 	{
 		timer += delta;

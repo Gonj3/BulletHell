@@ -25,9 +25,9 @@ public partial class MainMenu : Control
 		this.GetAudioManager().PlayButton();
 	}
 
-	public void _on_tutorial_button_pressed() 
+	public void _on_tutorial_button_pressed()
 	{
-		this.GetRoot().SetScene(Scene.Settings);
+		this.GetRoot().SetScene(Scene.Tutorial);
 		this.GetAudioManager().PlayButton();
 	}
 

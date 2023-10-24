@@ -236,10 +236,11 @@ _data = {
 "RESET": SubResource("Animation_wq2je")
 }
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("spriteAnim", "healthBarAnim")]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("spriteAnim", "fireTimer", "healthBarAnim")]
 lock_rotation = true
 script = ExtResource("1_y85vi")
 spriteAnim = NodePath("Sprite/AnimationPlayer")
+fireTimer = NodePath("FireTimer")
 healthBarAnim = NodePath("HealthBarAnimator")
 
 [node name="Sprite" type="Sprite2D" parent="."]
