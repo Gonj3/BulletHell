@@ -23,6 +23,9 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Export]
 	private Timer fireTimer;
 
+	[Export]
+	private AnimationPlayer healthBarAnim;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		takenDamageThisTick = false;
@@ -80,7 +83,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	//updates the HealthBar value to the current players Health
 	public void UpdateHealth()
 	{
-		GetNode<ProgressBar>("HealthBar").Value = Health;
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Mathf.Snapped(Health, 100)));
 	}
 
 	public void UpdateLives()
