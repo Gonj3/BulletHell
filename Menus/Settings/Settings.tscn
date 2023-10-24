@@ -241,6 +241,7 @@ text = "FPS Display"
 layout_mode = 2
 
 [node name="controls_settings" type="GridContainer" parent="settings"]
+visible = false
 layout_mode = 2
 columns = 2
 
