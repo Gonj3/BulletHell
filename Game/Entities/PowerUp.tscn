@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://ck7khiyi7417f"]
+
+[ext_resource type="Script" path="res://Game/Entities/PowerUp.cs" id="1_1ry1e"]
+[ext_resource type="Texture2D" uid="uid://4tcevpvmstyd" path="res://Textures/96x96 - LargeMissileStaticFrame1.png" id="2_sj2k5"]
+[ext_resource type="Texture2D" uid="uid://brfo1tnpb62t7" path="res://Textures/96x96 - LargeMissileStaticFrame2.png" id="3_nb4qe"]
+[ext_resource type="Texture2D" uid="uid://cvsdrutdqy0g0" path="res://Textures/96x96 - LargeMissileStaticFrame3.png" id="4_nr22k"]
+[ext_resource type="Texture2D" uid="uid://xphh8u0werew" path="res://Textures/96x96 - LargeMissileStaticFrame4.png" id="5_hlmw8"]
+[ext_resource type="Texture2D" uid="uid://ba17m66snm3uc" path="res://Textures/health_full.png" id="6_wnpoq"]
+[ext_resource type="Texture2D" uid="uid://baipuwg6q8yhs" path="res://Textures/mana_full.png" id="7_m6x4o"]
+[ext_resource type="Texture2D" uid="uid://dofo8yjgluw3" path="res://Textures/energy_full.png" id="8_g1w5j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xnki"]
+size = Vector2(55, 55)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f5w0d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sj2k5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nb4qe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nr22k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hlmw8")
+}],
+"loop": true,
+"name": &"Bomb",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_wnpoq")
+}],
+"loop": true,
+"name": &"Health",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_m6x4o")
+}],
+"loop": true,
+"name": &"Life",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_g1w5j")
+}],
+"loop": true,
+"name": &"Speed",
+"speed": 0.0
+}]
+
+[node name="PowerUp" type="Area2D" node_paths=PackedStringArray("sprite2D")]
+script = ExtResource("1_1ry1e")
+sprite2D = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3xnki")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3.375, 3.5)
+sprite_frames = SubResource("SpriteFrames_f5w0d")
+animation = &"Bomb"
+frame_progress = 0.458084
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

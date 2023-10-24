@@ -28,6 +28,14 @@ public partial class PauseScreen : Control, IOverlayItem
 		this.GetAudioManager().PlayButton();
 	}
 
+	private void _on_tutorial_button_pressed() 
+	{
+		var tutorialMenu = ResourceLoader.Load<PackedScene>("res://Menus/Tutorial/Tutorial.tscn");
+		var inst = (Tutorial)tutorialMenu.Instantiate();
+		Overlay.AddItem(inst);
+		this.GetAudioManager().PlayButton();
+	}
+
 	private void _on_quit_button_pressed()
 	{
 		this.GetRoot().SetScene(Scene.MainMenu);
