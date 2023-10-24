@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b0fmlgkkfg6d" path="res://Game/Entities/Enemy.tscn" id="3_akldc"]
 [ext_resource type="PackedScene" uid="uid://c7og2xpb6rp1g" path="res://Shared/Overlay/Overlay.tscn" id="3_jfkpm"]
 [ext_resource type="Script" path="res://Game/PlayerCamera.cs" id="4_l4yhj"]
+[ext_resource type="PackedScene" uid="uid://ck7khiyi7417f" path="res://Game/Entities/PowerUp.tscn" id="4_ospnf"]
 [ext_resource type="PackedScene" uid="uid://dco8dowi0gb0n" path="res://Game/Entities/Boss.tscn" id="7_ngsqc"]
 [ext_resource type="PackedScene" uid="uid://bisw6ask4hfnm" path="res://Game/Entities/Bomb.tscn" id="8_cax2o"]
 
@@ -375,6 +376,11 @@ world = NodePath("..")
 position = Vector2(1100, 636)
 player = NodePath("../Player")
 world = NodePath("..")
+
+[node name="PowerUp" parent="World" instance=ExtResource("4_ospnf")]
+position = Vector2(568, 613)
+
+[node name="BoundsBody" type="StaticBody2D" parent="World"]
 
 [node name="Enemy3" parent="World" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_akldc")]
 position = Vector2(1511, 615)
