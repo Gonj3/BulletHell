@@ -40,6 +40,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 	{
 		InitializeRandomValues();
 		InitializeFiringStyle();
+		spriteAnim.Play("Idle");
 	}
 
 	private void InitializeFiringStyle()
@@ -89,6 +90,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 				FireSpread();
 				break;
 		}
+		spriteAnim.Play("Attack");
 	}
 
 	private void FireSpin()

@@ -3,6 +3,10 @@ using Godot;
 public partial class Bomb : RigidBody2D, IDamageable
 {
 	[Export]
+	private AnimatedSprite2D idle;
+	[Export]
+	private AnimatedSprite2D explosion;
+	[Export]
 	private Area2D ExplosionRadius;
 
 	private int BaseDamage = 50;
@@ -15,9 +19,16 @@ public partial class Bomb : RigidBody2D, IDamageable
 	{
 		vector = Vector2.FromAngle(angle).Normalized();
 	}
-
-	private void _OnExplosionTimerTimeout()
+	public override void _Ready()
 	{
+		explosion.Hide();
+		idle.Play("idle");
+	}
+	private async void _OnExplosionTimerTimeout()
+	{
+		idle.Hide();
+		explosion.Show();
+		explosion.Play("explode");
 		foreach (var body in ExplosionRadius.GetOverlappingBodies())
 		{
 			if (body is Enemy enemy)
@@ -38,6 +49,7 @@ public partial class Bomb : RigidBody2D, IDamageable
 				proj.QueueFree();
 			}
 		}
+		await ToSignal(explosion, "animation_finished");
 		QueueFree();
 
 		this.GetAudioManager().PlaySound("BombSFX");
