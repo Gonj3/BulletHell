@@ -33,13 +33,14 @@ public partial class Bomb : RigidBody2D, IDamageable
 		{
 			if (body is Player player)
 			{
-				var damage = BaseDamage - (GlobalPosition.DistanceTo(player.GlobalPosition) / 10);
-				player.TakeDamage((int)damage, GlobalPosition);
+				var damage = BaseDamage - (vector.DistanceTo(player.Position) / 10);
+				player.TakeDamage((int)damage, 0, 0);
 			}
 			else if (body is IDamageable enemy)
 			{
-				var damage = BaseDamage - (GlobalPosition.DistanceTo(enemy.Position) / 10);
-				enemy.TakeDamage((int)damage, GlobalPosition);
+				var damage = BaseDamage - (vector.DistanceTo(enemy.Position) / 10);
+				var angle = vector.AngleTo(enemy.Position);
+				enemy.TakeDamage((int)damage, angle, 40);
 			}
 		}
 		foreach (var proj in ExplosionRadius.GetOverlappingAreas())
@@ -53,8 +54,10 @@ public partial class Bomb : RigidBody2D, IDamageable
 		QueueFree();
 	}
 
-	public void TakeDamage(int damage, Vector2 direction)
+	public void TakeDamage(int damage, float angle, int force)
 	{
-		ApplyImpulse(direction * 40);
+		// take "knockback"
+		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
+		ApplyImpulse(impulse);
 	}
 }

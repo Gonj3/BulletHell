@@ -122,13 +122,17 @@ public partial class Enemy : RigidBody2D, IDamageable
 		World.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 	}
 
-	public void TakeDamage(int damage, Vector2 direction)
+	public void TakeDamage(int damage, float angle, int force)
 	{
-		Health -= damage;
 
 		spriteAnim.Play("damage_flash");
-		ApplyImpulse(direction * 40);
 
+		// take "knockback"
+		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
+		ApplyImpulse(impulse);
+		
+		// take damage
+		Health -= damage;
 		if (Health <= 0)
 		{
 			EmitSignal(SignalName.Death);

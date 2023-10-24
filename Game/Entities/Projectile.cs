@@ -23,10 +23,12 @@ public partial class Projectile : Area2D
 	public float Speed;
 	public int Damage;
 	private Vector2 vector;
+	private float _angle;
 	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
 	public void SetAngle(float angle)
 	{
+		_angle = angle;
 		vector = Vector2.FromAngle(angle).Normalized();
 	}
 
@@ -69,7 +71,7 @@ public partial class Projectile : Area2D
 
 		if (body is IDamageable damageable && damageable.DamageableKind == Target)
 		{
-			damageable.TakeDamage(Damage, vector);
+			damageable.TakeDamage(Damage, _angle, 30);
 			QueueFree();
 		}
 	}

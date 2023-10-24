@@ -58,11 +58,14 @@ public partial class Boss : RigidBody2D, IDamageable
 		world.ThrowBomb(Position, Position.AngleToPoint(player.Position), 120);
 	}
 
-	public void TakeDamage(int damage, Vector2 direction)
+	public void TakeDamage(int damage, float angle, int force)
 	{
+		// take "knockback"
+		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
+		ApplyImpulse(impulse);
+		
+		// take damage
 		Health -= damage;
-
-		ApplyImpulse(direction * 40);
 		if (Health <= 0)
 		{
 			EmitSignal(SignalName.Death);
