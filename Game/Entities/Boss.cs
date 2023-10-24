@@ -22,11 +22,11 @@ public partial class Boss : RigidBody2D, IDamageable
 	private int projectileCount = 8;
 	private int fireCount = 0;
 
-    public override void _Ready()
-    {
-        body.Play("idle");
-    }
-    public override void _PhysicsProcess(double delta)
+	public override void _Ready()
+	{
+		body.Play("idle");
+	}
+	public override void _PhysicsProcess(double delta)
 	{
 		ConstantForce = Position.DirectionTo(player.Position) * Speed;
 	}
