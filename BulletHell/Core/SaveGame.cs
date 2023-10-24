@@ -9,7 +9,7 @@ public partial class SaveGame : Node
 	public override void _Ready()
 	{
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
-		Profile = file != null ? Profile.FromFile(file) : new Profile();
+		Profile = file != null ? Profile.FromFile(new FileAccessAdapter(file)) : new Profile();
 	}
 
 	public void Save()
@@ -19,6 +19,6 @@ public partial class SaveGame : Node
 		if (file == null)
 			return;
 
-		Profile.WriteToFile(file);
+		Profile.WriteToFile(new FileAccessAdapter(file));
 	}
 }
