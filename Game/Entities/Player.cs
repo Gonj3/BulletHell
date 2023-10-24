@@ -23,6 +23,9 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Export]
 	private Timer fireTimer;
 
+	[Export]
+	private Timer bombTimer;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		takenDamageThisTick = false;
@@ -49,6 +52,14 @@ public partial class Player : CharacterBody2D, IDamageable
 		{
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
+		}
+		// NOTE: needs its own action, ill leave controls for someone whos been working with them
+		if (Input.IsActionPressed("shoot") && bombTimer.TimeLeft == 0)
+		{
+			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
+			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;
+			world.ThrowBomb(offsetPosition, mouseAngle);
+			bombTimer.Start();
 		}
 	}
 

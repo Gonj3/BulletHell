@@ -18,16 +18,11 @@ public partial class Projectile : Area2D
 	}
 	public float Speed;
 	public int Damage;
-	public float Angle
-	{
-		get => _angle; set
-		{
-			_angle = value;
-			vector = new Vector2((float)Math.Cos(value), (float)Math.Sin(value)).Normalized();
-		}
-	}
-	private float _angle;
 	private Vector2 vector;
+	public void SetAngle(float angle)
+	{
+		vector = Vector2.FromAngle(angle).Normalized();
+	}
 	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
 	public void SetType(Type type)
