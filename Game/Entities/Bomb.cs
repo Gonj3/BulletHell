@@ -26,6 +26,9 @@ public partial class Bomb : RigidBody2D, IDamageable
 	}
 	private async void _OnExplosionTimerTimeout()
 	{
+		Freeze = true;
+		Rotation = 0;
+
 		idle.Hide();
 		explosion.Show();
 		explosion.Play("explode");
