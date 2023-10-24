@@ -33,12 +33,12 @@ public partial class Bomb : RigidBody2D, IDamageable
 		{
 			if (body is Player player)
 			{
-				var damage = BaseDamage - (vector.DistanceTo(player.Position) / 10);
+				var damage = BaseDamage - (Position.DistanceTo(player.Position) / 10);
 				player.TakeDamage((int)damage, 0, 0);
 			}
 			else if (body is IDamageable enemy)
 			{
-				var damage = BaseDamage - (vector.DistanceTo(enemy.Position) / 10);
+				var damage = BaseDamage - (Position.DistanceTo(enemy.Position) / 10);
 				var angle = vector.AngleTo(enemy.Position);
 				enemy.TakeDamage((int)damage, angle, 40);
 			}
