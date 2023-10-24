@@ -31,20 +31,20 @@ public partial class Bomb : RigidBody2D, IDamageable
 		explosion.Play("explode");
 		foreach (var body in ExplosionRadius.GetOverlappingBodies())
 		{
-			if (body is Enemy enemy)
-			{
-				var damage = BaseDamage - (GlobalPosition.DistanceTo(enemy.GlobalPosition) / 10);
-				enemy.TakeDamage((int)damage, GlobalPosition);
-			}
-			else if (body is Player player)
+			if (body is Player player)
 			{
 				var damage = BaseDamage - (GlobalPosition.DistanceTo(player.GlobalPosition) / 10);
 				player.TakeDamage((int)damage, GlobalPosition);
 			}
+			else if (body is IDamageable enemy)
+			{
+				var damage = BaseDamage - (GlobalPosition.DistanceTo(enemy.Position) / 10);
+				enemy.TakeDamage((int)damage, GlobalPosition);
+			}
 		}
 		foreach (var proj in ExplosionRadius.GetOverlappingAreas())
 		{
-			if (proj is Projectile)
+			if (proj is Projectile p && p.Target != DamageableKind)
 			{
 				proj.QueueFree();
 			}

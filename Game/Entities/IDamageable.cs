@@ -5,4 +5,5 @@ public interface IDamageable
 	public DamageableKind DamageableKind { get; }
 
 	public void TakeDamage(int damage, Vector2 direction);
+	public Vector2 Position { get; }
 }

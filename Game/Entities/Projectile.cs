@@ -49,9 +49,9 @@ public partial class Projectile : Area2D
 				Speed = 100f;
 				break;
 			case Type.Player:
-				sprite.Texture = projTexture;
+				sprite.Texture = altProjTexture;
 				sprite.Scale = new Vector2(1f, 1f);
-				hitBox.Shape = new CircleShape2D { Radius = 8f };
+				hitBox.Shape = new CircleShape2D { Radius = 10f };
 				Damage = 30;
 				Speed = 1000f;
 				break;

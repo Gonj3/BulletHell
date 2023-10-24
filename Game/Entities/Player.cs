@@ -75,7 +75,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		{
 			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
 			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;
-			world.ThrowBomb(offsetPosition, mouseAngle);
+			world.ThrowBomb(offsetPosition, mouseAngle, 40);
 			bombTimer.Start();
 		}
 	}

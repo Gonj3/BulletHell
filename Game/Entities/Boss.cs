@@ -55,7 +55,7 @@ public partial class Boss : RigidBody2D, IDamageable
 	public void _OnBombTimerTimeout()
 	{
 		body.Play("bomb");
-		world.ThrowBomb(Position, Position.AngleToPoint(player.Position));
+		world.ThrowBomb(Position, Position.AngleToPoint(player.Position), 120);
 	}
 
 	public void TakeDamage(int damage, Vector2 direction)
