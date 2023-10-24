@@ -5,16 +5,13 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Signal]
 	public delegate void DeathEventHandler();
 
-	[Signal]
-	public delegate void KillEventHandler();
-
 	public float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
 	public bool Dashing = false;
 	public bool NoHealthMode = false;
-	public int[] Items = {0, 0, 0, 0};
+	public int[] Items = { 0, 0, 0, 0 };
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
 
@@ -28,12 +25,12 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	[Export]
 	private AnimationPlayer healthBarAnim;
-  
-  [Export]
+
+	[Export]
 	private Timer dashTimer;
-	
-  [Export]
-  private Timer bombTimer;
+
+	[Export]
+	private Timer bombTimer;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -42,7 +39,7 @@ public partial class Player : CharacterBody2D, IDamageable
 		UpdateLives();
 		CheckLostLives();
 		CheckIfDashing();
-		
+
 		if (Input.IsActionPressed("ui_select") && dashTimer.TimeLeft == 0)
 		{
 			Speed = 800.0f;
@@ -52,8 +49,8 @@ public partial class Player : CharacterBody2D, IDamageable
 		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down"); 
-		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down"); 
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down");
 		var resultVec = direction + JoystickDirection;
 		if (resultVec != Vector2.Zero)
 		{
@@ -85,7 +82,7 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	public void CheckIfDashing()
 	{
-		if(dashTimer.TimeLeft < 4)
+		if (dashTimer.TimeLeft < 4)
 		{
 			Dashing = false;
 			Speed = 300.0f;
@@ -97,7 +94,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	{
 		if (!takenDamageThisTick && Dashing == false)
 		{
-				if(NoHealthMode == true)
+			if (NoHealthMode == true)
 			{
 				Lives--;
 				takenDamageThisTick = true;
@@ -126,7 +123,7 @@ public partial class Player : CharacterBody2D, IDamageable
 	//updates the HealthBar value to the current players Health
 	public void UpdateHealth()
 	{
-		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health/10 * 10));
+		healthBarAnim.Play("Health" + Mathf.RoundToInt(Health / 10 * 10));
 	}
 
 	public void UpdateLives()
@@ -149,9 +146,9 @@ public partial class Player : CharacterBody2D, IDamageable
 				Health = 100;
 			}
 		}
-		if(NoHealthMode == true)
+		if (NoHealthMode == true)
 		{
-			if(Lives <= 0)
+			if (Lives <= 0)
 			{
 				EmitSignal(SignalName.Death);
 			}

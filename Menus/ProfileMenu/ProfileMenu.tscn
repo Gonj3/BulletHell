@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Menus/ProfileMenu/ProfileMenu.cs" id="1_c8o1m"]
 
-[node name="ProfileMenu" type="CenterContainer" node_paths=PackedStringArray("NameLabel", "KillsLabel", "DeathsLabel", "TimeAliveLabel", "ItemsLabel")]
+[node name="ProfileMenu" type="CenterContainer" node_paths=PackedStringArray("NameLabel", "KillsLabel", "DeathsLabel", "ItemsCollectedLabel", "TimeAliveLabel", "LongestRunLabel", "HigestWaveLabel")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,8 +12,10 @@ script = ExtResource("1_c8o1m")
 NameLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/NameLabel")
 KillsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/KillsLabel")
 DeathsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/DeathsLabel")
+ItemsCollectedLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/ItemsCollectedLabel")
 TimeAliveLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/TimeAliveLabel")
-ItemsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Right/ItemsLabel")
+LongestRunLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Right/LongestRunLabel")
+HigestWaveLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Right/HigestWaveLabel")
 
 [node name="Window" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(600, 400)
@@ -88,9 +90,9 @@ text = "0"
 [node name="Label3" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Damage Dealt"
+text = "Items Collected"
 
-[node name="DamageDealtLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
+[node name="ItemsCollectedLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Left"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 theme_override_font_sizes/font_size = 14
@@ -114,35 +116,24 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Items Acquired"
+text = "Longest Run"
 
-[node name="ItemsLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+[node name="LongestRunLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 theme_override_font_sizes/font_size = 14
-text = "0"
+text = "0s"
 
 [node name="Label2" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Favourite Item"
+text = "Highest Wave"
 
-[node name="FavouriteItemLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
+[node name="HigestWaveLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
 theme_override_font_sizes/font_size = 14
-text = "None"
-
-[node name="Label3" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Nemesis"
-
-[node name="NemesisLabel" type="Label" parent="Window/VBoxContainer/Content/VBoxContainer/Sides/Right"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
-theme_override_font_sizes/font_size = 14
-text = "None"
+text = "0"
 
 [node name="Actions" type="HBoxContainer" parent="Window/VBoxContainer/Content/VBoxContainer"]
 layout_mode = 2

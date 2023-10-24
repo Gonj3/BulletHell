@@ -3,15 +3,16 @@ using System;
 
 public partial class Enemy : RigidBody2D, IDamageable
 {
-	[Export]
-	private AnimationPlayer spriteAnim;
+	[Signal]
+	public delegate void DeathEventHandler();
 
 	public float Speed = 50f;
 
 	[Export]
-	private Player player;
+	private AnimationPlayer spriteAnim;
+
 	[Export]
-	private World world;
+	public World World { get; set; }
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	public int Health = 30;
@@ -29,6 +30,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 		Spike,
 		Spread
 	}
+
 	public FiringStyle CurrentFiringStyle;
 
 	[Export]
@@ -69,7 +71,7 @@ public partial class Enemy : RigidBody2D, IDamageable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		ConstantForce = Position.DirectionTo(player.Position) * Speed;
+		ConstantForce = Position.DirectionTo(World.Player.Position) * Speed;
 		UpdateHealth();
 	}
 
@@ -116,8 +118,8 @@ public partial class Enemy : RigidBody2D, IDamageable
 	}
 	private void FireProjectile(float angleOffset)
 	{
-		float angle = Position.AngleToPoint(player.Position) + angleOffset;
-		world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
+		float angle = Position.AngleToPoint(World.Player.Position) + angleOffset;
+		World.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 	}
 
 	public void TakeDamage(int damage, Vector2 direction)
@@ -128,7 +130,10 @@ public partial class Enemy : RigidBody2D, IDamageable
 		ApplyImpulse(direction * 40);
 
 		if (Health <= 0)
+		{
+			EmitSignal(SignalName.Death);
 			QueueFree();
+		}
 	}
 
 	private void UpdateHealth()
