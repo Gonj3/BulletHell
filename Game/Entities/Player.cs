@@ -60,7 +60,12 @@ public partial class Player : CharacterBody2D, IDamageable
 			Dashing = true;
 			dashTimer.Start();
 		}
-
+else if (Input.IsActionPressed("controller_dash") && dashTimer.TimeLeft == 0)
+		{
+			Speed = 800.0f;
+			Dashing = true;
+			dashTimer.Start();
+		}
 		if (Dashing)
 		{
 			MoveAndSlide();
@@ -72,6 +77,8 @@ public partial class Player : CharacterBody2D, IDamageable
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		Vector2 JoystickDirection = Input.GetVector("joystick_left", "joystick_right", "joystick_up", "joystick_down");
+		Vector2 JoystickAim = Input.GetVector("joystick_aim_right", "joystick_aim_left", "joystick_aim_up", "joystick_aim_down");
+
 		var resultVec = direction + JoystickDirection;
 		if (resultVec != Vector2.Zero)
 		{
@@ -115,11 +122,18 @@ public partial class Player : CharacterBody2D, IDamageable
 		Velocity = velocity;
 		MoveAndSlide();
 
+		float joystickAngle = Mathf.Atan2(JoystickAim.Y, JoystickAim.X);
+
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
 			this.GetAudioManager().PlaySound("ShootSFX");
 			playerAnimator.Play("Attack" + GetAnimSide(Position.AngleToPoint(GetGlobalMousePosition())));
 			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
+			fireTimer.Start();
+		}
+		else if (Input.IsActionPressed("controller_shoot") && fireTimer.TimeLeft == 0)
+		{
+			world.SpawnProjectile(Position, joystickAngle, DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
 		}
 
@@ -128,6 +142,12 @@ public partial class Player : CharacterBody2D, IDamageable
 			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
 			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;
 			world.ThrowBomb(offsetPosition, mouseAngle, 40);
+			bombTimer.Start();
+		}
+		else if (Input.IsActionPressed("controller_bomb") && bombTimer.TimeLeft == 0)
+		{
+			var offsetPosition = Position + Vector2.Right.Rotated(joystickAngle) * 60;
+			world.ThrowBomb(offsetPosition, joystickAngle);
 			bombTimer.Start();
 		}
 	}
