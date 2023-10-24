@@ -23,6 +23,7 @@ public partial class Boss : RigidBody2D, IDamageable
 	{
 		body.Play("idle");
 	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		ConstantForce = Position.DirectionTo(World.Player.Position) * Speed;
@@ -52,14 +53,17 @@ public partial class Boss : RigidBody2D, IDamageable
 	public void _OnBombTimerTimeout()
 	{
 		body.Play("bomb");
-		World.ThrowBomb(Position, Position.AngleToPoint(World.Player.Position));
+		World.ThrowBomb(Position, Position.AngleToPoint(World.Player.Position), 120);
 	}
 
-	public void TakeDamage(int damage, Vector2 direction)
+	public void TakeDamage(int damage, float angle, int force)
 	{
-		Health -= damage;
+		// take "knockback"
+		Vector2 impulse = new Vector2(force, 0).Rotated(angle);
+		ApplyImpulse(impulse);
 
-		ApplyImpulse(direction * 40);
+		// take damage
+		Health -= damage;
 		if (Health <= 0)
 		{
 			EmitSignal(SignalName.Death);
