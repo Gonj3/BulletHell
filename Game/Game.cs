@@ -44,7 +44,7 @@ public partial class Game : Node
 		waveLabel.Text = $"Wave {waveCount}";
 
 
-		var enemyCount = waveCount % 5 == 0 ? waveCount : waveCount * 2;
+		var enemyCount = waveCount % 5 == 0 ? waveCount / 2 : waveCount + 2;
 
 		for (var i = 0; i < enemyCount; i++)
 			world.SpawnEnemy(new Callable(this, "_on_player_kill"));
