@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Menus/ProfileMenu/ProfileMenu.cs" id="1_c8o1m"]
 
-[node name="ProfileMenu" type="CenterContainer" node_paths=PackedStringArray("NameLabel", "KillsLabel", "DeathsLabel", "TimeAliveLabel")]
+[node name="ProfileMenu" type="CenterContainer" node_paths=PackedStringArray("NameLabel", "KillsLabel", "DeathsLabel", "TimeAliveLabel", "ItemsLabel")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,6 +13,7 @@ NameLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/NameLabel")
 KillsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/KillsLabel")
 DeathsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/DeathsLabel")
 TimeAliveLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Left/TimeAliveLabel")
+ItemsLabel = NodePath("Window/VBoxContainer/Content/VBoxContainer/Sides/Right/ItemsLabel")
 
 [node name="Window" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(600, 400)

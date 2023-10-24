@@ -8,10 +8,13 @@ public partial class Player : CharacterBody2D, IDamageable
 	[Signal]
 	public delegate void KillEventHandler();
 
-	public const float Speed = 300.0f;
+	public float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	public int Health = 100;
 	public int Lives = 3;
+	public bool Dashing = false;
+	public bool NoHealthMode = false;
+	public int[] Items = {0, 0, 0, 0};
 
 	public DamageableKind DamageableKind { get; } = DamageableKind.Friendly;
 
@@ -25,6 +28,12 @@ public partial class Player : CharacterBody2D, IDamageable
 
 	[Export]
 	private AnimationPlayer healthBarAnim;
+  
+  [Export]
+	private Timer dashTimer;
+	
+  [Export]
+  private Timer bombTimer;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -32,6 +41,15 @@ public partial class Player : CharacterBody2D, IDamageable
 		UpdateHealth();
 		UpdateLives();
 		CheckLostLives();
+		CheckIfDashing();
+		
+		if (Input.IsActionPressed("ui_select") && dashTimer.TimeLeft == 0)
+		{
+			Speed = 800.0f;
+			Dashing = true;
+			dashTimer.Start();
+		}
+		//GD.Print(dashTimer.TimeLeft.ToString() + "?");
 		Vector2 velocity = Velocity;
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down"); 
@@ -52,18 +70,43 @@ public partial class Player : CharacterBody2D, IDamageable
 
 		if (Input.IsActionPressed("shoot") && fireTimer.TimeLeft == 0)
 		{
-			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), 1000f, DamageableKind.Enemy);
+			world.SpawnProjectile(Position, Position.AngleToPoint(GetGlobalMousePosition()), DamageableKind.Enemy, Projectile.Type.Player);
 			fireTimer.Start();
+		}
+		// NOTE: needs its own action, ill leave controls for someone whos been working with them
+		if (Input.IsActionPressed("shoot") && bombTimer.TimeLeft == 0)
+		{
+			var mouseAngle = Position.AngleToPoint(GetGlobalMousePosition());
+			var offsetPosition = Position + Vector2.Right.Rotated(mouseAngle) * 60;
+			world.ThrowBomb(offsetPosition, mouseAngle);
+			bombTimer.Start();
+		}
+	}
+
+	public void CheckIfDashing()
+	{
+		if(dashTimer.TimeLeft < 4)
+		{
+			Dashing = false;
+			Speed = 300.0f;
 		}
 	}
 
 	//takes health from player based on int damage
 	public void TakeDamage(int damage, Vector2 _)
 	{
-		if (!takenDamageThisTick)
+		if (!takenDamageThisTick && Dashing == false)
 		{
-			takenDamageThisTick = true;
-			Health -= damage;
+				if(NoHealthMode == true)
+			{
+				Lives--;
+				takenDamageThisTick = true;
+			}
+			else
+			{
+				Health -= damage;
+				takenDamageThisTick = true;
+			}
 		}
 	}
 
@@ -104,6 +147,13 @@ public partial class Player : CharacterBody2D, IDamageable
 			{
 				Lives--;
 				Health = 100;
+			}
+		}
+		if(NoHealthMode == true)
+		{
+			if(Lives <= 0)
+			{
+				EmitSignal(SignalName.Death);
 			}
 		}
 	}
