@@ -3,10 +3,11 @@ using Godot;
 public partial class Bomb : RigidBody2D, IDamageable
 {
 	private int BaseDamage = 50;
+	[Export]
+	private Area2D ExplosionRadius;
 	private void _OnExplosionTimerTimeout()
 	{
-		var area = GetNode<Area2D>("ExplosionRadius");
-		foreach (var body in area.GetOverlappingBodies())
+		foreach (var body in ExplosionRadius.GetOverlappingBodies())
 		{
 			if (body is Enemy enemy)
 			{
@@ -19,7 +20,7 @@ public partial class Bomb : RigidBody2D, IDamageable
 				player.TakeDamage((int)damage, GlobalPosition);
 			}
 		}
-		foreach (var proj in area.GetOverlappingAreas())
+		foreach (var proj in ExplosionRadius.GetOverlappingAreas())
 		{
 			if (proj is Projectile)
 			{

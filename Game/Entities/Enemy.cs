@@ -3,30 +3,8 @@ using System;
 
 public partial class Enemy : RigidBody2D, IDamageable
 {
-	public float Speed = 50f;
-	public float ProjectileSpeed { get; set; } = 10.0f;
-	public int ProjectileCount { get; set; } = 1;
-	public float FireTimeout { get; set; } = 1.0f;
-
-	public int Health = 30;
-
-	public enum FiringStyle
-	{
-		Spin,
-		Spike,
-		Spread
-	}
-
-	public FiringStyle CurrentFiringStyle { get; set; } = FiringStyle.Spin;
-
-	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
-
-	private float fireCount = 0;
-	private Timer fireTimer;
-
 	[Export]
 	private Player player;
-
 	[Export]
 	private World world;
 
@@ -37,39 +15,49 @@ public partial class Enemy : RigidBody2D, IDamageable
 	{
 		InitializeRandomValues();
 		InitializeFiringStyle();
-		InitializeFireTimer();
 	}
 
+	public enum FiringStyle
+	{
+		Spin,
+		Spike,
+		Spread
+	}
+	public FiringStyle CurrentFiringStyle;
+	public float ProjectileSpeed;
+	public int ProjectileCount;
+	private float fireCount = 0;
+	[Export]
+	private Timer fireTimer;
+	public float FireTimeout;
+	private void InitializeFiringStyle()
+	{
+		switch (CurrentFiringStyle)
+		{
+			case FiringStyle.Spin:
+				fireTimer.WaitTime = 0.2f;
+				ProjectileCount = 1;
+				ProjectileSpeed = 10f;
+				break;
+			case FiringStyle.Spike:
+				fireTimer.WaitTime = 1f;
+				ProjectileCount = 8;
+				ProjectileSpeed = 5f;
+				break;
+			case FiringStyle.Spread:
+				fireTimer.WaitTime = 2.0f;
+				ProjectileCount = 15;
+				ProjectileSpeed = 3f;
+				break;
+		}
+	}
 	private void InitializeRandomValues()
 	{
 		Random random = new Random();
 		CurrentFiringStyle = (FiringStyle)random.Next(0, 3);
 	}
 
-	private void InitializeFiringStyle()
-	{
-		switch (CurrentFiringStyle)
-		{
-			case FiringStyle.Spin:
-				FireTimeout = 0.2f;
-				break;
-			case FiringStyle.Spike:
-				ProjectileCount = 8;
-				break;
-			case FiringStyle.Spread:
-				FireTimeout = 2.0f;
-				ProjectileCount = 15;
-				break;
-		}
-	}
-
-	private void InitializeFireTimer()
-	{
-		fireTimer = GetNode<Timer>("FireTimer");
-		fireTimer.WaitTime = FireTimeout;
-		fireTimer.Start();
-	}
-
+	public float Speed = 50f;
 	public override void _PhysicsProcess(double delta)
 	{
 		ConstantForce = Position.DirectionTo(player.Position) * Speed;
@@ -97,7 +85,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 		FireProjectile(angleOffset);
 		fireCount++;
 	}
-
 	private void FireSpike()
 	{
 		float coneAngle = (float)Math.PI / 4.0f;
@@ -109,7 +96,6 @@ public partial class Enemy : RigidBody2D, IDamageable
 			FireProjectile(angleOffset);
 		}
 	}
-
 	private void FireSpread()
 	{
 		for (int i = 0; i < ProjectileCount; i++)
@@ -118,13 +104,14 @@ public partial class Enemy : RigidBody2D, IDamageable
 			FireProjectile(angleOffset);
 		}
 	}
-
 	private void FireProjectile(float angleOffset)
 	{
 		float angle = Position.AngleToPoint(player.Position) + angleOffset;
 		world.SpawnProjectile(Position, angle, DamageableKind.Friendly, Projectile.Type.Normal);
 	}
 
+	public int Health = 30;
+	public DamageableKind DamageableKind { get; } = DamageableKind.Enemy;
 	public void TakeDamage(int damage, Vector2 direction)
 	{
 		Health -= damage;

@@ -22,31 +22,36 @@ public partial class Projectile : Area2D
 	private Vector2 vector;
 	public DamageableKind Target { get; set; } = DamageableKind.Friendly;
 
-
+	[Export]
+	private Sprite2D sprite;
+	[Export]
+	private CollisionShape2D hitBox;
+	[Export]
+	private Texture2D ProjTexture;
+	[Export]
+	private Texture2D AltProjTexture;
 	public void SetType(Type type)
 	{
-		var sprite = GetNode<Sprite2D>("Sprite");
-		var collisionShape = GetNode<CollisionShape2D>("HitBox");
 		switch (type)
 		{
 			case Type.Normal:
-				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
+				sprite.Texture = ProjTexture;
 				sprite.Scale = new Vector2(1f, 1f);
-				collisionShape.Shape = new CircleShape2D { Radius = 8f };
+				hitBox.Shape = new CircleShape2D { Radius = 8f };
 				Damage = 20;
 				Speed = 200f;
 				break;
 			case Type.Alt:
-				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/AltProjectileSprite.png");
+				sprite.Texture = AltProjTexture;
 				sprite.Scale = new Vector2(2f, 2f);
-				collisionShape.Shape = new CircleShape2D { Radius = 16f };
+				hitBox.Shape = new CircleShape2D { Radius = 16f };
 				Damage = 40;
 				Speed = 100f;
 				break;
 			case Type.Player:
-				sprite.Texture = GD.Load<Texture2D>("res://Textures/Projectiles/ProjectileSprite.png");
+				sprite.Texture = ProjTexture;
 				sprite.Scale = new Vector2(1f, 1f);
-				collisionShape.Shape = new CircleShape2D { Radius = 8f };
+				hitBox.Shape = new CircleShape2D { Radius = 8f };
 				Damage = 30;
 				Speed = 1000f;
 				break;
