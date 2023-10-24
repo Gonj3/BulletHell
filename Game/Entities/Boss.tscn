@@ -19,8 +19,12 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_xtt24")
 
 [node name="FireTimer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
 
 [node name="AltFireTimer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
 
 [connection signal="timeout" from="FireTimer" to="." method="_OnFireTimerTimeout"]
 [connection signal="timeout" from="AltFireTimer" to="." method="_OnAltFireTimerTimeout"]

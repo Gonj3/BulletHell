@@ -8,19 +8,6 @@ public partial class Boss : RigidBody2D, IDamageable
 	[Export]
 	private World world;
 
-	private Timer FireTimer;
-	private Timer AltFireTimer;
-	public override void _Ready()
-	{
-		FireTimer = GetNode<Timer>("FireTimer");
-		FireTimer.WaitTime = 0.3f;
-		FireTimer.Start();
-
-		AltFireTimer = GetNode<Timer>("AltFireTimer");
-		AltFireTimer.WaitTime = 3f;
-		AltFireTimer.Start();
-	}
-
 	public float Speed = 10f;
 	public override void _PhysicsProcess(double delta)
 	{

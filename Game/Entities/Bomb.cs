@@ -2,15 +2,6 @@ using Godot;
 
 public partial class Bomb : RigidBody2D, IDamageable
 {
-	private float Timeout = 3f;
-	private Timer timer;
-	public override void _Ready()
-	{
-		timer = GetNode<Timer>("ExplosionTimer");
-		timer.WaitTime = Timeout;
-		timer.Start();
-	}
-
 	private int BaseDamage = 50;
 	private void _OnExplosionTimerTimeout()
 	{
