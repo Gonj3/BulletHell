@@ -17,11 +17,11 @@ public class Profile
 	public uint HighestWave { get; set; }
 
 
-	public static Profile FromFile(FileAccess file)
+	public static Profile FromFile(IFileAccess file)
 	{
 		return new Profile
 		{
-			Name = file.GetPascalString(),
+			Name = file.GetString(),
 			Kills = file.Get32(),
 			Deaths = file.Get32(),
 			ItemsCollected = file.Get32(),
@@ -31,9 +31,9 @@ public class Profile
 		};
 	}
 
-	public void WriteToFile(FileAccess file)
+	public void WriteToFile(IFileAccess file)
 	{
-		file.StorePascalString(Name);
+		file.StoreString(Name);
 		file.Store32(Kills);
 		file.Store32(Deaths);
 		file.Store32(ItemsCollected);
